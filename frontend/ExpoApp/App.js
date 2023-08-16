@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-// import styles from './styles';
-
+import React, { useEffect, useState } from 'react';
+import { Text, View, ImageBackground } from 'react-native';
 import { Entypo, FontAwesome, Feather, Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,14 +16,39 @@ import Post from './Screens/Post';
 import Profile from './Screens/Profile';
 import Task from './Screens/Task';
 import Vote from './Screens/Vote';
-
 const Tab = createBottomTabNavigator();
-export default function App() {
-  return (
+import * as CONST from './constants';
+import styles from './styles';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
+export default function App() {
+
+  let [fontsLoaded] = useFonts({
+    'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
+    'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
+    'Inter-Thin': require('./assets/fonts/Inter-Thin.ttf'),
+    'Inter-Light': require('./assets/fonts/Inter-Light.ttf'),
+  });
+
+  useEffect(() => {
+    const hideSplashScreen = async () => {
+      await SplashScreen.preventAutoHideAsync();
+      if (fontsLoaded) {
+        SplashScreen.hideAsync();
+      }
+    };
+
+    hideSplashScreen();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+  return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{
-        tabBarActiveTintColor: "#28A2B2"
+        tabBarActiveTintColor: CONST.NAVIGATION_COLOR
       }}>
         <Tab.Screen name="Home" component={Home} options={{
           headerShown: false,
