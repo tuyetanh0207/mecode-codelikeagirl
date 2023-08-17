@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, Button, ImageBackground } from 'react-native';
-import styles from '../styles';
+import styles from '../Utils/styles';
 import { useNavigation } from '@react-navigation/native';
 import { Iconify } from 'react-native-iconify';
 import { TouchableOpacity, Image, Dimensions, PixelRatio } from 'react-native';
 import { Entypo, FontAwesome, Feather, Ionicons } from '@expo/vector-icons';
-import * as CONST from '../constants';
+import * as CONST from '../Utils/constants';
 
 export default function Home() {
     const navigation = useNavigation();

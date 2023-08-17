@@ -17,8 +17,8 @@ import Profile from './Screens/Profile';
 import Task from './Screens/Task';
 import Vote from './Screens/Vote';
 const Tab = createBottomTabNavigator();
-import * as CONST from './constants';
-import styles from './styles';
+import * as CONST from './Utils/constants';
+import styles from './Utils/styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
