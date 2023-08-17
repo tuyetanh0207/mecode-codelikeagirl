@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import * as CONST from './constants';
-// import * as Font from 'expo-font';
 
 const styles = StyleSheet.create({
     imageBackground: {
@@ -14,9 +13,8 @@ const styles = StyleSheet.create({
     },
     textH2: {
         color: CONST.HEADING2_COLOR,
-        fontFamily: 'Inter-Black',
+        fontFamily: 'Inter-Bold',
         fontSize: CONST.responsiveSize(32),
-        fontWeight: '700',
         lineHeight: CONST.responsiveSize(39),
         letterSpacing: -0.005,
         textAlign: 'left',
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-Regular',
         marginTop: CONST.responsiveSize(2),
         textAlign: 'center',
-        fontSize: CONST.responsiveSize(8),
+        fontSize: CONST.responsiveSize(12),
     },
     image: {
         width: CONST.responsiveSize(36),

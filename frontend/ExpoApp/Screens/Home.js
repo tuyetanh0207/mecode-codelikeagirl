@@ -20,6 +20,24 @@ export default function Home() {
     }
 
     const Features = () => {
+        const ResponsiveLeaderBoard = () => {
+            if (CONST.TRUTH_SCREEN[0] < 1.5*CONST.STANDARD_SCREEN[0]) {
+                return (
+                    <View>
+                        <Text style={styles.featureText}>Leader</Text>
+                        <Text style={styles.featureText}>Board</Text>
+                    </View>
+                );
+            }
+
+            else {
+                return (
+                    <Text style={styles.featureText}>Leader Board</Text>
+                );
+            }
+
+        }
+
         return (
             <View>
                 <Text style={styles.textH2}>Features</Text>
@@ -41,9 +59,9 @@ export default function Home() {
 
                     <TouchableOpacity onPress={() => console.log('LEADER BOARD button pressed.')}>
                         <View style={styles.feature}>
-                            <Iconify icon="iconoir:leaderboard-star" size={40} color="black" />
+                            <Iconify icon="iconoir:leaderboard-star" size={CONST.responsiveSize(36)} color="black" />
                         </View>
-                        <Text style={styles.featureText}>Leader Board</Text>
+                        <ResponsiveLeaderBoard/>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => console.log('VOTE button pressed.')}>
