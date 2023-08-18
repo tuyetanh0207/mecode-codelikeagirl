@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 
 export default function Map({ location }) {
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <MapView style={{ width: '100%', height: '100%' }}
@@ -16,7 +16,7 @@ export default function Map({ location }) {
             //     longitudeDelta: 0.0421,
             // }}
             />
-            <Marker coordinate={location.coords} />
+            {/* <Marker coordinate={location.coords} /> */}
         </View>
     );
 }

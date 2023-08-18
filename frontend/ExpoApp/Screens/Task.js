@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-// import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
+import styles from '../Utils/styles';
+// import { useNavigation } from '@react-navigation/native';
 
-export default function Home() {
-    const navigation = useNavigation();
+export default function Task() {
+    // const navigation = useNavigation();
     return (
         <View>
-            <Text>TASK PAGE</Text>
+            <Text style={styles.textH2}>TASK LIST</Text>
         </View>
     );
 }

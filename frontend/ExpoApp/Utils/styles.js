@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: 'left',
     },
     textH2: {
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         color: CONST.HEADING2_COLOR,
         fontFamily: 'Inter-Bold',
         fontSize: CONST.responsiveSize(32),
@@ -29,11 +30,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     suggestSwiper: {
-        // width: CONST.responsiveSize(326),
-        // height: CONST.responsiveSize(160),
         width: CONST.TRUTH_SCREEN[0] * 0.9,
         height: CONST.TRUTH_SCREEN[1] * 0.25,
-        marginTop: CONST.responsiveSize(12),
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         borderRadius: CONST.responsiveSize(30),
         overflow: 'hidden',
         marginLeft: 'auto',
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     featureText: {
         color: CONST.FEATURE_TEXT_COLOR,
         fontFamily: 'Inter-Regular',
-        marginTop: CONST.responsiveSize(2),
+        // marginTop: CONST.responsiveSize(2),
         textAlign: 'center',
         fontSize: CONST.responsiveSize(12),
     },
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     featureRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: CONST.responsiveSize(12),
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.1
     },
     homeMap: {
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
     homeMapContainer: {
         width: CONST.TRUTH_SCREEN[0] * 0.9,
         height: CONST.TRUTH_SCREEN[1] * 0.3,
-        marginTop: CONST.responsiveSize(12),
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         borderRadius: CONST.responsiveSize(30),
         overflow: 'hidden',
         marginLeft: 'auto',

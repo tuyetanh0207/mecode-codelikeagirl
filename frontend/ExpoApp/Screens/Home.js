@@ -9,9 +9,12 @@ import * as CONST from '../Utils/constants';
 import MapView, { Marker } from 'react-native-maps';
 import Swiper from 'react-native-swiper';
 
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 export default function Home({ location }) {
     const navigation = useNavigation();
-    const marginVertical = CONST.TRUTH_SCREEN[1] * 0.05;
+    const marginVertical = CONST.TRUTH_SCREEN[1] * 0.01;
 
     const Suggestions = () => {
         // now, temporarily using static image, must change to dynamic information later !!!
@@ -20,16 +23,18 @@ export default function Home({ location }) {
             require('../assets/images/sample_suggestions/gifts.jpg'),
             require('../assets/images/sample_suggestions/leaderboard.jpg'),
             require('../assets/images/sample_suggestions/vote.jpg')
-        ]
+        ];
+        const destinations = ['Task', 'Gift', 'LeaderBoard', 'Vote'];
+
         return (
             <View style={{ marginVertical: marginVertical }}>
                 <Text style={styles.textH2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
                     <Swiper loop={true} showsPagination={true}>
-                        {images.map((image, index) => (
-                            <View key={index} style={styles.suggestImageContainer} >
+                        {images.map((image, index, destination) => (
+                            <TouchableOpacity key={index} style={styles.suggestImageContainer} onPress={() => navigation.navigate(destinations[index])}>
                                 <Image source={image} style={styles.suggestImage} resizeMode="cover" />
-                            </View>
+                            </TouchableOpacity>
                         ))}
                     </Swiper>
                 </View>
@@ -96,7 +101,7 @@ export default function Home({ location }) {
     const Map = () => {
         const route = useRoute();
         return (
-            <View>
+            <View style={{ marginVertical: marginVertical }}>
                 <Text style={styles.textH2}>Map</Text>
                 <View style={styles.homeMapContainer}>
                     <MapView
@@ -126,5 +131,6 @@ export default function Home({ location }) {
                 <Map />
             </View>
         </ImageBackground>
+
     );
 }

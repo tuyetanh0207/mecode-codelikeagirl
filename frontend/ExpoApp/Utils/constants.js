@@ -1,4 +1,4 @@
-import { Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 // Color
 export const HEADING2_COLOR = "#0A7674";
@@ -10,10 +10,10 @@ export const FEATURE_TEXT_COLOR = '#206F79';
 // Responsive size
 export const STANDARD_SCREEN = [390, 844];
 export const TRUTH_SCREEN = [Dimensions.get('window').width, Dimensions.get('window').height];
-
-export const responsiveSize = (standardSize, standardScreenSize=STANDARD_SCREEN[1], truthScreenSize=TRUTH_SCREEN[1]) => {
+export const responsiveSize = (standardSize, standardScreenSize = STANDARD_SCREEN[1], truthScreenSize = TRUTH_SCREEN[1]) => {
     return Math.round(truthScreenSize * standardSize / standardScreenSize);
 };
+export const PRIMARY_VERTICAL_MARGIN = responsiveSize(12);
 
 // Location
 export const LOCATION_DISTANCE_THRESOLD = 1; //  meter

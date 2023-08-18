@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-// import styles from './styles';
+import styles from '../Utils/styles';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Home() {
-    const navigation = useNavigation();
+export default function Gift() {
+    // const navigation = useNavigation();
     return (
         <View>
-            <Text>GIFT PAGE</Text>
+            <Text style={styles.textH2}>GIFT</Text>
         </View>
     );
 }

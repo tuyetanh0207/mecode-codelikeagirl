@@ -21,12 +21,14 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
 const screenOpts = {
   headerShown: false,
   tabBarActiveTintColor: CONST.NAVIGATION_ACTIVE_COLOR,
-  height: CONST.responsiveSize(85, CONST.STANDARD_SCREEN[1], CONST.TRUTH_SCREEN[1]),
+  tabBarStyle: { height: CONST.responsiveSize(60) }
 }
 
 export default function App() {
@@ -65,8 +67,8 @@ export default function App() {
     return null;
   }
 
-  return (
-    <NavigationContainer>
+  const BottomTabs = () => {
+    return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
           component={Home}
@@ -119,6 +121,28 @@ export default function App() {
             }
           }} />
       </Tab.Navigator>
+    );
+  };
+
+  const RootStack = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName="BottomTabs"
+        screenOptions={{
+          headerShown: false
+        }}>
+        <Stack.Screen name="BottomTabs" component={BottomTabs} />
+        <Stack.Screen name="Task" component={Task} />
+        <Stack.Screen name="Gift" component={Gift} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+        <Stack.Screen name="Vote" component={Vote} />
+      </Stack.Navigator>
+    );
+  };
+
+  return (
+    <NavigationContainer>
+      <RootStack />
     </NavigationContainer>
   );
 }
