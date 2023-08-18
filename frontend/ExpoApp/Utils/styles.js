@@ -18,7 +18,26 @@ const styles = StyleSheet.create({
         lineHeight: CONST.responsiveSize(39),
         letterSpacing: -0.005,
         textAlign: 'left',
-        marginLeft: CONST.responsiveSize(28),
+        marginLeft: 0.05 * CONST.TRUTH_SCREEN[0],
+    },
+    suggestImage: {
+        resizeMode: 'cover'
+    },
+    suggestImageContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    suggestSwiper: {
+        // width: CONST.responsiveSize(326),
+        // height: CONST.responsiveSize(160),
+        width: CONST.TRUTH_SCREEN[0] * 0.9,
+        height: CONST.TRUTH_SCREEN[1] * 0.25,
+        marginTop: CONST.responsiveSize(12),
+        borderRadius: CONST.responsiveSize(30),
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     feature: {
         borderRadius: CONST.responsiveSize(16),
@@ -35,7 +54,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: CONST.responsiveSize(12),
     },
-    image: {
+    featureIcon: {
         width: CONST.responsiveSize(36),
         height: CONST.responsiveSize(15.61),
     },
@@ -44,6 +63,19 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: CONST.responsiveSize(12),
         paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.1
+    },
+    homeMap: {
+        width: '100%',
+        height: '100%',
+    },
+    homeMapContainer: {
+        width: CONST.TRUTH_SCREEN[0] * 0.9,
+        height: CONST.TRUTH_SCREEN[1] * 0.3,
+        marginTop: CONST.responsiveSize(12),
+        borderRadius: CONST.responsiveSize(30),
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     }
 });
 export default styles;  

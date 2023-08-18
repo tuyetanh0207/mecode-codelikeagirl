@@ -14,3 +14,6 @@ export const TRUTH_SCREEN = [Dimensions.get('window').width, Dimensions.get('win
 export const responsiveSize = (standardSize, standardScreenSize=STANDARD_SCREEN[1], truthScreenSize=TRUTH_SCREEN[1]) => {
     return Math.round(truthScreenSize * standardSize / standardScreenSize);
 };
+
+// Location
+export const LOCATION_DISTANCE_THRESOLD = 1; //  meter

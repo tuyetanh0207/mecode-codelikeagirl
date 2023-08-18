@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Text, View, ImageBackground } from 'react-native';
+import { Text, View, ImageBackground, PermissionsAndroid } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Gift from './Screens/Gift';
@@ -20,16 +20,17 @@ import styles from './Utils/styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Iconify } from 'react-native-iconify';
+import * as Location from 'expo-location';
 
 const Tab = createBottomTabNavigator();
 const screenOpts = {
   headerShown: false,
   tabBarActiveTintColor: CONST.NAVIGATION_ACTIVE_COLOR,
-  height: 62,
+  height: CONST.responsiveSize(85, CONST.STANDARD_SCREEN[1], CONST.TRUTH_SCREEN[1]),
 }
 
 export default function App() {
-
+  // const [location, setLocation] = useState(null);
   let [fontsLoaded] = useFonts({
     'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -38,13 +39,25 @@ export default function App() {
   });
 
   useEffect(() => {
+    const getPermission = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      // setLocation(currentLocation);
+      console.log('Location: ', currentLocation);
+    };
+    getPermission();
+
     const hideSplashScreen = async () => {
       await SplashScreen.preventAutoHideAsync();
       if (fontsLoaded) {
         SplashScreen.hideAsync();
       }
     };
-
     hideSplashScreen();
   }, [fontsLoaded]);
 
