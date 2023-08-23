@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Text, View, ImageBackground, PermissionsAndroid } from 'react-native';
+import { Text, View, ImageBackground, Alert, BackHandler } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Gift from './Screens/Gift';
@@ -22,9 +22,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
 const screenOpts = {
   headerShown: false,
   tabBarActiveTintColor: CONST.NAVIGATION_ACTIVE_COLOR,
@@ -32,7 +32,6 @@ const screenOpts = {
 }
 
 export default function App() {
-  // const [location, setLocation] = useState(null);
   let [fontsLoaded] = useFonts({
     'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -40,17 +39,37 @@ export default function App() {
     'Inter-Light': require('./assets/fonts/Inter-Light.ttf'),
   });
 
+  const [location, setLocation] = useState(null);
   useEffect(() => {
     const getPermission = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
+        Alert.alert(
+          'Permission Denied',
+          'You need to grant location permission to use this app.',
+          [
+            {
+              text: 'Grant Permission',
+              onPress: async () => {
+                await Location.requestForegroundPermissionsAsync();
+              },
+            },
+            {
+              text: 'Exit App',
+              onPress: () => {
+                BackHandler.exitApp();
+              },
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false }
+        );
         return;
       }
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      // setLocation(currentLocation);
-      console.log('Location: ', currentLocation);
+      location = await Location.getCurrentPositionAsync({});
+      console.log('Location: ', location);
     };
     getPermission();
 
