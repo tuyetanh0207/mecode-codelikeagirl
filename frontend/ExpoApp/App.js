@@ -68,18 +68,19 @@ export default function App() {
         return;
       }
 
-      location = await Location.getCurrentPositionAsync({});
-      console.log('Location: ', location);
+      const currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+      console.log('Location: ', currentLocation);
     };
     getPermission();
 
-    const hideSplashScreen = async () => {
-      await SplashScreen.preventAutoHideAsync();
-      if (fontsLoaded) {
-        SplashScreen.hideAsync();
-      }
-    };
-    hideSplashScreen();
+    // const hideSplashScreen = async () => {
+    //   await SplashScreen.preventAutoHideAsync();
+    //   if (fontsLoaded) {
+    //     SplashScreen.hideAsync();
+    //   }
+    // };
+    // hideSplashScreen();
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
