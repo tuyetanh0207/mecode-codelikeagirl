@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-// import styles from './styles';
+import styles from '../Utils/styles';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Home() {
+export default function LeaderBoard() {
     const navigation = useNavigation();
     return (
         <View>
-            <Text>LEADERBOARD PAGE</Text>
+            <Text style={styles.textH2}>LEADERBOARD</Text>
         </View>
     );
 }

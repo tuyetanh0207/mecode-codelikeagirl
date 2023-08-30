@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import * as CONST from './constants';
-// import * as Font from 'expo-font';
 
 const styles = StyleSheet.create({
     imageBackground: {
@@ -13,14 +12,31 @@ const styles = StyleSheet.create({
         justifyContent: 'left',
     },
     textH2: {
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         color: CONST.HEADING2_COLOR,
-        fontFamily: 'Inter-Black',
+        fontFamily: 'Inter-Bold',
         fontSize: CONST.responsiveSize(32),
-        fontWeight: '700',
         lineHeight: CONST.responsiveSize(39),
         letterSpacing: -0.005,
         textAlign: 'left',
-        marginLeft: CONST.responsiveSize(28),
+        marginLeft: 0.05 * CONST.TRUTH_SCREEN[0],
+    },
+    suggestImage: {
+        resizeMode: 'cover'
+    },
+    suggestImageContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    suggestSwiper: {
+        width: CONST.TRUTH_SCREEN[0] * 0.9,
+        height: CONST.TRUTH_SCREEN[1] * 0.25,
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        borderRadius: CONST.responsiveSize(30),
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     feature: {
         borderRadius: CONST.responsiveSize(16),
@@ -33,19 +49,32 @@ const styles = StyleSheet.create({
     featureText: {
         color: CONST.FEATURE_TEXT_COLOR,
         fontFamily: 'Inter-Regular',
-        marginTop: CONST.responsiveSize(2),
+        // marginTop: CONST.responsiveSize(2),
         textAlign: 'center',
-        fontSize: CONST.responsiveSize(8),
+        fontSize: CONST.responsiveSize(12),
     },
-    image: {
+    featureIcon: {
         width: CONST.responsiveSize(36),
         height: CONST.responsiveSize(15.61),
     },
     featureRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: CONST.responsiveSize(12),
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.1
+    },
+    homeMap: {
+        width: '100%',
+        height: '100%',
+    },
+    homeMapContainer: {
+        width: CONST.TRUTH_SCREEN[0] * 0.9,
+        height: CONST.TRUTH_SCREEN[1] * 0.3,
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        borderRadius: CONST.responsiveSize(30),
+        overflow: 'hidden',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     }
 });
 export default styles;  
