@@ -8,7 +8,7 @@ export const FEATURE_COLOR = '#78D9D8';
 export const FEATURE_TEXT_COLOR = '#206F79';
 
 // Responsive size
-export const STANDARD_SCREEN = [390, 844];
+export const STANDARD_SCREEN = [400, 870];
 export const TRUTH_SCREEN = [Dimensions.get('window').width, Dimensions.get('window').height];
 export const responsiveSize = (standardSize, standardScreenSize = STANDARD_SCREEN[1], truthScreenSize = TRUTH_SCREEN[1]) => {
     return Math.round(truthScreenSize * standardSize / standardScreenSize);

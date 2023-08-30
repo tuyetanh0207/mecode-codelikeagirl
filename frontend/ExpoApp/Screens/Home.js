@@ -14,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function Home({ location }) {
     const navigation = useNavigation();
-    const marginVertical = CONST.TRUTH_SCREEN[1] * 0.01;
 
     const Suggestions = () => {
         // now, temporarily using static image, must change to dynamic information later !!!
@@ -27,7 +26,7 @@ export default function Home({ location }) {
         const destinations = ['Task', 'Gift', 'LeaderBoard', 'Vote'];
 
         return (
-            <View style={{ marginVertical: marginVertical }}>
+            <View style={{ marginTop: CONST.TRUTH_SCREEN[1] * 0.03}}>
                 <Text style={styles.textH2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
                     <Swiper loop={true} showsPagination={true}>
@@ -43,26 +42,25 @@ export default function Home({ location }) {
     }
 
     const Features = () => {
-        const ResponsiveLeaderBoard = () => {
+        const ResponsiveWords = (title) => {
             if (CONST.TRUTH_SCREEN[0] < 1.5 * CONST.STANDARD_SCREEN[0]) {
+                const words = title.split(' ');
                 return (
                     <View>
-                        <Text style={styles.featureText}>Leader</Text>
-                        <Text style={styles.featureText}>Board</Text>
+                        {words.map((word, index) => (
+                            <Text key={index} style={styles.featureText}>
+                                {word}
+                            </Text>
+                        ))}
                     </View>
                 );
+            } else {
+                return <Text style={styles.featureText}>{title}</Text>;
             }
-
-            else {
-                return (
-                    <Text style={styles.featureText}>Leader Board</Text>
-                );
-            }
-
-        }
+        };
 
         return (
-            <View>
+            <View style={{ marginTop: CONST.PRIMARY_VERTICAL_MARGIN }}>
                 <Text style={styles.textH2}>Features</Text>
                 <View style={styles.featureRow}>
 
@@ -70,21 +68,15 @@ export default function Home({ location }) {
                         <View style={styles.feature}>
                             <Iconify icon="pepicons-print:list" size={CONST.responsiveSize(36)} color="black" />
                         </View>
-                        <Text style={styles.featureText}>Tasks list</Text>
+                        <Text style={styles.featureText}>Task list</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => navigation.navigate('Gift')}>
                         <View style={styles.feature}>
                             <Iconify icon="teenyicons:gift-outline" size={CONST.responsiveSize(36)} color="black" />
                         </View>
-                        <Text style={styles.featureText}>Gifts</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('LeaderBoard')}>
-                        <View style={styles.feature}>
-                            <Iconify icon="iconoir:leaderboard-star" size={CONST.responsiveSize(36)} color="black" />
-                        </View>
-                        <ResponsiveLeaderBoard />
+                        {/* <Text style={styles.featureText}>Lucky Gifts</Text> */}
+                        {ResponsiveWords('Lucky Gifts')}
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => navigation.navigate('Vote')}>
@@ -92,6 +84,13 @@ export default function Home({ location }) {
                             <Image source={require('../assets/images/vote.png')} style={styles.featureIcon} />
                         </View>
                         <Text style={styles.featureText}>Vote</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('LeaderBoard')}>
+                        <View style={styles.feature}>
+                            <Iconify icon="iconoir:leaderboard-star" size={CONST.responsiveSize(36)} color="black" />
+                        </View>
+                        {ResponsiveWords('Leader Board')}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -101,7 +100,7 @@ export default function Home({ location }) {
     const Map = () => {
         const route = useRoute();
         return (
-            <View style={{ marginVertical: marginVertical }}>
+            <View>
                 <Text style={styles.textH2}>Map</Text>
                 <View style={styles.homeMapContainer}>
                     <MapView
