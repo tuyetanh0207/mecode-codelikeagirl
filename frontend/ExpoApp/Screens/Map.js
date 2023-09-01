@@ -1,23 +1,33 @@
-import React from 'react';
+import { React, useContext, useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import styles from '../Utils/styles'
 import { useNavigation, useRoute } from '@react-navigation/native';
-import MapView, { Marker } from 'react-native-maps';
-import * as Location from 'expo-location';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+// import * as Location from 'expo-location';
+import { UserLocationContext } from '../Context/user_location';
 
-export default function Map({ location }) {
+export default function Map() {
     // const navigation = useNavigation();
-    // var currentLocation = Location.getCurrentPositionAsync();
-    // console.log('Location: ', currentLocation);
+    const [mapRegion, setmapRegion] = useState([]);
+    const { location, setLocation } = useContext(UserLocationContext);
+
+    useEffect(() => {
+        if (location) {
+            setmapRegion({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.0444,
+                longitudeDelta: 0.0444,
+            })
+        }
+    }, [location])
     return (
-        <View style={styles.container}>
-            <MapView style={{ width: '100%', height: '100%' }}
-            // initialRegion={{
-            //     latitude: location.coords.latitude,
-            //     longitude: location.coords.longitude,
-            //     latitudeDelta: 0.0922,
-            //     longitudeDelta: 0.0421,
-            // }}
+        <View style={styles.mainMapContainer}>
+            <MapView
+                style={styles.map}
+                provider={PROVIDER_GOOGLE}
+                showsUserLocation={true}
+                region={mapRegion}
             />
             {/* <Marker coordinate={location.coords} /> */}
         </View>

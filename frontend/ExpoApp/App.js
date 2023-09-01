@@ -22,13 +22,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { UserLocationContext } from './Context/user_location';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const screenOpts = {
   headerShown: false,
   tabBarActiveTintColor: CONST.NAVIGATION_ACTIVE_COLOR,
-  tabBarStyle: { height: CONST.responsiveSize(60) }
+  tabBarStyle: { height: CONST.responsiveHeight(60) }
 }
 
 export default function App() {
@@ -70,7 +71,7 @@ export default function App() {
 
       const currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
-      console.log('Location: ', currentLocation);
+      // console.log('Location: ', currentLocation);
     };
     getPermission();
 
@@ -95,9 +96,9 @@ export default function App() {
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
-                return <Iconify icon="iconamoon:home-fill" size={24} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                return <Iconify icon="iconamoon:home-fill" size={CONST.responsiveHeight(32)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
               else
-                return <Iconify icon="iconamoon:home-light" size={24} color="black" />
+                return <Iconify icon="iconamoon:home-light" size={CONST.responsiveHeight(32)} color="black" />
             }
           }} />
         <Tab.Screen name="Map"
@@ -105,9 +106,9 @@ export default function App() {
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
-                return <Iconify icon="bxs:map" size={24} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                return <Iconify icon="bxs:map" size={CONST.responsiveHeight(32)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
               else
-                return <Iconify icon="bx:map" size={24} color="black" />
+                return <Iconify icon="bx:map" size={CONST.responsiveHeight(32)} color="black" />
             }
           }} />
         <Tab.Screen name="Join"
@@ -115,9 +116,9 @@ export default function App() {
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
-                return <Iconify icon="subway:add" size={24} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                return <Iconify icon="subway:add" size={CONST.responsiveHeight(32)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
               else
-                return <Iconify icon="gg:add" size={24} color="black" />
+                return <Iconify icon="gg:add" size={CONST.responsiveHeight(32)} color="black" />
             }
           }} />
         <Tab.Screen name="Notifications"
@@ -125,9 +126,9 @@ export default function App() {
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
-                return <Iconify icon="mingcute:notification-fill" size={24} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                return <Iconify icon="mingcute:notification-fill" size={CONST.responsiveHeight(32)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
               else
-                return <Iconify icon="mingcute:notification-line" size={24} color="black" />
+                return <Iconify icon="mingcute:notification-line" size={CONST.responsiveHeight(32)} color="black" />
             }
           }} />
         <Tab.Screen name="Profile"
@@ -135,9 +136,9 @@ export default function App() {
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
-                return <Iconify icon="iconamoon:profile-fill" size={24} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                return <Iconify icon="iconamoon:profile-fill" size={CONST.responsiveHeight(32)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
               else
-                return <Iconify icon="iconamoon:profile-light" size={24} color="black" />
+                return <Iconify icon="iconamoon:profile-light" size={CONST.responsiveHeight(32)} color="black" />
             }
           }} />
       </Tab.Navigator>
@@ -161,8 +162,12 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
+    <UserLocationContext.Provider
+      value={{ location, setLocation }}>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </UserLocationContext.Provider>
+
   );
 }
