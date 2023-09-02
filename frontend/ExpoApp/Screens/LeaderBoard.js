@@ -7,7 +7,7 @@ export default function LeaderBoard() {
     const navigation = useNavigation();
     return (
         <View>
-            <Text style={styles.textH2}>LEADERBOARD</Text>
+            <Text style={styles.heading2}>LEADERBOARD</Text>
         </View>
     );
 }

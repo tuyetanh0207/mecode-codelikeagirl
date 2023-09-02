@@ -27,7 +27,7 @@ export default function Home({ location }) {
 
         return (
             <View style={{ marginTop: CONST.TRUTH_SCREEN[1] * 0.03 }}>
-                <Text style={styles.textH2}>Suggestions</Text>
+                <Text style={styles.heading2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
                     <Swiper loop={true} showsPagination={true}>
                         {images.map((image, index, destination) => (
@@ -61,7 +61,7 @@ export default function Home({ location }) {
 
         return (
             <View style={{ marginTop: CONST.PRIMARY_VERTICAL_MARGIN }}>
-                <Text style={styles.textH2}>Features</Text>
+                <Text style={styles.heading2}>Features</Text>
                 <View style={styles.featureRow}>
 
                     <TouchableOpacity onPress={() => navigation.navigate('Task')}>
@@ -114,7 +114,7 @@ export default function Home({ location }) {
         }, [location])
         return (
             <View>
-                <Text style={styles.textH2}>Map</Text>
+                <Text style={styles.heading2}>Map</Text>
                 <View style={styles.homeMapContainer}>
                     <MapView
                         style={styles.map}

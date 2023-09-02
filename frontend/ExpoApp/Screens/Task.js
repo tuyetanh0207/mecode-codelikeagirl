@@ -7,7 +7,7 @@ export default function Task() {
     // const navigation = useNavigation();
     return (
         <View>
-            <Text style={styles.textH2}>TASK LIST</Text>
+            <Text style={styles.heading2}>TASK LIST</Text>
         </View>
     );
 }

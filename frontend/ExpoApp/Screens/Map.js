@@ -1,13 +1,15 @@
 import { React, useContext, useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../Utils/styles'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 // import * as Location from 'expo-location';
 import { UserLocationContext } from '../Context/user_location';
+import { Iconify } from 'react-native-iconify';
+import * as CONST from '../Utils/constants';
 
 export default function Map() {
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
     const [mapRegion, setmapRegion] = useState([]);
     const { location, setLocation } = useContext(UserLocationContext);
 
@@ -29,7 +31,19 @@ export default function Map() {
                 showsUserLocation={true}
                 region={mapRegion}
             />
-            {/* <Marker coordinate={location.coords} /> */}
-        </View>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Task')}
+                style={{ position: 'absolute', zIndex: 1 }}
+            >
+                <View style={styles.taskListButton}>
+                    <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }} >
+                        <Iconify icon="pepicons-print:list" size={CONST.responsiveHeight(36)} color="black" />
+                        <Text style={[styles.heading4, { marginLeft: CONST.responsiveHeight(10) }]}>
+                            Task list
+                        </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </View >
     );
 }
