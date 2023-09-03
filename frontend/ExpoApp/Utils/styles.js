@@ -83,12 +83,13 @@ const styles = StyleSheet.create({
     taskListButton: {
         width: CONST.responsiveHeight(162),
         height: CONST.responsiveHeight(44),
-        marginTop: CONST.TRUTH_SCREEN[1] * 0.9,
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.85,
         marginLeft: CONST.TRUTH_SCREEN[0] * 0.6,
         padding: CONST.responsiveHeight(10),
         borderRadius: CONST.responsiveHeight(16),
         borderWidth: CONST.responsiveHeight(1),
-        backgroundColor: 'white',
+        backgroundColor: CONST.BACKGROUND_COLOR,
+        borderColor: CONST.SHADOW_BLACK_COLOR,
     },
     heading4: {
         fontFamily: 'Inter-Bold',
@@ -97,5 +98,20 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         textAlign: 'left',
     },
+    task_label: {
+        fontFamily: 'Inter-Medium',
+        fontSize: CONST.responsiveHeight(16),
+        lineHeight: CONST.responsiveHeight(19),
+        letterSpacing: 0,
+        color: 'white',
+    },
+    task_label_container: {
+        paddingVertical: CONST.responsiveHeight(2),
+        paddingHorizontal: CONST.responsiveHeight(6),
+        borderRadius: CONST.responsiveHeight(8),
+        marginHorizontal: CONST.responsiveHeight(10),
+        alignItems: 'center',
+        backgroundColor: CONST.TASK_LABEL_COLOR,
+    }
 });
 export default styles;  

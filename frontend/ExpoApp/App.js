@@ -38,6 +38,7 @@ export default function App() {
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
     'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
     'Inter-Light': require('./assets/fonts/Inter-Light.ttf'),
+    'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
   });
 
   const [location, setLocation] = useState(null);
