@@ -23,6 +23,7 @@ import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { UserLocationContext } from './Context/user_location';
+import TaskDetailsScreen from './Screens/TaskDetails';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -92,7 +93,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={Task}
+          component={TaskDetailsScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)

@@ -8,16 +8,24 @@ export const AppButton = ({onPress, title, backgroundColor, size, color}) => (
         size === "sm" && {
             paddingHorizontal: 12,
             paddingVertical: 8,
+            borderRadius: 12,
+
+        },
+        size === "m" && {
+            paddingHorizontal: '40%',
+            paddingVertical: 8,
+            borderRadius: 26,
 
         },
         true && {
-            borderRadius: 12,
+         
             shadowColor: "#000",
             shadowOffset: { width: 0, height: 20 },
             shadowOpacity: 1,
             shadowRadius: 50,
-
+        
             elevation: 5,
+
 
 
         }
@@ -26,6 +34,8 @@ export const AppButton = ({onPress, title, backgroundColor, size, color}) => (
             color && {color},
             size === "sm" && {fontSize: 20,
                 fontWeight: '500',},
+            size === "m" && {fontSize: 22,
+                fontWeight: '400',},
 
         ]}>{title}</Text>
     </TouchableOpacity>

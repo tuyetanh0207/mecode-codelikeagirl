@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, SafeAreaVi
 import { Iconify } from 'react-native-iconify';
 import * as CONST from '../Utils/constants';
 import { AppButton } from '../Components/JoinBtn.js';
-export const Item = ({ name, icon }) => (
+export const Item = ({ name, icon, navigation }) => (
 
     <TouchableOpacity style={taskDetailstyles.container}>
       <View style={taskDetailstyles.left}>
@@ -23,7 +23,6 @@ export const Item = ({ name, icon }) => (
                     // bắt đầu thay thế từ đây
                     <Iconify icon='solar:bag-4-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} /> 
         }
-            
         </View>
         <View style={taskDetailstyles.dis}>
             <Text style={taskDetailstyles.disText}>80m</Text>
@@ -65,7 +64,8 @@ export const Item = ({ name, icon }) => (
     },
     left: {
         flex: 0.1,
-        alignItems: 'center'
+        //flexDirection:'row'
+        //alignItems: 'center'
     },
     icon: {
         flex: 1
