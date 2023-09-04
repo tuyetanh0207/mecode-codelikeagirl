@@ -7,8 +7,10 @@ export const NAVIGATION_ACTIVE_COLOR = "#28A2B2";
 export const BACKGROUND_COLOR = "#FFF";
 export const FEATURE_COLOR = '#78D9D8';
 export const FEATURE_TEXT_COLOR = '#206F79';
-
+export const SECOND_TEXT_COLOR = '#FD3D6C';
+export const SECOND_THEME_COLOR = '#FEE6EC';
 // Responsive size
+
 export const STANDARD_SCREEN = [400, 870];
 export const TRUTH_SCREEN = [Dimensions.get('window').width, Dimensions.get('window').height];
 export const responsiveHeight = (size) => {
