@@ -22,7 +22,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { UserLocationContext } from './Context/user_location';
+import { UserLocationContext } from './Contexts/user_location';
+// import MapComponent from './Components/Map';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,6 +40,7 @@ export default function App() {
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
     'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
     'Inter-Light': require('./assets/fonts/Inter-Light.ttf'),
+    'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
   });
 
   const [location, setLocation] = useState(null);

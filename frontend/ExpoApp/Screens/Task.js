@@ -84,31 +84,9 @@ export default function Task() {
         <Item name={item.name} icon={item.icon} />
     )
     return (
-        <ImageBackground
-            source={require('../assets/images/background.png')}
-            style={styles.imageBackground}
-        >
-            <View style={taskstyles.container}>
-                <View style={taskstyles.header}>
-                    <Text style={styles.textH2}>Task list</Text>
-                </View>
-                <SafeAreaView style={taskstyles.list}>
-                    <FlatList
-                        //keyExtractor={(task, index)=> index.toString()}
-                        data={TaskList}
-                        renderItem={renderTaskItem}
-
-                        style={{
-                            //flex: 1,
-                            //marginBottom : 150,
-
-                        }}
-                    // ListFooterComponent={<View style={{height: 20}}/>}
-                    />
-                </SafeAreaView>
-
-            </View>
-        </ImageBackground>
+        <View>
+            <Text style={styles.heading2}>TASK LIST</Text>
+        </View>
     );
 }
 // const Item = ({ name, icon }) => (

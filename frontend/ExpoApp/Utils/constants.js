@@ -1,5 +1,4 @@
 import { Dimensions } from 'react-native';
-import React, { createContext } from 'react';
 
 // Color
 export const HEADING2_COLOR = "#0A7674";
