@@ -41,48 +41,39 @@ export default function App() {
   });
 
   const [location, setLocation] = useState(null);
-  // useEffect(() => {
-  //   const getPermission = async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== 'granted') {
-  //       console.log('Permission to access location was denied');
-  //       Alert.alert(
-  //         'Permission Denied',
-  //         'You need to grant location permission to use this app.',
-  //         [
-  //           {
-  //             text: 'Grant Permission',
-  //             onPress: async () => {
-  //               await Location.requestForegroundPermissionsAsync();
-  //             },
-  //           },
-  //           {
-  //             text: 'Exit App',
-  //             onPress: () => {
-  //               BackHandler.exitApp();
-  //             },
-  //             style: 'cancel',
-  //           },
-  //         ],
-  //         { cancelable: false }
-  //       );
-  //       return;
-  //     }
+  useEffect(() => {
+    const getPermission = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        Alert.alert(
+          'Permission Denied',
+          'You need to grant location permission to use this app.',
+          [
+            {
+              text: 'Grant Permission',
+              onPress: async () => {
+                await Location.requestForegroundPermissionsAsync();
+              },
+            },
+            {
+              text: 'Exit App',
+              onPress: () => {
+                BackHandler.exitApp();
+              },
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false }
+        );
+        return;
+      }
 
-  //     const currentLocation = await Location.getCurrentPositionAsync({});
-  //     setLocation(currentLocation);
-  //     // console.log('Location: ', currentLocation);
-  //   };
-  //   getPermission();
-
-  //   // const hideSplashScreen = async () => {
-  //   //   await SplashScreen.preventAutoHideAsync();
-  //   //   if (fontsLoaded) {
-  //   //     SplashScreen.hideAsync();
-  //   //   }
-  //   // };
-  //   // hideSplashScreen();
-  // }, [fontsLoaded]);
+      const currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+    };
+    getPermission();
+  }, [fontsLoaded]);
 
   if (!fontsLoaded) {
     return null;
@@ -92,7 +83,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={Task}
+          component={Home}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
