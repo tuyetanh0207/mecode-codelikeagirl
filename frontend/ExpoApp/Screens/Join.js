@@ -7,7 +7,7 @@ export default function Home() {
     const navigation = useNavigation();
     return (
         <View>
-            <Text style={styles.textH2}>JOIN</Text>
+            <Text style={styles.heading2}>JOIN</Text>
         </View>
     );
 }

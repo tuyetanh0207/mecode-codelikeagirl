@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, SafeAreaView, FlatList , TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import styles from '../Utils/styles';
 // import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
@@ -8,7 +8,7 @@ import * as CONST from '../Utils/constants';
 import { AppButton } from '../Components/JoinBtn.js';
 import { Item } from '../Components/TaskItem';
 export default function Task() {
-    const [TaskList, setTaskList]= useState([
+    const [TaskList, setTaskList] = useState([
         {
             name: "Collect trash",
             shortAddr: "Thao Cam Vien Zoo",
@@ -73,42 +73,20 @@ export default function Task() {
             icon: 'fluent:bin-recycle-20-regular'
         },
     ])
-   // add icon
+    // add icon
     TaskList.forEach(task => {
-        if(task.name.includes("trash",0))
-            task.icon='fluent:bin-recycle-20-regular'
+        if (task.name.includes("trash", 0))
+            task.icon = 'fluent:bin-recycle-20-regular'
     });
-    
-    
-const renderTaskItem = ({item}) =>(
-                <Item name = {item.name} icon={item.icon}/>
-        ) 
+
+
+    const renderTaskItem = ({ item }) => (
+        <Item name={item.name} icon={item.icon} />
+    )
     return (
-        <ImageBackground
-            source={require('../assets/images/background.png')}
-            style={styles.imageBackground}
-        >
-            <View style={taskstyles.container}>
-                <View style= {taskstyles.header}>
-                    <Text style={styles.textH2}>Task list</Text>
-                </View>
-                <SafeAreaView style={taskstyles.list}>
-                    <FlatList
-                    //keyExtractor={(task, index)=> index.toString()}
-                    data = {TaskList}
-                    renderItem={renderTaskItem}
-                    
-                    style={{
-                        //flex: 1,
-                        //marginBottom : 150,
-                     
-                    }}
-                   // ListFooterComponent={<View style={{height: 20}}/>}
-                    />
-                </SafeAreaView>
-                
-            </View>
-        </ImageBackground>
+        <View>
+            <Text style={styles.heading2}>TASK LIST</Text>
+        </View>
     );
 }
 // const Item = ({ name, icon }) => (
@@ -136,12 +114,12 @@ const renderTaskItem = ({item}) =>(
 //         <View  >
 //            <AppButton title="Join" backgroundColor={CONST.SECOND_THEME_COLOR} color={CONST.SECOND_TEXT_COLOR} size ="sm"/>
 //         </View>
-    
+
 //       </View>
 //     </TouchableOpacity>
 //   );
-  // 
-const taskstyles= StyleSheet.create({
+// 
+const taskstyles = StyleSheet.create({
     imageBackground: {
         flex: 1
     },
@@ -149,7 +127,7 @@ const taskstyles= StyleSheet.create({
         flex: 1,
         marginVertical: 18,
         marginTop: StatusBar.currentHeight || 0,
-    
+
     },
     header: {
         flex: 0.1,
@@ -159,13 +137,13 @@ const taskstyles= StyleSheet.create({
     },
     list: {
         flex: 1,
-       // flexGrow: 1,
-       // marginBottom: 10
+        // flexGrow: 1,
+        // marginBottom: 10
     }
 });
 const taskDetailstyles = StyleSheet.create({
     container: {
-       // flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
         justifyContent: 'space-around',
@@ -196,24 +174,24 @@ const taskDetailstyles = StyleSheet.create({
     name: {
         color: CONST.NAVIGATION_ACTIVE_COLOR,
         fontSize: 20,
-        fontWeight: 'bold',        
+        fontWeight: 'bold',
     },
     shortAddr: {
         color: CONST.FEATURE_TEXT_COLOR,
-        fontWeight : 'bold',
+        fontWeight: 'bold',
         fontSize: 13
     },
     right: {
         flex: 0.2,
         justifyContent: 'center'
     },
-    addr:{
+    addr: {
         fontSize: 13,
         fontWeight: '400',
         //lineHeight: 10
     },
     btn: {
-        backgroundColor: CONST.SECOND_THEME_COLOR,
-        color: CONST.SECOND_TEXT_COLOR,
+        backgroundColor: CONST.LIGHT_PINK_COLOR,
+        color: CONST.DARK_PINK_COLOR,
     }
 })

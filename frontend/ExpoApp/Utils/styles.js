@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         alignItems: 'left',
         justifyContent: 'left',
     },
-    textH2: {
+    heading2: {
         marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         color: CONST.HEADING2_COLOR,
         fontFamily: 'Inter-Bold',
@@ -82,12 +82,36 @@ const styles = StyleSheet.create({
     },
     taskListButton: {
         width: CONST.responsiveHeight(162),
-        height: 44,
-        top: 652,
-        left: 345,
-        padding: 10,
-        borderRadius: 16,
-        borderWidth: 1,
+        height: CONST.responsiveHeight(44),
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.85,
+        marginLeft: CONST.TRUTH_SCREEN[0] * 0.6,
+        padding: CONST.responsiveHeight(10),
+        borderRadius: CONST.responsiveHeight(16),
+        borderWidth: CONST.responsiveHeight(1),
+        backgroundColor: CONST.BACKGROUND_COLOR,
+        borderColor: CONST.SHADOW_BLACK_COLOR,
+    },
+    heading4: {
+        fontFamily: 'Inter-Bold',
+        fontSize: CONST.responsiveHeight(20),
+        lineHeight: CONST.responsiveHeight(24),
+        letterSpacing: 0,
+        textAlign: 'left',
+    },
+    task_label: {
+        fontFamily: 'Inter-Medium',
+        fontSize: CONST.responsiveHeight(16),
+        lineHeight: CONST.responsiveHeight(19),
+        letterSpacing: 0,
+        color: 'white',
+    },
+    task_label_container: {
+        paddingVertical: CONST.responsiveHeight(2),
+        paddingHorizontal: CONST.responsiveHeight(6),
+        borderRadius: CONST.responsiveHeight(8),
+        marginHorizontal: CONST.responsiveHeight(10),
+        alignItems: 'center',
+        backgroundColor: CONST.TASK_LABEL_COLOR,
     }
 });
 export default styles;  
