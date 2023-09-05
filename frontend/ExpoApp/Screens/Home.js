@@ -10,7 +10,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Swiper from 'react-native-swiper';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { UserLocationContext } from '../Context/user_location';
+import { UserLocationContext } from '../Contexts/user_location';
 
 export default function Home({ location }) {
     const navigation = useNavigation();
@@ -121,6 +121,7 @@ export default function Home({ location }) {
                         provider={PROVIDER_GOOGLE}
                         showsUserLocation={true}
                         region={mapRegion}
+                        scrollEnabled={true}
                     />
                     {/* <Marker coordinate={initLocation.coords} /> */}
                 </View>

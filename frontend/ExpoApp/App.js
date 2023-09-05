@@ -22,7 +22,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { UserLocationContext } from './Context/user_location';
+import { UserLocationContext } from './Contexts/user_location';
+// import MapComponent from './Components/Map';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
