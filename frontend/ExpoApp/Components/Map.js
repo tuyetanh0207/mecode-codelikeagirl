@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+// import * as Location from 'expo-location';
 import styles from '../Utils/styles';
 import { UserLocationContext } from '../Contexts/user_location';
 import { Iconify } from 'react-native-iconify';
@@ -88,7 +89,7 @@ class MapComponent extends Component {
     }
 
     componentDidMount() {
-        // This function will be called at the first time we render the map
+        // This function will be automatically called at the first render
         // Set user location for map
         const { location, setLocation } = this.context;
         if (location) {
@@ -104,6 +105,7 @@ class MapComponent extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        // This function will be automatically called every time updated the probs
         const prevLocation = prevProps.context ? prevProps.context.location : null;
         const currentLocation = this.context ? this.context.location : null;
 
@@ -119,6 +121,7 @@ class MapComponent extends Component {
         }
     }
 
+    // Hide the marker when zoom out
     onRegionChangeComplete = (newRegion) => {
         const { latitudeDelta, longitudeDelta } = newRegion;
         const threshold = 0.1; // thresold for hiding Markers
