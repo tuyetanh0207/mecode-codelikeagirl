@@ -102,6 +102,11 @@ class MapComponent extends Component {
                 },
             });
         }
+
+        // render icon from its title
+        this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
+            markerCoord.icon = CONST.getIconByTitle(markerCoord.title)
+        ))
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -145,7 +150,7 @@ class MapComponent extends Component {
                     showMarkers && markerCoords && markerCoords.map(markerCoord => (
                         <Marker key={markerCoord.id} coordinate={markerCoord.location}>
                             <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                                {CONST.getIconByTitle(markerCoord.title)}
+                                {markerCoord.icon}
                                 <View style={[styles.task_label_container, markerCoord.container_style]}>
                                     <Text style={styles.task_label}>
                                         {markerCoord.title}
