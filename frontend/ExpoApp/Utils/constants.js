@@ -37,7 +37,7 @@ export const boldIconMapping = {
 };
 
 // Get the suitable task icon suitable corresponding to its title
-export const getIconByTitle = (title, mappingType) => {
+export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMapping) => {
     return mappingType[title] || null;
 }
 
