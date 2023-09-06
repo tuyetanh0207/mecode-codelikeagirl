@@ -23,7 +23,7 @@ class MapComponent extends Component {
                         latitude: 10.79,
                         longitude: 106.71,
                     },
-                    icon: <Iconify icon="fluent:bin-recycle-24-filled" size={CONST.responsiveHeight(40)} color={CONST.TASK_ICON_COLOR} />,
+                    icon: null,
                     title: "Collect trash",
                     container_style: {
                         width: CONST.responsiveWidth(110),
@@ -36,7 +36,7 @@ class MapComponent extends Component {
                         latitude: 10.60,
                         longitude: 106.59,
                     },
-                    icon: <Iconify icon="solar:bottle-bold-duotone" size={CONST.responsiveHeight(40)} color={CONST.TASK_ICON_COLOR} />,
+                    icon: null,
                     title: "Bring your own bottle",
                     container_style: {
                         width: CONST.responsiveWidth(195),
@@ -49,7 +49,7 @@ class MapComponent extends Component {
                         latitude: 10.63,
                         longitude: 106.59,
                     },
-                    icon: <Iconify icon="fluent:bin-recycle-24-filled" size={CONST.responsiveHeight(40)} color={CONST.TASK_ICON_COLOR} />,
+                    icon: null,
                     title: "Collect trash",
                     container_style: {
                         width: CONST.responsiveWidth(110),
@@ -62,7 +62,7 @@ class MapComponent extends Component {
                         latitude: 10.61,
                         longitude: 106.58,
                     },
-                    icon: <Iconify icon="solar:bag-4-bold" size={CONST.responsiveHeight(40)} color={CONST.TASK_ICON_COLOR} />,
+                    icon: null,
                     title: "Bring your own bag",
                     container_style: {
                         width: CONST.responsiveWidth(160),
@@ -75,7 +75,7 @@ class MapComponent extends Component {
                         latitude: 10.62,
                         longitude: 106.59,
                     },
-                    icon: <Iconify icon="ri:seedling-fill" size={CONST.responsiveHeight(40)} color={CONST.TASK_ICON_COLOR} />,
+                    icon: null,
                     title: "Plan a tree",
                     container_style: {
                         width: CONST.responsiveWidth(110),
@@ -145,7 +145,7 @@ class MapComponent extends Component {
                     showMarkers && markerCoords && markerCoords.map(markerCoord => (
                         <Marker key={markerCoord.id} coordinate={markerCoord.location}>
                             <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                                {markerCoord.icon}
+                                {CONST.getIconByTitle(markerCoord.title)}
                                 <View style={[styles.task_label_container, markerCoord.container_style]}>
                                     <Text style={styles.task_label}>
                                         {markerCoord.title}

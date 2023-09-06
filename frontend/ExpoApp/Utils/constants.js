@@ -1,5 +1,3 @@
-import { Dimensions } from 'react-native';
-
 // Color
 export const HEADING2_COLOR = "#0A7674";
 export const NAVIGATION_ACTIVE_COLOR = "#28A2B2";
@@ -13,6 +11,7 @@ export const DARK_PINK_COLOR = '#FD3D6C';
 export const LIGHT_PINK_COLOR = '#FEE6EC';
 
 // Responsive size
+import { Dimensions } from 'react-native';
 export const STANDARD_SCREEN = [400, 870];
 export const TRUTH_SCREEN = [Dimensions.get('window').width, Dimensions.get('window').height];
 export const responsiveHeight = (size) => {
@@ -23,5 +22,23 @@ export const responsiveWidth = (size) => {
 };
 export const PRIMARY_VERTICAL_MARGIN = responsiveHeight(12);
 
-// Location
-export const LOCATION_DISTANCE_THRESOLD = 1; //  meter
+// Icon
+import { Iconify } from 'react-native-iconify';
+export const BOLD_TRASH_ICON = <Iconify icon="fluent:bin-recycle-24-filled" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
+export const BOLD_BOTTLE_ICON = <Iconify icon="solar:bottle-bold-duotone" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
+export const BOLD_BAG_ICON = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
+export const BOLD_TREE_ICON = <Iconify icon="ri:seedling-fill" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
+
+const boldIconMapping = {
+    'Collect trash': BOLD_TRASH_ICON,
+    'Bring your own bottle': BOLD_BOTTLE_ICON,
+    'Bring your own bag': BOLD_BAG_ICON,
+    'Plan a tree': BOLD_TREE_ICON,
+};
+
+// Get the suitable task icon suitable corresponding to its title
+export const getIconByTitle = (title) => {
+    return boldIconMapping[title] || null;
+}
+
+// export const REGULAR_TRASH_ICON = ...(Tuyet Anh writes here)
