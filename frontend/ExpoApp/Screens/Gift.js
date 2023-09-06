@@ -7,7 +7,7 @@ export default function Gift() {
     // const navigation = useNavigation();
     return (
         <View>
-            <Text style={styles.textH2}>GIFT</Text>
+            <Text style={styles.heading2}>GIFT</Text>
         </View>
     );
 }

@@ -43,6 +43,6 @@ export const AppButton = ({onPress, title, backgroundColor, size, color}) => (
 
 const btnstyles= StyleSheet.create({
     title: {
-        color: CONST.SECOND_TEXT_COLOR,
+        color: CONST.DARK_PINK_COLOR,
     }
 })

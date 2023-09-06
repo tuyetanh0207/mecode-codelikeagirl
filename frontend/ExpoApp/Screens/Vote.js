@@ -7,7 +7,7 @@ export default function Vote() {
     // const navigation = useNavigation();
     return (
         <View>
-            <Text style={styles.textH2}>VOTE</Text>
+            <Text style={styles.heading2}>VOTE</Text>
         </View>
     );
 }
