@@ -105,7 +105,7 @@ class MapComponent extends Component {
 
         // render icon from its title
         this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
-            markerCoord.icon = CONST.getIconByTitle(markerCoord.title)
+            markerCoord.icon = CONST.getIconByTitle(markerCoord.title, CONST.boldIconMapping)
         ))
     }
 

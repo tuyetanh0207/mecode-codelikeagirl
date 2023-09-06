@@ -29,7 +29,7 @@ export const BOLD_BOTTLE_ICON = <Iconify icon="solar:bottle-bold-duotone" size={
 export const BOLD_BAG_ICON = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 export const BOLD_TREE_ICON = <Iconify icon="ri:seedling-fill" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 
-const boldIconMapping = {
+export const boldIconMapping = {
     'Collect trash': BOLD_TRASH_ICON,
     'Bring your own bottle': BOLD_BOTTLE_ICON,
     'Bring your own bag': BOLD_BAG_ICON,
@@ -37,8 +37,8 @@ const boldIconMapping = {
 };
 
 // Get the suitable task icon suitable corresponding to its title
-export const getIconByTitle = (title) => {
-    return boldIconMapping[title] || null;
+export const getIconByTitle = (title, mappingType) => {
+    return mappingType[title] || null;
 }
 
-// export const REGULAR_TRASH_ICON = ...(Tuyet Anh writes here)
+// export const regularIconMapping = {....}; (Tuyet Anh add more icons here...)
