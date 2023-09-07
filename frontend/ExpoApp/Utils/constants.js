@@ -42,3 +42,7 @@ export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMa
 }
 
 // export const regularIconMapping = {....}; (Tuyet Anh add more icons here...)
+
+// Map
+export const THRESHOLD_SHOW_TASK_ICONS = 0.08;
+export const THRESHOLD_SHOW_TASK_TITLES = 0.05;

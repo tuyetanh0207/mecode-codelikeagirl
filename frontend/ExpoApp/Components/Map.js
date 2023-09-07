@@ -84,7 +84,8 @@ class MapComponent extends Component {
                 },
 
             ],
-            showMarkers: true,
+            showTitle: true,
+            showIcon: true,
         };
     }
 
@@ -97,7 +98,7 @@ class MapComponent extends Component {
                 mapRegion: {
                     latitude: location.coords.latitude,
                     longitude: location.coords.longitude,
-                    latitudeDelta: 0.0444,
+                    latitudeDelta: 0.0111,
                     longitudeDelta: 0.0444,
                 },
             });
@@ -129,13 +130,15 @@ class MapComponent extends Component {
     // Hide the marker when zoom out
     onRegionChangeComplete = (newRegion) => {
         const { latitudeDelta, longitudeDelta } = newRegion;
-        const threshold = 0.1; // thresold for hiding Markers
-        const shouldShowMarkers = latitudeDelta < threshold && longitudeDelta < threshold;
-        this.setState({ showMarkers: shouldShowMarkers });
+        const shouldShowTitles = latitudeDelta < CONST.THRESHOLD_SHOW_TASK_TITLES && longitudeDelta < CONST.THRESHOLD_SHOW_TASK_TITLES;
+        this.setState({ showTitle: shouldShowTitles });
+
+        const shouldShowIcons = latitudeDelta < CONST.THRESHOLD_SHOW_TASK_ICONS && longitudeDelta < CONST.THRESHOLD_SHOW_TASK_ICONS;
+        this.setState({ showIcon: shouldShowIcons });
     };
 
     render() {
-        const { mapRegion, markerCoords, showMarkers } = this.state;
+        const { mapRegion, markerCoords, showTitle, showIcon } = this.state;
         return (
             <MapView
                 style={[styles.map, { position: 'absolute', zIndex: 0 }]}
@@ -146,17 +149,21 @@ class MapComponent extends Component {
                 onRegionChangeComplete={this.onRegionChangeComplete}
             >
                 {
-                    // just show marker at nearly location
-                    showMarkers && markerCoords && markerCoords.map(markerCoord => (
+                    // show title + icon at nearly location, else hide icon or hide all when zoom out further
+                    markerCoords && markerCoords.map(markerCoord => (
                         <Marker key={markerCoord.id} coordinate={markerCoord.location}>
-                            <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                                {markerCoord.icon}
-                                <View style={[styles.task_label_container, markerCoord.container_style]}>
-                                    <Text style={styles.task_label}>
-                                        {markerCoord.title}
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
+                            {showIcon && (
+                                <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                                    {markerCoord.icon}
+                                    {showTitle && (
+                                        <View style={[styles.task_label_container, markerCoord.container_style]}>
+                                            <Text style={styles.task_label}>
+                                                {markerCoord.title}
+                                            </Text>
+                                        </View>
+                                    )}
+                                </TouchableOpacity>
+                            )}
                         </Marker>
                     ))
                 }
