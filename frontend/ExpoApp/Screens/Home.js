@@ -4,13 +4,9 @@ import styles from '../Utils/styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Iconify } from 'react-native-iconify';
 import { TouchableOpacity, Image, Dimensions, PixelRatio } from 'react-native';
-import { Entypo, FontAwesome, Feather, Ionicons } from '@expo/vector-icons';
 import * as CONST from '../Utils/constants';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Swiper from 'react-native-swiper';
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { UserLocationContext } from '../Contexts/user_location';
+import MapComponent from '../Components/Map';
 
 export default function Home({ location }) {
     const navigation = useNavigation();
@@ -98,35 +94,13 @@ export default function Home({ location }) {
     }
 
     const Map = () => {
-        const route = useRoute();
-        const [mapRegion, setmapRegion] = useState([]);
-        const { location, setLocation } = useContext(UserLocationContext);
-
-        useEffect(() => {
-            if (location) {
-                setmapRegion({
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    latitudeDelta: 0.0444,
-                    longitudeDelta: 0.0444,
-                })
-            }
-        }, [location])
         return (
             <View>
                 <Text style={styles.heading2}>Map</Text>
                 <View style={styles.homeMapContainer}>
-                    <MapView
-                        style={styles.map}
-                        provider={PROVIDER_GOOGLE}
-                        showsUserLocation={true}
-                        region={mapRegion}
-                        scrollEnabled={true}
-                    />
-                    {/* <Marker coordinate={initLocation.coords} /> */}
+                    <MapComponent />
                 </View>
             </View>
-
         );
     }
 
