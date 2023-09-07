@@ -10,7 +10,7 @@ import { taskDetailstyles }  from '../Utils/taskDetailsStyles';
 
 
 export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
-   const {name, shortAddr, addr, dist, icon} = route.params
+   const {name, shortAddr, addr, dist, icon, hint} = route.params
     const navigation= useNavigate
     return (
         <ImageBackground
@@ -51,7 +51,7 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
                     {/* Hint */}
                     <View style={taskDetailstyles.hint}>
                         <Text style={taskDetailstyles.hinttext}>Hint</Text>
-                        <Text style={taskDetailstyles.hintContenttext}>Collect as much trash as possible and put it in the nearest bin according to its classification.</Text>
+                        <Text style={taskDetailstyles.hintContenttext}>{hint}</Text>
                     </View>
                 </View>
                 {/* map */}

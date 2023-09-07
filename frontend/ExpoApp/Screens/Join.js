@@ -1,4 +1,5 @@
-import React, {useState} from 'react-native';
+import React from 'react-native';
+import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { View, Text, Image,ImageBackground,TouchableOpacity } from 'react-native';
 import useNavigate from "@react-navigation/native"
@@ -30,7 +31,7 @@ export default function Join() {
                         </TouchableOpacity>
                     </View>
                     <View style = {joinstyles.mid}>
-                        <Text style = {joinstyles.text}>Create post</Text>
+                        <Text style = {joinstyles.headertext}>Create post</Text>
 
                     </View>
                     {/* post btn */}
@@ -45,12 +46,16 @@ export default function Join() {
                         <TouchableOpacity onPress={() => goBack()}
                         style = {joinstyles.profilePhoto}
                         >
-                            <Image source={require('../assets/images/Back.png')} style={joinstyles.backicon} />
+                            <Image source={require('../assets/images/samplephotopost.png')} style={joinstyles.profileImage} />
                         </TouchableOpacity>
-                        <Text style = {joinstyles.text}>Nguyen Thi Anh Tuyet</Text>
+                        <Text style = {joinstyles.nametext}>Nguyen Thi Anh Tuyet</Text>
                     </View>
                     {/* text input */}
-                    <TextInput style = {joinstyles.feelinginput}></TextInput>
+                    <TextInput style = {joinstyles.feelinginput} 
+                    placeholder="How do you feel?"
+                    placeholderTextColor="#868484"
+                    rows={5}
+                    />
                     {/* Photos */}
                     <View style = {joinstyles.photos}>
                         <View style = {joinstyles.photo}>

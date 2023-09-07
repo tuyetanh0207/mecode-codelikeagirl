@@ -84,7 +84,7 @@ export default function Task() {
 
 
     const renderTaskItem = ({ item }) => (
-        <Item name={item.name} icon={item.icon} shortAddr={item.shortAddr} addr={item.addr} dist={item.dist}/>
+        <Item name={item.name} icon={item.icon} shortAddr={item.shortAddr} addr={item.addr} dist={item.dist} hint={item.hint}/>
     )
     const handlePressJoinBtn=()=>{
         navigation.navigate('TaskDetails')
