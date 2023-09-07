@@ -54,7 +54,7 @@ export default function Join() {
                     <TextInput style = {joinstyles.feelinginput} 
                     placeholder="How do you feel?"
                     placeholderTextColor="#868484"
-                    rows={5}
+                    multiline= {true}
                     />
                     {/* Photos */}
                     <View style = {joinstyles.photos}>

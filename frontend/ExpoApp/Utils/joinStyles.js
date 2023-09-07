@@ -53,9 +53,15 @@ export const joinstyles = StyleSheet.create({
         color: CONST.NAVIGATION_ACTIVE_COLOR,
     },
     feelinginput: {
-        height: '40%',
+        height: '20%',
         justifyContent: 'flex-start',
-        width: 200
+        width: '100%',
+        marginTop: '4%',
+
+    },
+    photos: {
+        flexDirection: "column",
+        fle
     }
     
 })
