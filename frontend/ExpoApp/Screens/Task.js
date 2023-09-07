@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { View, Text, Button, StyleSheet, ImageBackground,Image, ScrollView, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import styles from '../Utils/styles';
 // import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
@@ -7,68 +8,70 @@ import { Iconify } from 'react-native-iconify';
 import * as CONST from '../Utils/constants';
 import { AppButton } from '../Components/JoinBtn.js';
 import { Item } from '../Components/TaskItem';
+
 export default function Task() {
+    const navigation = useNavigation();
     const [TaskList, setTaskList] = useState([
         {
             name: "Collect trash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: "fluent:bin-recycle-20-regular"
         },
         {
             name: "Collect trash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
-            Addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
@@ -81,12 +84,37 @@ export default function Task() {
 
 
     const renderTaskItem = ({ item }) => (
-        <Item name={item.name} icon={item.icon} />
+        <Item name={item.name} icon={item.icon} shortAddr={item.shortAddr} addr={item.addr} dist={item.dist}/>
     )
+    const handlePressJoinBtn=()=>{
+        navigation.navigate('TaskDetails')
+    }
     return (
-        <View>
-            <Text style={styles.heading2}>TASK LIST</Text>
+        <ImageBackground
+        source={require('../assets/images/background.png')}
+        style={styles.imageBackground}
+    >
+        <View style={taskstyles.container}>
+            <View style= {taskstyles.header}>
+                <Text style={styles.heading2}>Task list</Text>
+            </View>
+            <SafeAreaView style={taskstyles.list}>
+                <FlatList
+                //keyExtractor={(task, index)=> index.toString()}
+                data = {TaskList}
+                renderItem={renderTaskItem}
+                
+                style={{
+                    //flex: 1,
+                    //marginBottom : 150,
+                 
+                }}
+               // ListFooterComponent={<View style={{height: 20}}/>}
+                />
+            </SafeAreaView>
+            
         </View>
+    </ImageBackground>
     );
 }
 
@@ -96,15 +124,15 @@ const taskstyles= StyleSheet.create({
     },
     container: {
         flex: 1,
-        marginVertical: 18,
+        marginVertical: '2%',
         marginTop: StatusBar.currentHeight || 0,
 
     },
     header: {
-        flex: 0.1,
+        flex: 0.075,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 16,
+        marginBottom: 14,
     },
     list: {
         flex: 1,

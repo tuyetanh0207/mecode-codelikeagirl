@@ -87,7 +87,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={TaskDetailsScreen}
+          component={Join}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -152,6 +152,7 @@ export default function App() {
         <Stack.Screen name="Gift" component={Gift} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Vote" component={Vote} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
       </Stack.Navigator>
     );
   };

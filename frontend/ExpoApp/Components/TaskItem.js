@@ -3,9 +3,18 @@ import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, SafeAreaVi
 import { Iconify } from 'react-native-iconify';
 import * as CONST from '../Utils/constants';
 import { AppButton } from '../Components/JoinBtn.js';
-export const Item = ({ name, icon, navigation }) => (
+import TaskDetailsScreen from '../Screens/TaskDetails';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-    <TouchableOpacity style={taskDetailstyles.container}>
+
+export const Item = ({ name, icon, shortAddr, addr, dist }) => {
+    const navigation = useNavigation()
+    const handlePressJoinBtn=()=>{
+        navigation.navigate('TaskDetails', {name: name, icon:"", shortAddr: shortAddr, addr:addr, dist: dist })
+    }
+    
+    return (
+        <TouchableOpacity style={taskDetailstyles.container}>
         <View style={taskDetailstyles.left}>
             <View style={taskDetailstyles.icon}>
                 {name.includes("trash", 0)
@@ -26,28 +35,39 @@ export const Item = ({ name, icon, navigation }) => (
 
             </View>
             <View style={taskDetailstyles.dis}>
-                <Text style={taskDetailstyles.disText}>80m</Text>
+                <Text style={taskDetailstyles.disText}>{dist}m</Text>
             </View>
         </View>
         <View style={taskDetailstyles.mid}>
             <Text style={taskDetailstyles.name} numberOfLines={1}>
-                {name} {name}
+                {name} 
             </Text>
             <Text style={taskDetailstyles.shortAddr}>
-                Thao Cam Vien zoo
+                {shortAddr}
             </Text>
             <Text style={taskDetailstyles.addr} numberOfLines={2}>
-                2 Nguyen Binh Khiem, Ward Ben Nghe, District 1
+                {addr}
             </Text>
         </View>
         <View style={taskDetailstyles.right}>
-            <View  >
-                <AppButton title="Join" backgroundColor={CONST.LIGHT_PINK_COLOR} color={CONST.DARK_PINK_COLOR} size="sm" />
-            </View>
+            <TouchableOpacity 
+            onPress={handlePressJoinBtn} >
+                <AppButton 
+                title="Join" 
+                backgroundColor={CONST.LIGHT_PINK_COLOR} 
+                color={CONST.DARK_PINK_COLOR} 
+                size="sm" 
+                />
+            </TouchableOpacity>
 
         </View>
     </TouchableOpacity>
-);
+    )
+}
+  
+    
+    
+
 
 
 const taskDetailstyles = StyleSheet.create({
