@@ -36,7 +36,7 @@ export const boldIconMapping = {
     'Plan a tree': BOLD_TREE_ICON,
 };
 
-// Get the suitable task icon suitable corresponding to its title
+// Get the suitable task icon corresponding to its title
 export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMapping) => {
     return mappingType[title] || null;
 }
@@ -44,5 +44,30 @@ export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMa
 // export const regularIconMapping = {....}; (Tuyet Anh add more icons here...)
 
 // Map
-export const THRESHOLD_SHOW_TASK_ICONS = 0.08;
+export const THRESHOLD_SHOW_TASK_ICONS = 0.1;
 export const THRESHOLD_SHOW_TASK_TITLES = 0.05;
+
+// Task container size on the map
+export const taskContainerSizeMapping = {
+    'Collect trash': {
+        width: responsiveWidth(110),
+        height: responsiveHeight(23),
+    },
+    'Bring your own bottle': {
+        width: responsiveWidth(195),
+        height: responsiveHeight(30),
+    },
+    'Bring your own bag': {
+        width: responsiveWidth(160),
+        height: responsiveHeight(30),
+    },
+    'Plant a tree': {
+        width: responsiveWidth(110),
+        height: responsiveHeight(23),
+    },
+};
+
+// Get the suitable task container size corresponding to its title
+export const getTaskContainerSizeByTitle = (title) => {
+    return taskContainerSizeMapping[title] || null;
+}

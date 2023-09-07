@@ -25,10 +25,7 @@ class MapComponent extends Component {
                     },
                     icon: null,
                     title: "Collect trash",
-                    container_style: {
-                        width: CONST.responsiveWidth(110),
-                        height: CONST.responsiveHeight(23),
-                    }
+                    container_style: null,
                 },
                 {
                     id: 2,
@@ -38,10 +35,7 @@ class MapComponent extends Component {
                     },
                     icon: null,
                     title: "Bring your own bottle",
-                    container_style: {
-                        width: CONST.responsiveWidth(195),
-                        height: CONST.responsiveHeight(30),
-                    }
+                    container_style: null,
                 },
                 {
                     id: 3,
@@ -51,10 +45,7 @@ class MapComponent extends Component {
                     },
                     icon: null,
                     title: "Collect trash",
-                    container_style: {
-                        width: CONST.responsiveWidth(110),
-                        height: CONST.responsiveHeight(23),
-                    }
+                    container_style: null,
                 },
                 {
                     id: 4,
@@ -64,10 +55,7 @@ class MapComponent extends Component {
                     },
                     icon: null,
                     title: "Bring your own bag",
-                    container_style: {
-                        width: CONST.responsiveWidth(160),
-                        height: CONST.responsiveHeight(30),
-                    }
+                    container_style: null,
                 },
                 {
                     id: 5,
@@ -77,11 +65,8 @@ class MapComponent extends Component {
                     },
                     icon: null,
                     title: "Plan a tree",
-                    container_style: {
-                        width: CONST.responsiveWidth(110),
-                        height: CONST.responsiveHeight(23),
-                    }
-                },
+                    container_style: null,
+                }
 
             ],
             showTitle: true,
@@ -99,7 +84,7 @@ class MapComponent extends Component {
                     latitude: location.coords.latitude,
                     longitude: location.coords.longitude,
                     latitudeDelta: 0.0111,
-                    longitudeDelta: 0.0444,
+                    longitudeDelta: 0.0222,
                 },
             });
         }
@@ -107,6 +92,11 @@ class MapComponent extends Component {
         // render icon from its title
         this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
             markerCoord.icon = CONST.getIconByTitle(markerCoord.title, CONST.boldIconMapping)
+        ))
+
+        // render task container size
+        this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
+            markerCoord.container_style = CONST.getTaskContainerSizeByTitle(markerCoord.title)
         ))
     }
 
@@ -156,7 +146,7 @@ class MapComponent extends Component {
                                 <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                                     {markerCoord.icon}
                                     {showTitle && (
-                                        <View style={[styles.task_label_container, markerCoord.container_style]}>
+                                        <View style={[styles.task_label_container, { ...markerCoord.container_style }]}>
                                             <Text style={styles.task_label}>
                                                 {markerCoord.title}
                                             </Text>
