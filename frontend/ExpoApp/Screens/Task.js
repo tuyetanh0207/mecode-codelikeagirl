@@ -17,19 +17,38 @@ export default function Task() {
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
-            icon: "fluent:bin-recycle-20-regular"
+            icon: "fluent:bin-recycle-20-regular",
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
         },
         {
             name: "Collect trash",
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
+            icon: 'fluent:bin-recycle-20-regular',
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
+        },
+        {
+            name: "Collect rash",
+            shortAddr: "Thao Cam Vien Zoo",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
+            dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
+            dist: 80,
+            icon: 'fluent:bin-recycle-20-regular'
+        },
+        {
+            name: "Collect rash",
+            shortAddr: "Thao Cam Vien Zoo",
+            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
             dist: 80,
             icon: 'fluent:bin-recycle-20-regular'
         },
@@ -38,49 +57,36 @@ export default function Task() {
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
-            icon: 'fluent:bin-recycle-20-regular'
+            icon: 'fluent:bin-recycle-20-regular',
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
-            icon: 'fluent:bin-recycle-20-regular'
+            icon: 'fluent:bin-recycle-20-regular',
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
-            icon: 'fluent:bin-recycle-20-regular'
+            icon: 'fluent:bin-recycle-20-regular',
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
         },
         {
             name: "Collect rash",
             shortAddr: "Thao Cam Vien Zoo",
             addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
             dist: 80,
-            icon: 'fluent:bin-recycle-20-regular'
-        },
-        {
-            name: "Collect rash",
-            shortAddr: "Thao Cam Vien Zoo",
-            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-            dist: 80,
-            icon: 'fluent:bin-recycle-20-regular'
-        },
-        {
-            name: "Collect rash",
-            shortAddr: "Thao Cam Vien Zoo",
-            addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-            dist: 80,
-            icon: 'fluent:bin-recycle-20-regular'
+            icon: 'fluent:bin-recycle-20-regular',
+            hint: 'Collect as much trash as possible and put it in the nearest bin according to its classification.',
         },
     ])
-    // add icon
-    TaskList.forEach(task => {
-        if (task.name.includes("trash", 0))
-            task.icon = 'fluent:bin-recycle-20-regular'
-    });
+
+
 
 
     const renderTaskItem = ({ item }) => (
@@ -100,16 +106,10 @@ export default function Task() {
             </View>
             <SafeAreaView style={taskstyles.list}>
                 <FlatList
-                //keyExtractor={(task, index)=> index.toString()}
+                keyExtractor={(task, index)=> index.toString()}
                 data = {TaskList}
                 renderItem={renderTaskItem}
                 
-                style={{
-                    //flex: 1,
-                    //marginBottom : 150,
-                 
-                }}
-               // ListFooterComponent={<View style={{height: 20}}/>}
                 />
             </SafeAreaView>
             

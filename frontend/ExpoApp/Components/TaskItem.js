@@ -7,10 +7,10 @@ import TaskDetailsScreen from '../Screens/TaskDetails';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-export const Item = ({ name, icon, shortAddr, addr, dist }) => {
+export const Item = ({ name, icon, shortAddr, addr, dist, hint }) => {
     const navigation = useNavigation()
     const handlePressJoinBtn=()=>{
-        navigation.navigate('TaskDetails', {name: name, icon:"", shortAddr: shortAddr, addr:addr, dist: dist })
+        navigation.navigate('TaskDetails', {name: name, icon:"", shortAddr: shortAddr, addr:addr, dist: dist, hint: hint })
     }
     
     return (

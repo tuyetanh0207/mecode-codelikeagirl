@@ -1,17 +1,21 @@
 import React from 'react-native';
 import { ScrollView } from 'react-native';
 import { View, Text, Image,ImageBackground,TouchableOpacity } from 'react-native';
-import useNavigate from "@react-navigation/native"
+
 import { Iconify } from 'react-native-iconify';
 import { AppButton } from '../Components/JoinBtn';
 import * as CONST from "../Utils/constants";
 import styles from '../Utils/styles';
 import { taskDetailstyles }  from '../Utils/taskDetailsStyles';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
-   const {name, shortAddr, addr, dist, icon, hint} = route.params
-    const navigation= useNavigate
+    const {name, shortAddr, addr, dist, icon, hint} = route.params
+    const navigation = useNavigation();
+    const handleJoinBtn = () =>{
+        navigation.navigate('Join')
+    }
     return (
         <ImageBackground
         source={require('../assets/images/background.png')}
@@ -60,10 +64,10 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
                 </View>
             </ScrollView>
             {/* btn */}
-            <View style = {taskDetailstyles.btn}>
+            <TouchableOpacity onPress={ handleJoinBtn} style = {taskDetailstyles.btn}>
                 <AppButton title="Join" backgroundColor={CONST.LIGHT_PINK_COLOR} color={CONST.DARK_PINK_COLOR} size ="m"/>
 
-            </View>
+            </TouchableOpacity>
         </ImageBackground>
     )
 }

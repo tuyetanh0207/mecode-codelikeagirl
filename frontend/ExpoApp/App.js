@@ -153,6 +153,7 @@ export default function App() {
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Vote" component={Vote} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen name="Join" component={Join} />
       </Stack.Navigator>
     );
   };
