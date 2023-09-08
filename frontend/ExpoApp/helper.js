@@ -1,4 +1,4 @@
-// Definition of some helper functions
+// Definition of some helper functions (SHOULD CHANGE TO CONSTANTS.JS!!!!!!!!!!!!)
 
 export const ImageButton = ({ onPress, source }) => {
     return (
