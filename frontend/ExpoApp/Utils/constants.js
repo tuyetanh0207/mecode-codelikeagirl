@@ -52,19 +52,19 @@ export const THRESOLD_LOCATION_DISTANCE = 1;
 export const taskContainerSizeMapping = {
     'Collect trash': {
         width: responsiveWidth(110),
-        height: responsiveHeight(23),
+        height: responsiveHeight(25),
     },
     'Bring your own bottle': {
-        width: responsiveWidth(195),
+        width: responsiveWidth(155),
         height: responsiveHeight(30),
     },
     'Bring your own bag': {
-        width: responsiveWidth(160),
+        width: responsiveWidth(155),
         height: responsiveHeight(30),
     },
     'Plant a tree': {
         width: responsiveWidth(110),
-        height: responsiveHeight(23),
+        height: responsiveHeight(25),
     },
 };
 

@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
         borderRadius: CONST.responsiveHeight(8),
         marginHorizontal: CONST.responsiveHeight(10),
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: CONST.TASK_LABEL_COLOR,
     }
 });
