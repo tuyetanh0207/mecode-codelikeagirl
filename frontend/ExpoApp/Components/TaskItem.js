@@ -89,6 +89,7 @@ const taskDetailstyles = StyleSheet.create({
   },
   left: {
     flex: 0.1,
+    alignItems: 'center'
   },
   icon: {
     flex: 1,
