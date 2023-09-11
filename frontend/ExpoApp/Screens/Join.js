@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, ImageBackground } from 'react-native';
 import styles from '../Utils/styles';
 import { useNavigation } from '@react-navigation/native';
+import CameraComponent from '../Components/Camera';
+import { Iconify } from 'react-native-iconify';
 
-export default function Home() {
-    const navigation = useNavigation();
+export default function Join() {
+    // const navigation = useNavigation();
     return (
-        <View>
-            <Text style={styles.heading2}>JOIN</Text>
-        </View>
+        // choose video or photos
+        // photo
+        // video
+
+        <ImageBackground
+            source={require('../assets/images/background.png')}
+            style={styles.imageBackground}
+        >
+            <CameraComponent />
+        </ImageBackground>
     );
 }
