@@ -1,3 +1,6 @@
+// MongoDB localhost
+export const MONGO_DB_HOST = 'mongodb://localhost:27017';
+
 // Color
 export const HEADING2_COLOR = "#0A7674";
 export const NAVIGATION_ACTIVE_COLOR = "#28A2B2";

@@ -25,7 +25,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { UserLocationContext } from './Contexts/user_location';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
+// const { MongoClient } = require('mongodb');
 
+// Connect to Mongo DB host
+// const uri = CONST.MONGO_DB_HOST;
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// client.connect().then(() => {
+//   console.log('Connected to MongoDB');
+// }).catch(err => {
+//   console.error('Error connecting to MongoDB', err);
+// });
+
+// Navigators
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const screenOpts = {
