@@ -25,7 +25,7 @@ export const responsiveWidth = (size) => {
     return Math.round(TRUTH_SCREEN[0] * size / STANDARD_SCREEN[0]);
 };
 export const PRIMARY_VERTICAL_MARGIN = responsiveHeight(12);
-
+export const SCROLL_VIEW_WIDTH = TRUTH_SCREEN[0] * 0.8;
 // Icon
 import { Iconify } from 'react-native-iconify';
 export const BOLD_TRASH_ICON = <Iconify icon="fluent:bin-recycle-24-filled" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;

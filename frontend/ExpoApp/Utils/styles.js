@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
         lineHeight: CONST.responsiveHeight(20),
         letterSpacing: 0,
         textAlign: 'center',
+        color: CONST.FEATURE_TEXT_COLOR,
     },
 });
 export default styles;  

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as CONST from '../Utils/constants';
@@ -12,6 +12,7 @@ export default function CameraComponent() {
     const cameraRef = useRef(null);
     const [onCamera, setOnCamera] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const [viewImagesFull, setViewImagesFull] = useState(false);
 
     const toggleCameraType = () => {
         setType(type === CameraType.back ? CameraType.front : CameraType.back);
@@ -35,22 +36,40 @@ export default function CameraComponent() {
         }
     };
 
-
-    function ShowImages() {
+    function FullCapturedImages() {
         return (
-            <View
-                style={styles.viewImages}>
+            <ScrollView horizontal>
                 {capturedImages.map((image, index) => (
-                    <Image source={{ uri: image }}
-                        style={styles.image}
+                    <Image
+                        source={{ uri: image }}
+                        style={styles.camera}
                         key={index}
                     />
                 ))}
+            </ScrollView>
+        );
+    };
+
+    function SmallCapturedImages() {
+        return (
+            <View
+                style={styles.viewImages}>
+                <ScrollView horizontal style={{ width: CONST.SCROLL_VIEW_WIDTH }}>
+                    {capturedImages.map((image, index) => (
+                        <Image
+                            source={{ uri: image }}
+                            style={styles.image}
+                            key={index}
+                            onPress={() => setViewImage(image)}
+                        />
+                    ))}
+                </ScrollView>
+
                 <TouchableOpacity
                     onPress={() => { setOnCamera(true); }}
-                    style={styles.image}
+                    style={[styles.image, { alignItems: 'center', justifyContent: 'center' }]}
                 >
-                    <Iconify icon="mingcute:add-line" size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
+                    <Iconify icon="mingcute:add-line" size={CONST.responsiveHeight(46)} color={CONST.FEATURE_TEXT_COLOR} />
                     <Text style={styles.textAdd}>Add</Text>
                 </TouchableOpacity>
             </View>
@@ -84,7 +103,10 @@ export default function CameraComponent() {
                         style={styles.camera}
                     />
                     :
-                    <Image source={{ uri: capturedImages[capturedImages.length - 1] }} style={styles.camera} />
+                    !viewImagesFull ?
+                        <FullCapturedImages />
+                        : <Image source={{ uri: capturedImages[capturedImages.length - 1] }} style={styles.camera} />
+
                 }
             </View>
 
@@ -120,7 +142,7 @@ export default function CameraComponent() {
                         </TouchableOpacity>
                     </View>
                     :
-                    <ShowImages />
+                    <SmallCapturedImages />
             }
 
         </View>
