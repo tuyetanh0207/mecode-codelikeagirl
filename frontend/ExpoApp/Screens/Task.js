@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   ImageBackground,
@@ -9,10 +8,11 @@ import {
   View,
 } from "react-native";
 import styles from "../Utils/styles";
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import * as CONST from "../Utils/constants";
 import { StatusBar } from "react-native";
 import { Item } from "../Components/TaskItem";
-import * as CONST from "../Utils/constants";
+
 
 export default function Task() {
   const navigation = useNavigation();

@@ -24,6 +24,7 @@ import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TaskDetailsScreen from './Screens/TaskDetails';
 import { UserLocationContext } from './Contexts/user_location';
+import LogInScreen from './Screens/LogIn';
 // import MapComponent from './Components/Map';
 
 
@@ -87,7 +88,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={Home}
+          component={LogInScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
