@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
         height: CONST.responsiveHeight(60),
         marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        marginRight: CONST.responsiveHeight(5),
     },
     textAdd: {
         fontFamily: 'Inter-Medium',
         fontSize: CONST.responsiveHeight(16),
         lineHeight: CONST.responsiveHeight(20),
         letterSpacing: 0,
-        // textAlign: 'center',
+        textAlign: 'center',
     },
 });
 export default styles;  

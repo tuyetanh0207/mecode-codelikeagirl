@@ -81,7 +81,6 @@ export default function CameraComponent() {
                     <Camera
                         ref={cameraRef}
                         type={type}
-                        autoFocus="off"
                         style={styles.camera}
                     />
                     :
@@ -102,9 +101,9 @@ export default function CameraComponent() {
                         <TouchableOpacity onPress={takePhoto}>
                             {isLoading ? (
                                 <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
-                            ) : (
+                            ) :
                                 <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
-                            )}
+                            }
                         </TouchableOpacity>
 
                         <TouchableOpacity
