@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as CONST from '../Utils/constants';
@@ -12,7 +12,7 @@ export default function CameraComponent() {
     const cameraRef = useRef(null);
     const [onCamera, setOnCamera] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [viewImagesFull, setViewImagesFull] = useState(false);
+    const [currentImage, setCurrentImage] = useState(null);
 
     const toggleCameraType = () => {
         setType(type === CameraType.back ? CameraType.front : CameraType.back);
@@ -26,9 +26,10 @@ export default function CameraComponent() {
                 const photo = await cameraRef.current.takePictureAsync();
                 // console.log('end take pic');
                 setCapturedImages([...capturedImages, photo.uri]);
-                MediaLibrary.createAssetAsync(photo.uri);
+                // MediaLibrary.createAssetAsync(photo.uri);
                 setOnCamera(false);
                 setIsLoading(false);
+                setCurrentImage(photo.uri);
             }
             catch (e) {
                 console.log(e);
@@ -36,49 +37,37 @@ export default function CameraComponent() {
         }
     };
 
-    function FullCapturedImages() {
-        return (
-            <ScrollView horizontal>
-                {capturedImages.map((image, index) => (
-                    <Image
-                        source={{ uri: image }}
-                        style={styles.camera}
-                        key={index}
-                    />
-                ))}
-            </ScrollView>
-        );
-    };
-
     function SmallCapturedImages() {
         return (
             <View
-                style={styles.viewImages}>
+                style={CameraStyles.imageList}>
                 <ScrollView horizontal style={{ width: CONST.SCROLL_VIEW_WIDTH }}>
                     {capturedImages.map((image, index) => (
-                        <Image
-                            source={{ uri: image }}
-                            style={styles.image}
-                            key={index}
-                            onPress={() => setViewImage(image)}
-                        />
+                        <TouchableOpacity onPress={() => setCurrentImage(image)}>
+                            <Image
+                                source={{ uri: image }}
+                                style={CameraStyles.previewImage}
+                                key={index}
+                            />
+                        </TouchableOpacity>
+
                     ))}
                 </ScrollView>
 
                 <TouchableOpacity
                     onPress={() => { setOnCamera(true); }}
-                    style={[styles.image, { alignItems: 'center', justifyContent: 'center' }]}
+                    style={[CameraStyles.previewImage, { alignItems: 'center', justifyContent: 'center' }]}
                 >
                     <Iconify icon="mingcute:add-line" size={CONST.responsiveHeight(46)} color={CONST.FEATURE_TEXT_COLOR} />
-                    <Text style={styles.textAdd}>Add</Text>
+                    <Text style={CameraStyles.textAdd}>Add</Text>
                 </TouchableOpacity>
             </View>
         );
     };
 
     return (
-        <View style={{ flex: 1, alignItems: 'left', justifyContent: 'left' }}>
-            <View style={[styles.featureRow, { marginTop: CONST.TRUTH_SCREEN[1] * 0.06, alignItems: 'center', }]}>
+        <View style={CameraStyles.container}>
+            <View style={CameraStyles.header}>
                 <TouchableOpacity>
                     <Iconify icon="octicon:x-24" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
                 </TouchableOpacity>
@@ -90,36 +79,22 @@ export default function CameraComponent() {
                 </TouchableOpacity>
             </View>
 
-            <View
-                style={{
-                    width: CONST.TRUTH_SCREEN[0],
-                    height: CONST.TRUTH_SCREEN[1] * 0.7,
-                    marginVertical: CONST.PRIMARY_VERTICAL_MARGIN,
-                }}>
+            <View>
                 {onCamera ?
                     <Camera
                         ref={cameraRef}
                         type={type}
-                        style={styles.camera}
+                        style={CameraStyles.camera}
                     />
                     :
-                    !viewImagesFull ?
-                        <FullCapturedImages />
-                        : <Image source={{ uri: capturedImages[capturedImages.length - 1] }} style={styles.camera} />
-
+                    <Image source={{ uri: currentImage }} style={CameraStyles.camera} />
                 }
             </View>
 
             {
                 onCamera ?
                     <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
-                            alignItems: 'center',
-                            marginLeft: CONST.TRUTH_SCREEN[0] * 0.5 - CONST.responsiveHeight(40)
-                        }}>
+                        style={CameraStyles.controler}>
                         <TouchableOpacity onPress={takePhoto}>
                             {isLoading ? (
                                 <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
@@ -129,13 +104,7 @@ export default function CameraComponent() {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={{
-                                marginRight: CONST.TRUTH_SCREEN[0] * 0.1,
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
-                                alignItems: 'center',
-                            }}
+                            style={CameraStyles.flipCamera}
                             onPress={toggleCameraType}
                         >
                             <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
@@ -144,7 +113,60 @@ export default function CameraComponent() {
                     :
                     <SmallCapturedImages />
             }
-
         </View>
     );
 }
+
+const CameraStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'left',
+        justifyContent: 'left',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.04,
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.06,
+        alignItems: 'center',
+    },
+    camera: {
+        width: CONST.TRUTH_SCREEN[0],
+        height: CONST.TRUTH_SCREEN[1] * 0.7,
+        marginVertical: CONST.TRUTH_SCREEN[1] * 0.02,
+    },
+    controler: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        alignItems: 'center',
+        marginLeft: CONST.TRUTH_SCREEN[0] * 0.5 - CONST.responsiveHeight(40)
+    },
+    flipCamera: {
+        marginRight: CONST.TRUTH_SCREEN[0] * 0.1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        alignItems: 'center',
+    },
+    textAdd: {
+        fontFamily: 'Inter-Medium',
+        fontSize: CONST.responsiveHeight(16),
+        lineHeight: CONST.responsiveHeight(20),
+        letterSpacing: 0,
+        textAlign: 'center',
+        color: CONST.FEATURE_TEXT_COLOR,
+    },
+    previewImage: {
+        width: CONST.responsiveHeight(60),
+        height: CONST.responsiveHeight(60),
+        marginRight: CONST.responsiveHeight(5),
+    },
+    imageList: {
+        height: CONST.responsiveHeight(60),
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        flexDirection: 'row',
+        paddingHorizontal: CONST.responsiveHeight(15),
+    },
+
+});

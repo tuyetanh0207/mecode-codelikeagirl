@@ -121,29 +121,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         textAlign: 'center',
         color: CONST.NAVIGATION_ACTIVE_COLOR,
-    },
-    camera: {
-        width: CONST.TRUTH_SCREEN[0],
-        height: CONST.TRUTH_SCREEN[1] * 0.7,
-        marginBottom: CONST.TRUTH_SCREEN[1] * 0.05,
-    },
-    image: {
-        width: CONST.responsiveHeight(60),
-        height: CONST.responsiveHeight(60),
-    },
-    viewImages: {
-        height: CONST.responsiveHeight(60),
-        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
-        flexDirection: 'row',
-        marginRight: CONST.responsiveHeight(5),
-    },
-    textAdd: {
-        fontFamily: 'Inter-Medium',
-        fontSize: CONST.responsiveHeight(16),
-        lineHeight: CONST.responsiveHeight(20),
-        letterSpacing: 0,
-        textAlign: 'center',
-        color: CONST.FEATURE_TEXT_COLOR,
-    },
+    },    
 });
 export default styles;  
