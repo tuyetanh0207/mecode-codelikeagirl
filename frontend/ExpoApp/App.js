@@ -26,8 +26,21 @@ import TaskDetailsScreen from './Screens/TaskDetails';
 import { UserLocationContext } from './Contexts/user_location';
 import LogInScreen from './Screens/LogIn';
 // import MapComponent from './Components/Map';
+import * as MediaLibrary from 'expo-media-library';
+import { Camera } from 'expo-camera';
+// const { MongoClient } = require('mongodb');
 
+// Connect to Mongo DB host
+// const uri = CONST.MONGO_DB_HOST;
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+// client.connect().then(() => {
+//   console.log('Connected to MongoDB');
+// }).catch(err => {
+//   console.error('Error connecting to MongoDB', err);
+// });
+
+// Navigators
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const screenOpts = {
@@ -46,43 +59,54 @@ export default function App() {
   });
 
   const [location, setLocation] = useState(null);
+
   useEffect(() => {
-    const getPermission = async () => {
+    const hideSplashScreen = async () => {
+      if (fontsLoaded) {
+        await SplashScreen.hideAsync();
+      }
+    };
+    hideSplashScreen();
+
+    const getLocationPermission = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
+      if (status === 'granted') {
+        setLocation(await Location.getCurrentPositionAsync({}));
+      }
+      else {
         console.log('Permission to access location was denied');
-        Alert.alert(
-          'Permission Denied',
-          'You need to grant location permission to use this app.',
-          [
-            {
-              text: 'Grant Permission',
-              onPress: async () => {
-                await Location.requestForegroundPermissionsAsync();
-              },
-            },
-            {
-              text: 'Exit App',
-              onPress: () => {
-                BackHandler.exitApp();
-              },
-              style: 'cancel',
-            },
-          ],
-          { cancelable: false }
-        );
         return;
       }
-
-      const currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation);
     };
-    getPermission();
+
+    const getCameraPermission = async () => {
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      if (cameraStatus !== 'granted') {
+        console.log('Permission to access camera was denied');
+        return;
+      }
+    };
+
+    const getLibraryPermission = async () => {
+      const libraryStatus = await MediaLibrary.requestPermissionsAsync();
+      console.log(libraryStatus);
+      if (libraryStatus.status !== 'granted') {
+        console.log('Permission to access library was denied');
+        return;
+      }
+    };
+
+    const checkPermissions = async () => {
+      await getLocationPermission();
+      await getCameraPermission();
+      await getLibraryPermission();
+    };
+
+    checkPermissions();
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded)
     return null;
-  }
 
   const BottomTabs = () => {
     return (
@@ -166,6 +190,5 @@ export default function App() {
         <RootStack />
       </NavigationContainer>
     </UserLocationContext.Provider>
-
   );
 }
