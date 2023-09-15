@@ -16,9 +16,12 @@ import * as CONST from '../Utils/constants';
 import {logInStyles} from '../Utils/logInStyles';
 import { AppButton } from '../Components/JoinBtn';
 import client from '../api/client';
+import { signIn } from '../api/user';
+import { useLogin } from '../Contexts/LoginProvider';
 export default function LogInScreen({navigation: {goBack}, route}) {
     // const [email, setEmail] = useState('')
     // const [password, setPassword] = useState('')
+    const {setIsLoggedIn} = useLogin()
     const [isShowPwd, setIsShowPwd] = useState(false)
     const [userInfo, setUserInfo] = useState({
         email: '',
@@ -32,14 +35,22 @@ export default function LogInScreen({navigation: {goBack}, route}) {
         try {
            
             console.log('prepare sending')
-            const res = await client.post('/sign-in',{...userInfo})
+            //const res = await signIn(userInfo.email, userInfo.password)
+            const res = await signIn("myemail5@gmail.com", "123456")
             console.log(res.data)
+            setIsLoggedIn(true)
+            // const signInRes = await client.post('/sign-in', {
+            //     email,
+            //     password,
+            // })
+            // console.log(signInRes.data)
+        
         } catch (error) {
             console.log(error.message)
         }
            
     }
-    console.log(userInfo)
+    //console.log(userInfo)
     
     return (
     <ImageBackground

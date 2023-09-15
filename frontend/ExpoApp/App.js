@@ -28,6 +28,9 @@ import LogInScreen from './Screens/LogIn';
 // import MapComponent from './Components/Map';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
+import LoginProvider, { useLogin } from './Contexts/LoginProvider';
+import MapNotLoggedIn from './Screens/MapNotLoggedIn';
+import TaskNotLoggedIn from './Screens/TaskNotLoggedIn';
 // const { MongoClient } = require('mongodb');
 
 // Connect to Mongo DB host
@@ -112,7 +115,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={LogInScreen}
+          component={Join}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -122,7 +125,7 @@ export default function App() {
             }
           }} />
         <Tab.Screen name="Map"
-          component={Map}
+          component={Task}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -132,7 +135,7 @@ export default function App() {
             }
           }} />
         <Tab.Screen name="Join"
-          component={Join}
+          component={TaskDetailsScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -152,7 +155,7 @@ export default function App() {
             }
           }} />
         <Tab.Screen name="Profile"
-          component={Profile}
+          component={LogIn}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -182,13 +185,32 @@ export default function App() {
       </Stack.Navigator>
     );
   };
-
+  const NotLoggedInRootStack = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName="BottomTabs"
+        screenOptions={{
+          headerShown: false
+        }}>
+        <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
+        <Stack.Screen name="Task" component={TaskNotLoggedIn} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen name="LogIn" component={LogIn} />
+      </Stack.Navigator>
+    );
+  }
+  const MainNavigator = () =>{
+    const {isLoggedIn} = useLogin();
+    return isLoggedIn ? <RootStack/>:<NotLoggedInRootStack/>
+  }
   return (
-    <UserLocationContext.Provider
-      value={{ location, setLocation }}>
-      <NavigationContainer>
-        <RootStack />
-      </NavigationContainer>
-    </UserLocationContext.Provider>
+     <LoginProvider>
+      <UserLocationContext.Provider
+        value={{ location, setLocation }}>
+        <NavigationContainer>
+          <MainNavigator/>
+        </NavigationContainer>
+      </UserLocationContext.Provider>
+     </LoginProvider>
   );
 }

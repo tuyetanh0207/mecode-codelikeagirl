@@ -18,7 +18,14 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
   const { name, shortAddr, addr, dist, icon, hint } = route.params;
   const navigation = useNavigation();
   const handleJoinBtn = () => {
-    navigation.navigate("Join");
+    navigation.navigate("Join", {
+      name: name,
+      icon: "",
+      shortAddr: shortAddr,
+      addr: addr,
+      dist: dist,
+      hint: hint,
+    });
   };
   return (
     <ImageBackground

@@ -5,9 +5,11 @@ import * as MediaLibrary from 'expo-media-library';
 import * as CONST from '../Utils/constants';
 import { Iconify } from 'react-native-iconify';
 import styles from '../Utils/styles';
-
-export default function CameraComponent() {
-    const [capturedImages, setCapturedImages] = useState([]);
+import { AppButton } from './JoinBtn';
+import { useNavigation } from '@react-navigation/native';
+export default function CameraComponent(props) {
+    const {setIsTakingPhoto, setPhotos, photos} = props
+    const [capturedImages, setCapturedImages] = useState(photos);
     const [type, setType] = useState(CameraType.back);
     const cameraRef = useRef(null);
     const [onCamera, setOnCamera] = useState(true);
@@ -17,19 +19,27 @@ export default function CameraComponent() {
     const toggleCameraType = () => {
         setType(type === CameraType.back ? CameraType.front : CameraType.back);
     };
-
+    const navigation = useNavigation();
+    const handlePressPostBtn = () => {
+        setIsTakingPhoto(false)
+        console.log(capturedImages)
+        setPhotos(capturedImages)
+    };
     const takePhoto = async () => {
         if (cameraRef) {
             try {
                 // console.log('start take pic');
                 setIsLoading(true);
-                const photo = await cameraRef.current.takePictureAsync();
+                const photo = await cameraRef.current.takePictureAsync({
+                    base64: true,
+                  });
                 // console.log('end take pic');
                 setCapturedImages([...capturedImages, photo.uri]);
                 // MediaLibrary.createAssetAsync(photo.uri);
                 setOnCamera(false);
                 setIsLoading(false);
                 setCurrentImage(photo.uri);
+               console.log('uri: ', photo.uri)
             }
             catch (e) {
                 console.log(e);
@@ -73,10 +83,21 @@ export default function CameraComponent() {
                 </TouchableOpacity>
 
                 <Text style={styles.subtitle}>Create post</Text>
-
-                <TouchableOpacity>
-                    <Iconify icon="solar:videocamera-record-outline" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
-                </TouchableOpacity>
+                {onCamera ?
+                    <TouchableOpacity>
+                        <Iconify icon="solar:videocamera-record-outline" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress={handlePressPostBtn}>
+                        <AppButton
+                            title="Post"
+                            backgroundColor={CONST.BACKGROUND_COLOR}
+                            color={CONST.FEATURE_TEXT_COLOR}
+                            size="sm"
+                        />
+                    </TouchableOpacity>
+                }
+                
             </View>
 
             <View>
