@@ -43,14 +43,15 @@ export default function CameraComponent() {
                 style={CameraStyles.imageList}>
                 <ScrollView horizontal style={{ width: CONST.SCROLL_VIEW_WIDTH }}>
                     {capturedImages.map((image, index) => (
-                        <TouchableOpacity onPress={() => setCurrentImage(image)}>
+                        <TouchableOpacity
+                            onPress={() => setCurrentImage(image)}
+                            key={index}
+                        >
                             <Image
                                 source={{ uri: image }}
                                 style={CameraStyles.previewImage}
-                                key={index}
                             />
                         </TouchableOpacity>
-
                     ))}
                 </ScrollView>
 
@@ -68,14 +69,33 @@ export default function CameraComponent() {
     return (
         <View style={CameraStyles.container}>
             <View style={CameraStyles.header}>
-                <TouchableOpacity>
-                    <Iconify icon="octicon:x-24" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
-                </TouchableOpacity>
+
+                {
+                    onCamera ?
+                        <TouchableOpacity onPress={() => setOnCamera(false)}>
+                            <Iconify icon="octicon:x-24" size={CONST.responsiveHeight(40)} color={CONST.FEATURE_TEXT_COLOR} />
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity onPress={() => setOnCamera(true)}>
+                            <Iconify icon="ic:round-arrow-back-ios" size={CONST.responsiveHeight(40)} color={CONST.FEATURE_TEXT_COLOR} />
+                        </TouchableOpacity>
+                }
+
 
                 <Text style={styles.subtitle}>Create post</Text>
 
                 <TouchableOpacity>
-                    <Iconify icon="solar:videocamera-record-outline" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
+                    {
+                        !onCamera ?
+                            <View style={CameraStyles.doneButton}>
+                                <Text style={CameraStyles.doneText}>Done</Text>
+                            </View>
+                            :
+                            <View style={{ width: 30, height: 30 }}>
+
+                            </View>
+                    }
+
                 </TouchableOpacity>
             </View>
 
@@ -92,28 +112,52 @@ export default function CameraComponent() {
             </View>
 
             {
-                onCamera ?
-                    <View
-                        style={CameraStyles.controler}>
-                        <TouchableOpacity onPress={takePhoto}>
-                            {isLoading ? (
-                                <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
-                            ) :
-                                <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
-                            }
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={CameraStyles.flipCamera}
-                            onPress={toggleCameraType}
-                        >
-                            <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
-                        </TouchableOpacity>
-                    </View>
-                    :
+                !onCamera ?
                     <SmallCapturedImages />
+                    :
+                    capturedImages.length ?
+                        <View style={CameraStyles.controler2}>
+                            <TouchableOpacity onPress={() => { setOnCamera(false); }}>
+                                {capturedImages.length ?
+                                    <Iconify icon="bi:images" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                                    : null
+                                }
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={takePhoto}>
+                                {isLoading ? (
+                                    <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
+                                ) :
+                                    <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
+                                }
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={CameraStyles.flipCamera}
+                                onPress={toggleCameraType}
+                            >
+                                <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        <View
+                            style={CameraStyles.controler}>
+                            <TouchableOpacity onPress={takePhoto}>
+                                {isLoading ? (
+                                    <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
+                                ) :
+                                    <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
+                                }
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={CameraStyles.flipCamera}
+                                onPress={toggleCameraType}
+                            >
+                                <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                            </TouchableOpacity>
+                        </View>
             }
-        </View>
+        </View >
     );
 }
 
@@ -126,7 +170,14 @@ const CameraStyles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.04,
+        paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.03,
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.06,
+        alignItems: 'center',
+    },
+    header2: {
+        flexDirection: 'row',
+        // justifyContent: 'space-between',
+        paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.03,
         marginTop: CONST.TRUTH_SCREEN[1] * 0.06,
         alignItems: 'center',
     },
@@ -141,6 +192,13 @@ const CameraStyles = StyleSheet.create({
         marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         alignItems: 'center',
         marginLeft: CONST.TRUTH_SCREEN[0] * 0.5 - CONST.responsiveHeight(40)
+    },
+    controler2: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        alignItems: 'center',
+        marginLeft: CONST.responsiveWidth(30),
     },
     flipCamera: {
         marginRight: CONST.TRUTH_SCREEN[0] * 0.1,
@@ -168,5 +226,23 @@ const CameraStyles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: CONST.responsiveHeight(15),
     },
-
+    doneButton: {
+        width: CONST.responsiveWidth(60),
+        height: CONST.responsiveHeight(44),
+        padding: CONST.responsiveHeight(10),
+        elevation: 4,
+        // paddingHorizontal: CONST.responsiveWidth(14),
+        borderRadius: CONST.responsiveHeight(16),
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    doneText: {
+        fontFamily: 'Inter-Medium',
+        fontSize: CONST.responsiveHeight(20),
+        lineHeight: CONST.responsiveHeight(24),
+        letterSpacing: 0,
+        textAlign: 'left',
+        color: CONST.FEATURE_TEXT_COLOR,
+    },
 });
