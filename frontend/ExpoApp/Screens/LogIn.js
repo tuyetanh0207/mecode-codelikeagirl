@@ -31,7 +31,7 @@ export default function LogInScreen({navigation: {goBack}, route}) {
     const handleLogInBtn = async ()=>{
         try {
            
-             console.log('prepare sending')
+            console.log('prepare sending')
             const res = await client.post('/sign-in',{...userInfo})
             console.log(res.data)
         } catch (error) {
@@ -39,7 +39,7 @@ export default function LogInScreen({navigation: {goBack}, route}) {
         }
            
     }
-    // console.log(userInfo)
+    console.log(userInfo)
     
     return (
     <ImageBackground

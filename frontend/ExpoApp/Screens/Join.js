@@ -12,6 +12,8 @@ import { AppButton } from "../Components/JoinBtn";
 import * as CONST from "../Utils/constants";
 import { joinstyles } from "../Utils/joinStyles";
 import styles from "../Utils/styles";
+import CameraComponent from '../Components/Camera';
+import { Iconify } from 'react-native-iconify';
 export default function Join({ navigation: { goBack }, route }) {
   //const navigation = useNavigate();
   const taskName = "Collect garbage";
@@ -140,12 +142,14 @@ export default function Join({ navigation: { goBack }, route }) {
       </View>
     </ImageBackground>
   );
+
+}
 // import React from 'react';
 // import { View, Text, Button, ImageBackground } from 'react-native';
 // import styles from '../Utils/styles';
 // import { useNavigation } from '@react-navigation/native';
-// import CameraComponent from '../Components/Camera';
-// import { Iconify } from 'react-native-iconify';
+
+
 
 // export default function Join() {
 //     // const navigation = useNavigation();
@@ -161,4 +165,3 @@ export default function Join({ navigation: { goBack }, route }) {
 //             <CameraComponent />
 //         </ImageBackground>
 //     );
-// }
