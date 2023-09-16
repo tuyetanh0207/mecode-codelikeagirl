@@ -19,11 +19,11 @@ const postSchema = new mongoose.Schema({
     },
     caption: {
         type: String,
-        required: true,
+        //required: true,
     },
     photos: {
         type: [String],
-        required: true,
+        //required: true,
 
     },
     address: String,
