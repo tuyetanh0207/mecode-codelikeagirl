@@ -125,7 +125,7 @@ export default function App() {
             }
           }} />
         <Tab.Screen name="Map"
-          component={Task}
+          component={Map}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -135,7 +135,7 @@ export default function App() {
             }
           }} />
         <Tab.Screen name="Join"
-          component={Map}
+          component={Join}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -155,7 +155,7 @@ export default function App() {
             }
           }} />
         <Tab.Screen name="Profile"
-          component={LogIn}
+          component={Profile}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)

@@ -2,7 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import client from "./client"
 export const signIn = async (email, password) => {
     try {
-        const signInRes = await client.post('/sign-in', {
+        console.log("running login")
+        const signInRes = await client.post('/user/sign-in', {
             email,
             password,
         })
@@ -26,7 +27,7 @@ export const signOut = async () => {
     try {
         const token = await AsyncStorage.getItem('token')
         if(token!=null){
-            const res = await client.get('/sign-out', {
+            const res = await client.get('/user/sign-out', {
                 headers: {
                     Authorization: `JWT ${token}`
                 }

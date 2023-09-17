@@ -18,8 +18,10 @@ import client from "../api/client";
 import { useNavigation } from '@react-navigation/native';
 export default function Join({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
-
-   const { name, shortAddr, addr, dist, icon, hint, taskId } = route.params;
+  if(route.params){
+    const { name, shortAddr, addr, dist, icon, hint, taskId } = route.params;
+  }
+   
   // const name = "haha";
   // const id = "aaa";
   // const shortAddr = "haha";
@@ -72,7 +74,7 @@ export default function Join({ navigation: { goBack }, route }) {
     try {
       // console.log('token send:', token)
       // console.log('form data', formData)
-      const res = await client.post("/create-post", formData, {
+      const res = await client.post("/post/create-post", formData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
@@ -240,9 +242,14 @@ export default function Join({ navigation: { goBack }, route }) {
             </View>
             {/* Info */}
             <View style={joinstyles.info}>
-              <Text style={joinstyles.taskNametext}>{name}</Text>
-              <Text style={joinstyles.taskShortAddrtext}>{shortAddr}</Text>
-              <Text style={joinstyles.taskAddrtext}>{addr}</Text>
+              {route.params?
+              <>
+                <Text style={joinstyles.taskNametext}>{name}</Text>
+                <Text style={joinstyles.taskShortAddrtext}>{shortAddr}</Text>
+                <Text style={joinstyles.taskAddrtext}>{addr}</Text>
+              </>:<>
+              </>}
+             
             </View>
           </View>
         </View>
