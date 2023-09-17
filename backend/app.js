@@ -23,9 +23,9 @@ const Post = require("./models/post");
 const app = express();
 
 app.use(express.json());
-app.use(userRouter);
-//app.use(taskRouter)
-app.use(postRouter);
+app.use("/v1/user", userRouter);
+//app.use("/v1/task", taskRouter)
+app.use("/v1/post", postRouter);
 app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
 
 app.listen(8000, () => {
