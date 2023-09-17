@@ -33,11 +33,22 @@ export const BOLD_BOTTLE_ICON = <Iconify icon="solar:bottle-bold-duotone" size={
 export const BOLD_BAG_ICON = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 export const BOLD_TREE_ICON = <Iconify icon="ri:seedling-fill" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 
+export const FEATURE_TEXT_TRASH_ICON_60 = <Iconify icon="fluent:bin-recycle-20-regular" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const FEATURE_TEXT_BOTTLE_ICON_60 = <Iconify icon="solar:bottle-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const FEATURE_TEXT_BAG_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const FEATURE_TEXT_TREE_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+
 export const boldIconMapping = {
     'Collect trash': BOLD_TRASH_ICON,
     'Bring your own bottle': BOLD_BOTTLE_ICON,
     'Bring your own bag': BOLD_BAG_ICON,
     'Plan a tree': BOLD_TREE_ICON,
+};
+export const normalIconMapping_60 = {
+    'Collect trash': FEATURE_TEXT_TRASH_ICON_60,
+    'Bring your own bottle': FEATURE_TEXT_BOTTLE_ICON_60,
+    'Bring your own bag': FEATURE_TEXT_BAG_ICON_60,
+    'Plan a tree': FEATURE_TEXT_TREE_ICON_60,
 };
 
 // Get the suitable task icon corresponding to its title

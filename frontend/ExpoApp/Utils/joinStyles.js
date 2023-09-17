@@ -9,6 +9,7 @@ export const joinstyles = StyleSheet.create({
     color: CONST.NAVIGATION_ACTIVE_COLOR,
   },
   header: {
+    marginBottom: "6%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -41,10 +42,17 @@ export const joinstyles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  profilePhoto: {
+    overflow: "hidden",
+    borderRadius: 200,
+
+  },
   profileImage: {
     width: 40,
     height: 40,
     marginRight: "4%",
+    overflow: "hidden",
+    borderRadius: 20,
   },
   nametext: {
     fontSize: 15,

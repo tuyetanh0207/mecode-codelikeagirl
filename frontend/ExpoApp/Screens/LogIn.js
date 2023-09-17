@@ -19,8 +19,7 @@ import client from '../api/client';
 import { signIn } from '../api/user';
 import { useLogin } from '../Contexts/LoginProvider';
 export default function LogInScreen({navigation: {goBack}, route}) {
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
+    const navigation= useNavigation()
     const {setIsLoggedIn} = useLogin()
     const [isShowPwd, setIsShowPwd] = useState(false)
     const [userInfo, setUserInfo] = useState({
@@ -36,7 +35,7 @@ export default function LogInScreen({navigation: {goBack}, route}) {
            
             console.log('prepare sending')
             //const res = await signIn(userInfo.email, userInfo.password)
-            const res = await signIn("myemail5@gmail.com", "123456")
+            const res = await signIn(userInfo.email, userInfo.password)
             console.log(res.data)
             setIsLoggedIn(true)
             // const signInRes = await client.post('/sign-in', {
@@ -44,6 +43,7 @@ export default function LogInScreen({navigation: {goBack}, route}) {
             //     password,
             // })
             // console.log(signInRes.data)
+            navigation.navigate('Home')
         
         } catch (error) {
             console.log(error.message)
@@ -101,8 +101,6 @@ export default function LogInScreen({navigation: {goBack}, route}) {
             <TouchableOpacity onPress ={handleLogInBtn}>
                 <AppButton title={"Log in"} backgroundColor={'black'} color={CONST.BACKGROUND_COLOR} size='m'/>
             </TouchableOpacity>
-            
-
         </View>
     </ImageBackground>
     );

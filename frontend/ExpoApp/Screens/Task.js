@@ -18,7 +18,8 @@ export default function Task() {
   const navigation = useNavigation();
   const [TaskList, setTaskList] = useState([
     {
-      name: "Collect trash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -26,7 +27,8 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect trash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -34,7 +36,8 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -42,7 +45,8 @@ export default function Task() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -50,7 +54,8 @@ export default function Task() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -58,7 +63,8 @@ export default function Task() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -66,7 +72,8 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -74,7 +81,8 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -82,7 +90,8 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect rash",
+      name: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -99,6 +108,7 @@ export default function Task() {
       addr={item.addr}
       dist={item.dist}
       hint={item.hint}
+      taskId={item.taskId}
     />
   );
   return (

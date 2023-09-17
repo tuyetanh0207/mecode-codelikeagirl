@@ -13,14 +13,15 @@ import { AppButton } from "../Components/JoinBtn";
 import * as CONST from "../Utils/constants";
 import styles from "../Utils/styles";
 import { taskDetailstyles } from "../Utils/taskDetailsStyles";
-
+import MapComponent from '../Components/Map'
+import { getIconByTitle } from "../Utils/constants";
 export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
   const { name, shortAddr, addr, dist, icon, hint } = route.params;
   const navigation = useNavigation();
   const handleJoinBtn = () => {
     navigation.navigate("Join", {
       name: name,
-      icon: "",
+      icon: icon,
       shortAddr: shortAddr,
       addr: addr,
       dist: dist,
@@ -51,11 +52,7 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
           <View style={taskDetailstyles.name}>
             {/* icon */}
             <View style={taskDetailstyles.left}>
-              <Iconify
-                icon="solar:bag-4-linear"
-                size={CONST.responsiveHeight(60)}
-                color={CONST.FEATURE_TEXT_COLOR}
-              />
+            {CONST.getIconByTitle(name,mappingType = CONST.normalIconMapping_60)}
             </View>
             {/* name */}
             <View style={taskDetailstyles.right}>
@@ -76,10 +73,10 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
         </View>
         {/* map */}
         <View style={taskDetailstyles.map}>
-          <Image
-            source={require("../assets/images/fakepartmap.png")}
-            style={taskDetailstyles.mapImage}
-          />
+          <View style={taskDetailstyles.mapContainer}>
+              <MapComponent />
+
+          </View>
         </View>
       </ScrollView>
       {/* btn */}

@@ -76,18 +76,24 @@ export const taskDetailstyles = StyleSheet.create({
   },
   map: {
     alignItems: "center",
-    marginTop: "3%",
+    marginTop: "1%",
     flex: 1,
-    marginBottom: "8%",
+    marginBottom: "4%",
+  },
+  mapContainer: {
+    width: "92%",
+    height: 280,
+    marginTop: CONST.TRUTH_SCREEN[1] * 0.05,
   },
   mapImage: {
     width: "92%",
-    height: 255,
+    height: 260,
     borderRadius: 10,
   },
   btn: {
     alignItems: "center",
     marginTop: "2%",
-    marginBottom: "3%",
+    marginBottom: "4%",
   },
+
 });

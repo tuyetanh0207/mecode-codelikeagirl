@@ -5,16 +5,17 @@ import { Iconify } from "react-native-iconify";
 import { AppButton } from "../Components/JoinBtn.js";
 import * as CONST from "../Utils/constants";
 
-export const Item = ({ name, icon, shortAddr, addr, dist, hint }) => {
+export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId }) => {
   const navigation = useNavigation();
   const handlePressJoinBtn = () => {
     navigation.navigate("TaskDetails", {
       name: name,
-      icon: "",
+      icon: icon,
       shortAddr: shortAddr,
       addr: addr,
       dist: dist,
       hint: hint,
+      taskId: taskId
     });
   };
 
@@ -22,32 +23,7 @@ export const Item = ({ name, icon, shortAddr, addr, dist, hint }) => {
     <TouchableOpacity style={taskDetailstyles.container}>
       <View style={taskDetailstyles.left}>
         <View style={taskDetailstyles.icon}>
-          {name.includes("trash", 0) ? (
-            <Iconify
-              icon="fluent:bin-recycle-20-regular"
-              size={CONST.responsiveHeight(60)}
-              color={CONST.FEATURE_TEXT_COLOR}
-            />
-          ) : name.includes("bottle", 0) ? (
-            <Iconify
-              icon="solar:bottle-linear"
-              size={CONST.responsiveHeight(60)}
-              color={CONST.FEATURE_TEXT_COLOR}
-            />
-          ) : name.includes("bag", 0) ? (
-            <Iconify
-              icon="solar:bag-4-linear"
-              size={CONST.responsiveHeight(60)}
-              color={CONST.FEATURE_TEXT_COLOR}
-            />
-          ) : (
-            // bắt đầu thay thế từ đây (!!! NEED TO TRANSLATE THIS COMMENT TO ENGLISH !!!)
-            <Iconify
-              icon="solar:bag-4-linear"
-              size={CONST.responsiveHeight(60)}
-              color={CONST.FEATURE_TEXT_COLOR}
-            />
-          )}
+          {CONST.getIconByTitle(name,mappingType = CONST.normalIconMapping_60)}
         </View>
         <View style={taskDetailstyles.dis}>
           <Text style={taskDetailstyles.disText}>{dist}m</Text>

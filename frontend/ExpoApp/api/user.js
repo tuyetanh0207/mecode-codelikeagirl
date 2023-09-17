@@ -11,7 +11,7 @@ export const signIn = async (email, password) => {
            const userInfo = JSON.stringify(signInRes.data.userInfo)
            console.log(userInfo)
            await AsyncStorage.setItem('token', token)
-          await AsyncStorage.setItem('userInfo', userInfo)
+           await AsyncStorage.setItem('userInfo', userInfo)
 
 
         }
