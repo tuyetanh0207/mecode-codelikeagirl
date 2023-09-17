@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-// import * as Location from 'expo-location';
+import * as Location from 'expo-location';
 import styles from '../Utils/styles';
 import { UserLocationContext } from '../Contexts/user_location';
-import { Iconify } from 'react-native-iconify';
 import * as CONST from '../Utils/constants';
 import { View, Text, TouchableOpacity } from 'react-native';
 
@@ -74,6 +73,7 @@ class MapComponent extends Component {
         };
     }
 
+
     componentDidMount() {
         // This function will be automatically called at the first render
         // Set user location for map
@@ -98,6 +98,7 @@ class MapComponent extends Component {
         this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
             markerCoord.container_style = CONST.getTaskContainerSizeByTitle(markerCoord.title)
         ))
+        this.startLocationTracking();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -115,6 +116,30 @@ class MapComponent extends Component {
                 },
             });
         }
+    }
+
+    startLocationTracking = async () => {
+        await Location.watchPositionAsync(
+            {
+                accuracy: Location.Accuracy.Balanced,
+                distanceInterval: CONST.THRESOLD_LOCATION_DISTANCE,
+            },
+            newLocation => {
+                this.updateMapRegion(newLocation.coords);
+                console.log('New location:', newLocation.coords);
+            }
+        );
+    }
+
+    updateMapRegion = newCoords => {
+        // Change map view when the user move
+        this.setState(prevState => ({
+            mapRegion: {
+                ...prevState.mapRegion,
+                latitude: newCoords.latitude,
+                longitude: newCoords.longitude,
+            },
+        }));
     }
 
     // Hide the marker when zoom out
