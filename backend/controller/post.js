@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const Post = require("../models/post");
 const cloudinary = require("../helper/imageUpload");
 exports.createPost = async (req, res) => {
+  console.log(('running posting'))
   const { user } = req;
   if (!user._id)
     return res
@@ -34,17 +35,31 @@ exports.createPost = async (req, res) => {
           address: address,
           campaignId: campaignId,
           votedPoint: votedPoint,
+          createdDate: Date()
         });
         await post.save();
+        res.status(201).json({
+          success: true,
+          message: "Create post successfully!",
+          post: {
+            _id: post._id,
+            userId: post.userId,
+            taskName: post.taskName,
+            taskId: post.taskId,
+            caption: post.caption,
+            photos: post.photos,
+            address: post.address,
+            campaignId: post.campaignId,
+            votedPoint: post.votedPoint,
+            createdDate: post.createdDate
+    
+          }
+        });
         console.log("done saving");
       }
     });
 
-    res.status(201).json({
-      success: true,
-      message: "Create post successfully!",
-      post: post,
-    });
+    
   } catch (error) {
     console.log("Error while process photos when creating post.");
   }

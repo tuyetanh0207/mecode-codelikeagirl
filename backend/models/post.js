@@ -28,6 +28,7 @@ const postSchema = new mongoose.Schema({
     },
     address: String,
     votedPoint: Number,
+    createdDate: String
 
 })
 module.exports = mongoose.model('Post', postSchema)

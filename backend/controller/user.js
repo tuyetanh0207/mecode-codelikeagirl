@@ -29,8 +29,8 @@ exports.userSignIn = async (req, res) => {
       success: false,
       message: "User not found, with the given email!",
     });
-  const isMathch = await user.comparePassword(password);
-  if (!isMathch) {
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
     return res.json({
       success: false,
       message: "email/password does not match!",
@@ -41,7 +41,9 @@ exports.userSignIn = async (req, res) => {
       userId: user._id,
     },
     process.env.JWT_SECRET,
-    { expiresIn: "1d" }
+    { 
+      //expiresIn: "1d"
+   }
   );
   return res.json({
     success: true,
