@@ -50,7 +50,7 @@ export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMa
 // Map
 export const THRESHOLD_SHOW_TASK_ICONS = 0.1;
 export const THRESHOLD_SHOW_TASK_TITLES = 0.05;
-export const THRESOLD_LOCATION_DISTANCE = 1;
+export const THRESOLD_LOCATION_DISTANCE = 10;
 
 // Task container size on the map
 export const taskContainerSizeMapping = {
