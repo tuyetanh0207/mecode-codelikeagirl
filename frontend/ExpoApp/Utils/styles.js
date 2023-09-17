@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     mainMapContainer: {
         width: CONST.TRUTH_SCREEN[0],
         height: CONST.TRUTH_SCREEN[1],
-        marginTop: CONST.TRUTH_SCREEN[1] * 0.03,
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.05,
     },
     taskListButton: {
         width: CONST.responsiveHeight(162),
@@ -111,7 +111,16 @@ const styles = StyleSheet.create({
         borderRadius: CONST.responsiveHeight(8),
         marginHorizontal: CONST.responsiveHeight(10),
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: CONST.TASK_LABEL_COLOR,
-    }
+    },
+    subtitle: {
+        fontFamily: 'Inter-Medium',
+        fontSize: CONST.responsiveHeight(22),
+        lineHeight: CONST.responsiveHeight(24),
+        letterSpacing: 0,
+        textAlign: 'center',
+        color: CONST.NAVIGATION_ACTIVE_COLOR,
+    },    
 });
 export default styles;  
