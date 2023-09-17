@@ -89,37 +89,8 @@ export default function Task() {
         </View>
     );
 }
-// const Item = ({ name, icon }) => (
-//     <TouchableOpacity style={taskDetailstyles.container}>
-//       <View style={taskDetailstyles.left}>
-//         <View style={taskDetailstyles.icon}>
-//             <Iconify icon="iconoir:leaderboard-star" size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
-//         </View>
-//         <View style={taskDetailstyles.dis}>
-//             <Text style={taskDetailstyles.disText}>80m</Text>
-//         </View>
-//       </View>
-//       <View style={taskDetailstyles.mid}>
-//         <Text style={taskDetailstyles.name} numberOfLines={1}>
-//             {name} {name}
-//         </Text>
-//         <Text style={taskDetailstyles.shortAddr}>
-//             Thao Cam Vien zoo
-//         </Text>
-//         <Text style={taskDetailstyles.addr} numberOfLines={2}>
-//             2 Nguyen Binh Khiem, Ward Ben Nghe, District 1
-//         </Text>
-//       </View>
-//       <View style={taskDetailstyles.right}>
-//         <View  >
-//            <AppButton title="Join" backgroundColor={CONST.SECOND_THEME_COLOR} color={CONST.SECOND_TEXT_COLOR} size ="sm"/>
-//         </View>
 
-//       </View>
-//     </TouchableOpacity>
-//   );
-// 
-const taskstyles = StyleSheet.create({
+const taskstyles= StyleSheet.create({
     imageBackground: {
         flex: 1
     },

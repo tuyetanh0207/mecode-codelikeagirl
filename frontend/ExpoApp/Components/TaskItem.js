@@ -3,49 +3,48 @@ import { View, Text, Button, StyleSheet, ImageBackground, ScrollView, SafeAreaVi
 import { Iconify } from 'react-native-iconify';
 import * as CONST from '../Utils/constants';
 import { AppButton } from '../Components/JoinBtn.js';
-export const Item = ({ name, icon }) => (
+export const Item = ({ name, icon, navigation }) => (
 
     <TouchableOpacity style={taskDetailstyles.container}>
-        <View style={taskDetailstyles.left}>
-            <View style={taskDetailstyles.icon}>
-                {name.includes("trash", 0)
+      <View style={taskDetailstyles.left}>
+        <View style={taskDetailstyles.icon}>
+            {name.includes("trash",0)
+            ?
+            <Iconify icon='fluent:bin-recycle-20-regular' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
+            :
+                name.includes("bottle",0)
+                ?
+                <Iconify icon='solar:bottle-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
+                :
+                    name.includes("bag",0)
                     ?
-                    <Iconify icon='fluent:bin-recycle-20-regular' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
+                    <Iconify icon='solar:bag-4-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
                     :
-                    name.includes("bottle", 0)
-                        ?
-                        <Iconify icon='solar:bottle-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
-                        :
-                        name.includes("bag", 0)
-                            ?
-                            <Iconify icon='solar:bag-4-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
-                            :
-                            // bắt đầu thay thế từ đây (!!! NEED TO TRANSLATE THIS COMMENT TO ENGLISH !!!)
-                            <Iconify icon='solar:bag-4-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} />
-                }
-
-            </View>
-            <View style={taskDetailstyles.dis}>
-                <Text style={taskDetailstyles.disText}>80m</Text>
-            </View>
+                    // bắt đầu thay thế từ đây
+                    <Iconify icon='solar:bag-4-linear' size={CONST.responsiveHeight(60)} color={CONST.FEATURE_TEXT_COLOR} /> 
+        }
         </View>
-        <View style={taskDetailstyles.mid}>
-            <Text style={taskDetailstyles.name} numberOfLines={1}>
-                {name} {name}
-            </Text>
-            <Text style={taskDetailstyles.shortAddr}>
-                Thao Cam Vien zoo
-            </Text>
-            <Text style={taskDetailstyles.addr} numberOfLines={2}>
-                2 Nguyen Binh Khiem, Ward Ben Nghe, District 1
-            </Text>
+        <View style={taskDetailstyles.dis}>
+            <Text style={taskDetailstyles.disText}>80m</Text>
         </View>
-        <View style={taskDetailstyles.right}>
-            <View  >
-                <AppButton title="Join" backgroundColor={CONST.LIGHT_PINK_COLOR} color={CONST.DARK_PINK_COLOR} size="sm" />
-            </View>
-
+      </View>
+      <View style={taskDetailstyles.mid}>
+        <Text style={taskDetailstyles.name} numberOfLines={1}>
+            {name} {name}
+        </Text>
+        <Text style={taskDetailstyles.shortAddr}>
+            Thao Cam Vien zoo
+        </Text>
+        <Text style={taskDetailstyles.addr} numberOfLines={2}>
+            2 Nguyen Binh Khiem, Ward Ben Nghe, District 1
+        </Text>
+      </View>
+      <View style={taskDetailstyles.right}>
+        <View  >
+           <AppButton title="Join" backgroundColor={CONST.SECOND_THEME_COLOR} color={CONST.SECOND_TEXT_COLOR} size ="sm"/>
         </View>
+    
+      </View>
     </TouchableOpacity>
 );
 
@@ -65,7 +64,8 @@ const taskDetailstyles = StyleSheet.create({
     },
     left: {
         flex: 0.1,
-        alignItems: 'center'
+        //flexDirection:'row'
+        //alignItems: 'center'
     },
     icon: {
         flex: 1
