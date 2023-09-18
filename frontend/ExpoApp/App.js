@@ -197,6 +197,7 @@ export default function App() {
         <Stack.Screen name="Task" component={TaskNotLoggedIn} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="LogIn" component={LogIn} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     );
   }

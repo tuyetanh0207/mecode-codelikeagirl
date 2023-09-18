@@ -18,9 +18,21 @@ import client from "../api/client";
 import { useNavigation } from '@react-navigation/native';
 export default function Join({ navigation: { goBack }, route }) {
     const navigation = useNavigation();
-    if (route.params) {
-        const { name, shortAddr, addr, dist, icon, hint, taskId } = route.params;
+   // let { name, shortAddr, addr, dist, icon, hint, taskId } ={}
+   let   name, shortAddr, addr, dist, icon, hint, taskId 
+   console.log('rout', route.params)
+   if (route.params) {
+      ({ name, shortAddr, addr, dist, icon, hint, taskId } = route.params);
+    } else {
+      name=""
+      shortAddr=""
+      addr=""
+      dist=""
+      icon=""
+      hint=""
+      taskId=""
     }
+  
 
     // const name = "haha";
     // const id = "aaa";
@@ -71,36 +83,36 @@ export default function Join({ navigation: { goBack }, route }) {
             });
         });
 
-        //     try {
-        //       // console.log('token send:', token)
-        //       // console.log('form data', formData)
-        //       const res = await client.post("/post/create-post", formData, {
-        //         headers: {
-        //           Accept: "application/json",
-        //           "Content-Type": "multipart/form-data",
-        //           authorization: `JWT ${token}`,
-        //         },
-        //       });
-        //       console.log("result posting: ", res.data);
-        //       if (res.data.success===true){
-        //         const donePost = res.data.post
-        //         navigation.navigate('Post', {
-        //           isJustPosted: true,
-        //            userId: donePost.userId,
-        //            taskName: donePost.taskName,
-        //            taskId: donePost.taskId,
-        //            campaignId: donePost.campaignId,
-        //            caption: donePost.caption,
-        //            photos: donePost.photos,
-        //            postId: donePost._id,
-        //            addr: donePost.address,
-        //            createdDate: donePost.createdDate,
-        //            shortAddr: shortAddr
-        //            })
-        //       }
-        //     } catch (error) {
-        //       console.log(error.message);
-        //     }
+            try {
+              // console.log('token send:', token)
+              // console.log('form data', formData)
+              const res = await client.post("/post/create-post", formData, {
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "multipart/form-data",
+                  authorization: `JWT ${token}`,
+                },
+              });
+              console.log("result posting: ", res.data);
+              if (res.data.success===true){
+                const donePost = res.data.post
+                navigation.navigate('Post', {
+                  isJustPosted: true,
+                   userId: donePost.userId,
+                   taskName: donePost.taskName,
+                   taskId: donePost.taskId,
+                   campaignId: donePost.campaignId,
+                   caption: donePost.caption,
+                   photos: donePost.photos,
+                   postId: donePost._id,
+                   addr: donePost.address,
+                   createdDate: donePost.createdDate,
+                   shortAddr: shortAddr
+                   })
+              }
+            } catch (error) {
+              console.log(error.message);
+            }
     };
 
     const handleXicon = (currIdx) => {

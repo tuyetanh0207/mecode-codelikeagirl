@@ -34,8 +34,8 @@ export default function LogInScreen({navigation: {goBack}, route}) {
         try {
            
             console.log('prepare sending')
-            //const res = await signIn(userInfo.email, userInfo.password)
-            const res = await signIn(userInfo.email, userInfo.password)
+            const res = await signIn('myemail5@gmail.com', '123456')
+           // const res = await signIn(userInfo.email, userInfo.password)
             console.log(res.data)
             setIsLoggedIn(true)
             // const signInRes = await client.post('/sign-in', {
