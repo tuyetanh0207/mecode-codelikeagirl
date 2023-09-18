@@ -28,7 +28,7 @@ exports.isAuth = async (req, res, next) =>{
        
     }
     else {
-        res.json({success: false, message: 'nauthorized access!'})
+        res.json({success: false, message: 'unauthorized access!'})
     }
     console.log(req.headers.authorization)
 

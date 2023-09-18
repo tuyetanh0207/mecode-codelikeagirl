@@ -15,7 +15,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +29,9 @@
         "backgroundColor": "#ffffff"
       },
       "googleMapsApiKey": "AIzaSyCaH7HLeHLSJx_FUw17H-mTKFdQtxXjfXI",
+      "permissions": [
+	      'ACCESS_BACKGROUND_LOCATION'
+	    ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
