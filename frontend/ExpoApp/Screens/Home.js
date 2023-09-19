@@ -8,7 +8,7 @@ import * as CONST from '../Utils/constants';
 import Swiper from 'react-native-swiper';
 import MapComponent from '../Components/Map';
 
-export default function Home({ location }) {
+export default function Home() {
     const navigation = useNavigation();
 
     const Suggestions = () => {
