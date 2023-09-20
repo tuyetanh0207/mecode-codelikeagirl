@@ -12,11 +12,15 @@ mongoose.connect(process.env.MONGO_URI,{
 }).catch(err=>console.log(err.message))
 
 const userRouter = require('./routes/user')
+const taskRouter = require('./routes/task')
 const User = require('./models/user')
+const Task = require('./models/task')
 const app=express();
 
 app.use(express.json())
 app.use(userRouter)
+app.use(taskRouter)
+
 
 
 
