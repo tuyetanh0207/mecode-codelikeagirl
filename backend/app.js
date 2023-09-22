@@ -1,4 +1,5 @@
 const express = require("express");
+const os = require("os");
 
 require("dotenv").config();
 require('./models/db.js')
@@ -28,6 +29,15 @@ app.use("/v1/task", taskRouter)
 app.use("/v1/post", postRouter);
 app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
 
-app.listen(8000, () => {
-  console.log("Listening on Port 8000");
+const server = app.listen(8000, '0.0.0.0', () => {
+  const port = server.address().port;
+  const networkInterfaces = os.networkInterfaces();
+  const wifiInterface = networkInterfaces["Wi-Fi"] || networkInterfaces["wlan0"];
+  const wifiIPv4 = wifiInterface && wifiInterface.find(item => item.family === 'IPv4');
+
+  if (wifiIPv4) {
+    console.log(`Server is running at http://${wifiIPv4.address}:${port}`);
+  } else {
+    console.log("Wi-Fi adapter not found or does not have an IPv4 address.");
+  }
 });

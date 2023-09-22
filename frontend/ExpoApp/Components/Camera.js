@@ -14,9 +14,11 @@ export default function CameraComponent(props) {
     const [type, setType] = useState(CameraType.back);
     const cameraRef = useRef(null);
     const [onCamera, setOnCamera] = useState(true);
+    const [onViewLibrary, setOnViewLibrary] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [currentImage, setCurrentImage] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
+    const [hasRecorded, setHasRecorded] = useState(false);
     const [video, setVideo] = useState();
 
 
@@ -40,7 +42,7 @@ export default function CameraComponent(props) {
                 // console.log('end take pic');
                 setCapturedImages([...capturedImages, photo.uri]);
                 // MediaLibrary.createAssetAsync(photo.uri);
-                setOnCamera(false);
+                setOnViewLibrary(true);
                 setIsLoading(false);
                 setCurrentImage(photo.uri);
                 console.log('uri: ', photo.uri)
@@ -52,40 +54,35 @@ export default function CameraComponent(props) {
     };
 
     const startRecording = async () => {
-        if (cameraRef && cameraRef.current) {
+        if (cameraRef && cameraRef.current && isRecording) {
             try {
-                if (!isRecording) {
-                    // Camera is not currently recording, so start recording
-                    let options = {
-                        quality: "720p",
-                        maxDuration: 60,
-                        mute: false
-                    };
-                    await cameraRef.current.recordAsync(options);
-                    setIsRecording(true);
-                } else {
-                    console.log('Camera is already recording.');
-                }
+                // Start recording
+                let options = {
+                    quality: "720p",
+                    maxDuration: 60,
+                    mute: false
+                };
+                console.log('Start recording.');
+                await cameraRef.current.recordAsync(options);
+                console.log('Stop recording.');
             } catch (e) {
                 console.error('Error recording video: ', e);
             }
         }
     };
 
-
-
     const stopRecording = () => {
-        // if (cameraRef) {
-        //     cameraRef.current.stopRecording();
-        //     setIsRecording(false);
-        // }
-        setIsRecording(false);
-        cameraRef.current.stopRecording();
+        if (cameraRef) {
+            cameraRef.current.stopRecording();
+            // setIsRecording(false);
+            setHasRecorded(true);
+        }
     };
 
     const swapCamRec = () => {
         setIsRecording(onCamera);
         setOnCamera(!onCamera);
+        console.log('oncamera: ', onCamera);
     }
 
     function SmallCapturedImages() {
@@ -117,13 +114,11 @@ export default function CameraComponent(props) {
         );
     };
 
-
     return (
         <View style={CameraStyles.container}>
             <View style={CameraStyles.header}>
-
                 {
-                    onCamera ?
+                    !onViewLibrary ?
                         <TouchableOpacity onPress={() => setOnCamera(false)}>
                             <Iconify icon="octicon:x-24" size={CONST.responsiveHeight(40)} color={CONST.FEATURE_TEXT_COLOR} />
                         </TouchableOpacity>
@@ -135,19 +130,20 @@ export default function CameraComponent(props) {
 
 
                 <Text style={styles.subtitle}>Create post</Text>
-                {onCamera ?
-                    <TouchableOpacity onPress={swapCamRec}>
-                        <Iconify icon="solar:videocamera-record-outline" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
+
+                {isRecording ?
+                    <TouchableOpacity onPress={() => setIsRecording(false)}>
+                        <Iconify icon="bi:images" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
                     </TouchableOpacity>
                     :
-                    isRecording ?
-                        <TouchableOpacity onPress={swapCamRec}>
-                            <Iconify icon="bi:images" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
+                    onCamera ?
+                        <TouchableOpacity onPress={() => setIsRecording(true)}>
+                            <Iconify icon="solar:videocamera-record-outline" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
                         </TouchableOpacity>
                         :
                         <TouchableOpacity onPress={handlePressPostBtn}>
                             <AppButton
-                                title="Post"
+                                title="Done"
                                 backgroundColor={CONST.BACKGROUND_COLOR}
                                 color={CONST.FEATURE_TEXT_COLOR}
                                 size="sm"
@@ -158,76 +154,52 @@ export default function CameraComponent(props) {
             </View>
 
             <View>
-                {onCamera || isRecording ?
-                    <Camera
-                        ref={cameraRef}
-                        type={type}
-                        style={CameraStyles.camera}
-                    />
-                    :
-                    < Image source={{ uri: currentImage }} style={CameraStyles.camera} />
+                {
+                    onViewLibrary ?
+                        < Image source={{ uri: currentImage }} style={CameraStyles.camera} />
+                        :
+                        <Camera
+                            ref={cameraRef}
+                            type={type}
+                            style={CameraStyles.camera}
+                        />
                 }
             </View>
 
-            {
-                isRecording ?
-                    <View style={CameraStyles.controler}>
-                        <TouchableOpacity onPress={isRecording ? startRecording : stopRecording}>
-                            <Image source={CONST.VIDEO_RECORD_BUTTON} style={CameraStyles.recordButton} />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={CameraStyles.flipCamera}
-                            onPress={toggleCameraType}
-                        >
+            <View
+                style={onCamera && capturedImages.length ? CameraStyles.controler2 :
+                    onViewLibrary ? CameraStyles.container : CameraStyles.controler}>
+                {onViewLibrary ? (
+                    <SmallCapturedImages />
+                ) : (
+                    <>
+                        {isRecording ? (
+                            <TouchableOpacity onPress={hasRecorded ? startRecording : stopRecording}>
+                                <Image source={CONST.VIDEO_RECORD_BUTTON} style={CameraStyles.recordButton} />
+                            </TouchableOpacity>
+                        ) : null}
+                        {!isRecording && onCamera ? (
+                            <>
+                                {capturedImages.length ? (
+                                    <TouchableOpacity onPress={() => setOnViewLibrary(true)}>
+                                        <Iconify icon="bi:images" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                                    </TouchableOpacity>
+                                ) : null}
+                                <TouchableOpacity onPress={takePhoto}>
+                                    {isLoading ? (
+                                        <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
+                                    ) : (
+                                        <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
+                                    )}
+                                </TouchableOpacity>
+                            </>
+                        ) : null}
+                        <TouchableOpacity style={CameraStyles.flipCamera} onPress={toggleCameraType}>
                             <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
                         </TouchableOpacity>
-                    </View>
-                    :
-                    !onCamera && !isRecording ?
-                        <SmallCapturedImages />
-                        :
-                        capturedImages.length ?
-                            <View style={CameraStyles.controler2}>
-                                <TouchableOpacity onPress={() => { setOnCamera(false); }}>
-                                    {capturedImages.length ?
-                                        <Iconify icon="bi:images" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
-                                        : null
-                                    }
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={takePhoto}>
-                                    {isLoading ? (
-                                        <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
-                                    ) :
-                                        <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
-                                    }
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={CameraStyles.flipCamera}
-                                    onPress={toggleCameraType}
-                                >
-                                    <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
-                                </TouchableOpacity>
-                            </View>
-                            :
-                            <View style={CameraStyles.controler}>
-                                <TouchableOpacity onPress={takePhoto}>
-                                    {isLoading ? (
-                                        <ActivityIndicator size="large" color={CONST.DARK_GREEN_COLOR} />
-                                    ) :
-                                        <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color={CONST.DARK_GREEN_COLOR} />
-                                    }
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={CameraStyles.flipCamera}
-                                    onPress={toggleCameraType}
-                                >
-                                    <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
-                                </TouchableOpacity>
-                            </View>
-            }
+                    </>
+                )}
+            </View>
         </View>
     );
 }
