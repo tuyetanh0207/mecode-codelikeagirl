@@ -63,8 +63,11 @@ export default function CameraComponent(props) {
                     mute: false
                 };
                 console.log('Start recording.');
-                await cameraRef.current.recordAsync(options);
-                console.log('Stop recording.');
+                cameraRef.current.recordAsync(options).then((recordedVideo) => {
+                    setVideo(recordedVideo);
+                    console.log('Stop recording.');
+                    setIsRecording(false);
+                });
             } catch (e) {
                 console.error('Error recording video: ', e);
             }
@@ -78,12 +81,6 @@ export default function CameraComponent(props) {
             setHasRecorded(true);
         }
     };
-
-    const swapCamRec = () => {
-        setIsRecording(onCamera);
-        setOnCamera(!onCamera);
-        console.log('oncamera: ', onCamera);
-    }
 
     function SmallCapturedImages() {
         return (
@@ -104,7 +101,7 @@ export default function CameraComponent(props) {
                 </ScrollView>
 
                 <TouchableOpacity
-                    onPress={() => { setOnCamera(true); }}
+                    onPress={() => setOnViewLibrary(false)}
                     style={[CameraStyles.previewImage, { alignItems: 'center', justifyContent: 'center' }]}
                 >
                     <Iconify icon="mingcute:add-line" size={CONST.responsiveHeight(46)} color={CONST.FEATURE_TEXT_COLOR} />
@@ -119,11 +116,11 @@ export default function CameraComponent(props) {
             <View style={CameraStyles.header}>
                 {
                     !onViewLibrary ?
-                        <TouchableOpacity onPress={() => setOnCamera(false)}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                             <Iconify icon="octicon:x-24" size={CONST.responsiveHeight(40)} color={CONST.FEATURE_TEXT_COLOR} />
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity onPress={() => setOnCamera(true)}>
+                        <TouchableOpacity onPress={() => setOnViewLibrary(false)}>
                             <Iconify icon="ic:round-arrow-back-ios" size={CONST.responsiveHeight(40)} color={CONST.FEATURE_TEXT_COLOR} />
                         </TouchableOpacity>
                 }
@@ -158,17 +155,28 @@ export default function CameraComponent(props) {
                     onViewLibrary ?
                         < Image source={{ uri: currentImage }} style={CameraStyles.camera} />
                         :
-                        <Camera
-                            ref={cameraRef}
-                            type={type}
-                            style={CameraStyles.camera}
-                        />
+                        !hasRecorded ?
+                            <Camera
+                                ref={cameraRef}
+                                type={type}
+                                style={CameraStyles.camera}
+                            />
+                            :
+                            video ?
+                                <Video
+                                    style={styles.video}
+                                    source={{ uri: video.uri }}
+                                    useNativeControls
+                                    resizeMode='contain'
+                                    isLooping
+                                />
+                                : null
                 }
             </View>
 
             <View
-                style={onCamera && capturedImages.length ? CameraStyles.controler2 :
-                    onViewLibrary ? CameraStyles.container : CameraStyles.controler}>
+                style={onViewLibrary ? CameraStyles.container :
+                    !isRecording && capturedImages.length ? CameraStyles.controler2 : CameraStyles.controler}>
                 {onViewLibrary ? (
                     <SmallCapturedImages />
                 ) : (
@@ -241,7 +249,7 @@ const CameraStyles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         alignItems: 'center',
-        marginLeft: CONST.responsiveWidth(30),
+        marginLeft: CONST.TRUTH_SCREEN[0] * 0.08,
     },
     flipCamera: {
         marginRight: CONST.TRUTH_SCREEN[0] * 0.1,
