@@ -38,6 +38,7 @@ export const FEATURE_TEXT_TRASH_ICON_60 = <Iconify icon="fluent:bin-recycle-20-r
 export const FEATURE_TEXT_BOTTLE_ICON_60 = <Iconify icon="solar:bottle-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_BAG_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_TREE_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const UNKNOWN_ICON_60 = <Iconify icon="carbon:unknown" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 
 export const boldIconMapping = {
     'Collect trash': BOLD_TRASH_ICON,
@@ -55,7 +56,7 @@ export const VIDEO_RECORD_BUTTON = require('../assets/images/record.png');
 
 // Get the suitable task icon corresponding to its title
 export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMapping) => {
-    return mappingType[title] || null;
+    return mappingType[title] || UNKNOWN_ICON_60;
 }
 
 // Map
@@ -85,5 +86,5 @@ export const taskContainerSizeMapping = {
 
 // Get the suitable task container size corresponding to its title
 export const getTaskContainerSizeByTitle = (title) => {
-    return taskContainerSizeMapping[title] || null;
+    return taskContainerSizeMapping[title] || 50;
 }

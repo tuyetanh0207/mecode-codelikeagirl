@@ -18,8 +18,8 @@ export default function CameraComponent(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [currentImage, setCurrentImage] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
-    const [hasRecorded, setHasRecorded] = useState(false);
-    const [video, setVideo] = useState();
+    // const [hasRecorded, setHasRecorded] = useState(false);
+    const [video, setVideo] = useState(null);
 
 
     const toggleCameraType = () => {
@@ -54,20 +54,16 @@ export default function CameraComponent(props) {
     };
 
     const startRecording = async () => {
-        if (cameraRef && cameraRef.current && isRecording) {
+        if (cameraRef && cameraRef.current) {
             try {
-                // Start recording
                 let options = {
                     quality: "720p",
                     maxDuration: 60,
                     mute: false
                 };
                 console.log('Start recording.');
-                cameraRef.current.recordAsync(options).then((recordedVideo) => {
-                    setVideo(recordedVideo);
-                    console.log('Stop recording.');
-                    setIsRecording(false);
-                });
+                const { uri } = await cameraRef.recordAsync(options);
+                setVideo(uri);
             } catch (e) {
                 console.error('Error recording video: ', e);
             }
@@ -77,8 +73,7 @@ export default function CameraComponent(props) {
     const stopRecording = () => {
         if (cameraRef) {
             cameraRef.current.stopRecording();
-            // setIsRecording(false);
-            setHasRecorded(true);
+            setVideo(null);
         }
     };
 
@@ -155,22 +150,20 @@ export default function CameraComponent(props) {
                     onViewLibrary ?
                         < Image source={{ uri: currentImage }} style={CameraStyles.camera} />
                         :
-                        !hasRecorded ?
+                        !video ?
                             <Camera
                                 ref={cameraRef}
                                 type={type}
                                 style={CameraStyles.camera}
                             />
                             :
-                            video ?
-                                <Video
-                                    style={styles.video}
-                                    source={{ uri: video.uri }}
-                                    useNativeControls
-                                    resizeMode='contain'
-                                    isLooping
-                                />
-                                : null
+                            <Video
+                                style={styles.video}
+                                source={{ uri: video.uri }}
+                                useNativeControls
+                                resizeMode='contain'
+                                isLooping
+                            />
                 }
             </View>
 
@@ -182,7 +175,7 @@ export default function CameraComponent(props) {
                 ) : (
                     <>
                         {isRecording ? (
-                            <TouchableOpacity onPress={hasRecorded ? startRecording : stopRecording}>
+                            <TouchableOpacity onPress={video ? startRecording : stopRecording}>
                                 <Image source={CONST.VIDEO_RECORD_BUTTON} style={CameraStyles.recordButton} />
                             </TouchableOpacity>
                         ) : null}
