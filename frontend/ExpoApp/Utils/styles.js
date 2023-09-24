@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     mainMapContainer: {
         width: CONST.TRUTH_SCREEN[0],
         height: CONST.TRUTH_SCREEN[1],
-        marginTop: CONST.TRUTH_SCREEN[1] * 0.03,
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.05,
     },
     taskListButton: {
-        width: CONST.responsiveHeight(162),
+        width: CONST.responsiveWidth(150),
         height: CONST.responsiveHeight(44),
         marginTop: CONST.TRUTH_SCREEN[1] * 0.85,
         marginLeft: CONST.TRUTH_SCREEN[0] * 0.6,
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         borderWidth: CONST.responsiveHeight(1),
         backgroundColor: CONST.BACKGROUND_COLOR,
         borderColor: CONST.SHADOW_BLACK_COLOR,
+        elevation: 4,
     },
     heading4: {
         fontFamily: 'Inter-Bold',
@@ -107,11 +108,20 @@ const styles = StyleSheet.create({
     },
     task_label_container: {
         paddingVertical: CONST.responsiveHeight(2),
-        paddingHorizontal: CONST.responsiveHeight(6),
+        paddingHorizontal: CONST.responsiveWidth(6),
         borderRadius: CONST.responsiveHeight(8),
-        marginHorizontal: CONST.responsiveHeight(10),
+        marginHorizontal: CONST.responsiveWidth(10),
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: CONST.TASK_LABEL_COLOR,
-    }
+    },
+    subtitle: {
+        fontFamily: 'Inter-Medium',
+        fontSize: CONST.responsiveHeight(22),
+        lineHeight: CONST.responsiveHeight(24),
+        letterSpacing: 0,
+        textAlign: 'center',
+        color: CONST.NAVIGATION_ACTIVE_COLOR,
+    },
 });
 export default styles;  

@@ -8,7 +8,7 @@ import * as CONST from '../Utils/constants';
 import Swiper from 'react-native-swiper';
 import MapComponent from '../Components/Map';
 
-export default function Home({ location }) {
+export default function Home() {
     const navigation = useNavigation();
 
     const Suggestions = () => {
@@ -25,7 +25,7 @@ export default function Home({ location }) {
             <View style={{ marginTop: CONST.TRUTH_SCREEN[1] * 0.03 }}>
                 <Text style={styles.heading2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
-                    <Swiper loop={true} showsPagination={true}>
+                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={1.5}>
                         {images.map((image, index, destination) => (
                             <TouchableOpacity key={index} style={styles.suggestImageContainer} onPress={() => navigation.navigate(destinations[index])}>
                                 <Image source={image} style={styles.suggestImage} resizeMode="cover" />

@@ -6,20 +6,22 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from "react-native";
 import styles from "../Utils/styles";
 import { useNavigation } from '@react-navigation/native';
 import * as CONST from "../Utils/constants";
 import { StatusBar } from "react-native";
 import { Item } from "../Components/TaskItem";
+import { notLoggedInStyles } from '../Utils/notLoggedInStyles';
+import { Iconify } from 'react-native-iconify';
 
 
-export default function Task() {
+export default function TaskNotLoggedIn() {
   const navigation = useNavigation();
   const [TaskList, setTaskList] = useState([
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect trash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -27,8 +29,7 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect trash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -36,8 +37,7 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -45,8 +45,7 @@ export default function Task() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -54,8 +53,7 @@ export default function Task() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -63,8 +61,7 @@ export default function Task() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -72,8 +69,7 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -81,8 +77,7 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -90,8 +85,7 @@ export default function Task() {
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect trash", 
-      taskId: 'collect trash',
+      name: "Collect rash",
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       dist: 80,
@@ -108,7 +102,6 @@ export default function Task() {
       addr={item.addr}
       dist={item.dist}
       hint={item.hint}
-      taskId={item.taskId}
     />
   );
   return (
@@ -116,7 +109,7 @@ export default function Task() {
       source={require("../assets/images/background.png")}
       style={styles.imageBackground}
     >
-      <View style={taskstyles.container}>
+      <View style={notLoggedInStyles.container}>
         <View style={taskstyles.header}>
           <Text style={styles.heading2}>Task list</Text>
         </View>
@@ -128,6 +121,37 @@ export default function Task() {
           />
         </SafeAreaView>
       </View>
+      <View  style={notLoggedInStyles.bottom}>
+                <TouchableOpacity
+                    style={{  }}
+                    onPress={() => navigation.navigate('MapNotLoggedIn')}
+                >
+                    
+                    <View style={notLoggedInStyles.mapButton}>
+                        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }} >
+                            <Iconify icon="bxs:map" size={CONST.responsiveHeight(36)} color="black" />
+                            <Text numberOfLines={1} style={[styles.heading4, { marginLeft: CONST.responsiveHeight(10) }, notLoggedInStyles.taskListtext]}>
+                                Map
+                            </Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{  }}
+                    onPress={() => navigation.navigate('LogIn')}
+                >
+                    
+                    <View style={notLoggedInStyles.signInButton}>
+                        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }} >
+                    
+                            <Text  numberOfLines={1} style={[styles.heading4, { marginLeft: CONST.responsiveHeight(10) }, notLoggedInStyles.signIntext]}>
+                                Sign in with Google
+                            </Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+           
+            </View>
     </ImageBackground>
   );
 }
