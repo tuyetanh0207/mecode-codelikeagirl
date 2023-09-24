@@ -30,8 +30,11 @@
       },
       "googleMapsApiKey": "AIzaSyCaH7HLeHLSJx_FUw17H-mTKFdQtxXjfXI",
       "permissions": [
-	      'ACCESS_BACKGROUND_LOCATION'
-	    ]
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE"
+      ],
+      "package": "com.kimicexy.Mecode_GreenStep"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,6 +46,11 @@
           "isAndroidBackgroundLocationEnabled": "false"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8ed529a7-03fb-4312-8e15-c0f4be07d3dd"
+      }
+    }
   }
 }
