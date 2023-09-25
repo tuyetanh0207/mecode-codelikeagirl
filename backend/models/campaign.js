@@ -20,7 +20,7 @@ const campaignSchema = new mongoose.Schema({
                             addr: String,
                             userId: String,
                             quantity: Number,
-                            date: Datetime,
+                            date: Date,
                             status: String,
                         }
                     ]

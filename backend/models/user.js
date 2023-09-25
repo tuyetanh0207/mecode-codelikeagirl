@@ -17,6 +17,38 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     avatar: String,
+    noti:
+    [
+        {
+            notiDate: Date,
+            content: String,
+        }
+    ],
+    greenStep: 
+    [
+        {
+            year: Number,
+            greenPoint:
+            [
+                [Number],
+            ],
+
+        }
+        
+
+    ],
+    campaignPoint:
+    [
+        {
+            campaignID: String,
+            votingPoint: Number,
+            votedPoint: Number,
+            postPoint: Number
+
+
+        }
+    ]
+
 })
 
 userSchema.pre('save', function(next){

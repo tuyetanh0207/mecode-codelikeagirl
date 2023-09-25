@@ -18,11 +18,11 @@ class ActivityController {
   static show = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req
-      //const userLatitude = parseFloat(req.query.latitude);
-      //const userLongitude = parseFloat(req.query.longitude);
+      const userLatitude = parseFloat(req.query.latitude);
+      const userLongitude = parseFloat(req.query.longitude);
 
-      const userLatitude = 10.781115855332459; 
-      const userLongitude = 106.66876032407103;
+      // const userLatitude = 10.781115855332459; 
+      // const userLongitude = 106.66876032407103;
 
       const nearbyPlaces = [];
 
@@ -48,6 +48,41 @@ class ActivityController {
       nearTaskList.sort(compare);
       res.json(nearTaskList)
       // res.json(activity[0]);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  static available = async (req, res) => {
+    try {
+      // Lấy tọa độ của người dùng từ req
+      const userLatitude = parseFloat(req.query.latitude);
+      const userLongitude = parseFloat(req.query.longitude);
+
+      // const userLatitude = 10.781115855332459; 
+      // const userLongitude = 106.66876032407103;
+
+      const tasklist = await Activity.find({idCampaign: idCampaign}).lean();
+      const availableTaskList = [];
+      tasklist.forEach(task=> {
+        if(task.isContraint == false) {
+          task['distance'] = 0;
+          availableTaskList.push(task);
+
+        }
+        else {
+          const distance = geolib.getDistance(
+            { latitude: userLatitude, longitude: userLongitude },
+            { latitude: task.latitude, longitude: task.longitude });
+          if(distance < 500) {
+            task['distance'] = distance;
+            availableTaskList.push(task);
+          }
+
+        }
+      })
+      availableTaskList.sort(compare);
+      res.json(availableTaskList)
+      
     } catch (error) {
       console.log(error)
     }
