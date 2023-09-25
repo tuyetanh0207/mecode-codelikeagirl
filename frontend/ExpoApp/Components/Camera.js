@@ -18,8 +18,8 @@ export default function CameraComponent(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [currentImage, setCurrentImage] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
-    // const [hasRecorded, setHasRecorded] = useState(false);
-    const [video, setVideo] = useState(null);
+    const [hasRecorded, setHasRecorded] = useState(false);
+    const [currentVideo, setCurrentVideo] = useState(null);
 
 
     const toggleCameraType = () => {
@@ -55,32 +55,36 @@ export default function CameraComponent(props) {
 
     const startRecording = async () => {
         if (cameraRef && cameraRef.current) {
+            let options = {
+                quality: "720p",
+                maxDuration: 60,
+                mute: false
+            };
             try {
-                let options = {
-                    quality: "720p",
-                    maxDuration: 60,
-                    mute: false
-                };
                 console.log('Start recording.');
-                const { uri } = await cameraRef.recordAsync(options);
-                setVideo(uri);
-            } catch (e) {
+                setHasRecorded(true);
+                const recorded_video = await cameraRef.current.recordAsync(options);
+                setCurrentVideo(recorded_video.uri);
+                console.log('Uri: ', recorded_video.uri);
+            }
+
+            catch (e) {
                 console.error('Error recording video: ', e);
             }
         }
     };
 
     const stopRecording = () => {
-        if (cameraRef) {
+        if (cameraRef && cameraRef.current) {
+            console.log('Stop recording.');
             cameraRef.current.stopRecording();
-            setVideo(null);
+            setHasRecorded(false);
         }
     };
 
     function SmallCapturedImages() {
         return (
-            <View
-                style={CameraStyles.imageList}>
+            <View style={CameraStyles.imageList}>
                 <ScrollView horizontal style={{ width: CONST.SCROLL_VIEW_WIDTH }}>
                     {capturedImages.map((image, index) => (
                         <TouchableOpacity
@@ -123,12 +127,12 @@ export default function CameraComponent(props) {
 
                 <Text style={styles.subtitle}>Create post</Text>
 
-                {isRecording ?
+                {isRecording && !currentVideo ?
                     <TouchableOpacity onPress={() => setIsRecording(false)}>
                         <Iconify icon="bi:images" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
                     </TouchableOpacity>
                     :
-                    onCamera ?
+                    !isRecording && capturedImages.length === 0 ?
                         <TouchableOpacity onPress={() => setIsRecording(true)}>
                             <Iconify icon="solar:videocamera-record-outline" size={CONST.responsiveHeight(42)} color={CONST.FEATURE_TEXT_COLOR} />
                         </TouchableOpacity>
@@ -145,27 +149,26 @@ export default function CameraComponent(props) {
 
             </View>
 
-            <View>
-                {
-                    onViewLibrary ?
-                        < Image source={{ uri: currentImage }} style={CameraStyles.camera} />
+            {
+                onViewLibrary ?
+                    <Image source={{ uri: currentImage }} style={CameraStyles.camera} />
+                    :
+                    !currentVideo ?
+                        <Camera
+                            ref={cameraRef}
+                            type={type}
+                            style={CameraStyles.camera}
+                        />
                         :
-                        !video ?
-                            <Camera
-                                ref={cameraRef}
-                                type={type}
-                                style={CameraStyles.camera}
-                            />
-                            :
-                            <Video
-                                style={styles.video}
-                                source={{ uri: video.uri }}
-                                useNativeControls
-                                resizeMode='contain'
-                                isLooping
-                            />
-                }
-            </View>
+                        <Video
+                            style={CameraStyles.video}
+                            source={{ uri: currentVideo }}
+                            useNativeControls
+                            resizeMode='contain'
+                            isLooping
+                            shouldPlay={true}
+                        />
+            }
 
             <View
                 style={onViewLibrary ? CameraStyles.container :
@@ -174,8 +177,8 @@ export default function CameraComponent(props) {
                     <SmallCapturedImages />
                 ) : (
                     <>
-                        {isRecording ? (
-                            <TouchableOpacity onPress={video ? startRecording : stopRecording}>
+                        {isRecording && !currentVideo ? (
+                            <TouchableOpacity onPress={hasRecorded ? stopRecording : startRecording}>
                                 <Image source={CONST.VIDEO_RECORD_BUTTON} style={CameraStyles.recordButton} />
                             </TouchableOpacity>
                         ) : null}
@@ -195,9 +198,12 @@ export default function CameraComponent(props) {
                                 </TouchableOpacity>
                             </>
                         ) : null}
-                        <TouchableOpacity style={CameraStyles.flipCamera} onPress={toggleCameraType}>
-                            <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
-                        </TouchableOpacity>
+                        {!currentVideo ? (
+                            <TouchableOpacity style={CameraStyles.flipCamera} onPress={toggleCameraType}>
+                                <Iconify icon="uis:refresh" size={CONST.responsiveHeight(45)} color={CONST.NAVIGATION_ACTIVE_COLOR} />
+                            </TouchableOpacity>
+                        ) : null}
+
                     </>
                 )}
             </View>
@@ -215,7 +221,7 @@ const CameraStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: CONST.TRUTH_SCREEN[0] * 0.03,
-        marginTop: CONST.TRUTH_SCREEN[1] * 0.06,
+        marginTop: CONST.TRUTH_SCREEN[1] * 0.04,
         alignItems: 'center',
     },
     header2: {
@@ -292,5 +298,10 @@ const CameraStyles = StyleSheet.create({
     recordButton: {
         width: CONST.responsiveWidth(70),
         height: CONST.responsiveWidth(70),
+    },
+    video: {
+        flex: 1,
+        alignSelf: 'stretch',
+        marginVertical: CONST.TRUTH_SCREEN[1] * 0.02,
     }
 });
