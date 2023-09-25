@@ -178,9 +178,19 @@ export default function CameraComponent(props) {
                 ) : (
                     <>
                         {isRecording && !currentVideo ? (
-                            <TouchableOpacity onPress={hasRecorded ? stopRecording : startRecording}>
-                                <Image source={CONST.VIDEO_RECORD_BUTTON} style={CameraStyles.recordButton} />
-                            </TouchableOpacity>
+                            <>
+                                {
+                                    !hasRecorded ?
+                                        <TouchableOpacity onPress={startRecording}>
+                                            <Image source={CONST.VIDEO_RECORD_BUTTON} style={CameraStyles.recordButton} />
+                                        </TouchableOpacity>
+                                        :
+                                        <TouchableOpacity onPress={stopRecording}>
+                                            <Iconify icon="carbon:circle-filled" size={CONST.responsiveHeight(80)} color="black" />
+                                        </TouchableOpacity>
+                                }
+                            </>
+
                         ) : null}
                         {!isRecording && onCamera ? (
                             <>
