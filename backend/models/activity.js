@@ -11,6 +11,7 @@ const activitySchema = new mongoose.Schema({
             hint: String,
             isContraint: Boolean,
             addresses: String,
+            shortAddr: String,
             latitude: Number,
             longitude: Number, 
         }

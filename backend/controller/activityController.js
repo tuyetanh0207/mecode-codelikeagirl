@@ -73,7 +73,7 @@ class ActivityController {
           const distance = geolib.getDistance(
             { latitude: userLatitude, longitude: userLongitude },
             { latitude: task.latitude, longitude: task.longitude });
-          if(distance < 500) {
+          if(distance < 300) {
             task['distance'] = distance;
             availableTaskList.push(task);
           }
