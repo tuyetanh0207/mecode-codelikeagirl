@@ -83,3 +83,27 @@ exports.uploadProfile = async (req, res) => {
     console.log("Error while uploading profile image", error.message);
   }
 };
+exports.getUserInfo= async (req,res) => {
+  console.log('running getUserInfo')
+  const userId = req.params.id;
+  const { user } = req;
+  if (!user._id) {
+    return res
+      .status(401)
+      .json({ success: false, message: "unauthorized access" });
+  }
+  try {
+    let user
+    if (userId!==user._id) {
+       user = await User.find({ userId: userId }).select('userId email avatar greenStep campaignPoint').exec();
+    } else 
+    {
+      user =await User.find({ userId: userId }).select('userId email avatar greenStep campaignPoint').exec();
+   }
+   console.log('user',user)
+    res.status(201).json({success: true, message: 'Get user\'s info successfully!', userInfo: user})
+
+  } catch (error) {
+    console.log('error in getUserInfo function', error)
+  }
+}

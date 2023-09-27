@@ -17,7 +17,47 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     avatar: String,
+    noti:
+    [
+        {
+            notiDate: Date,
+            content: String,
+        }
+    ],
+    greenStep: 
+    [
+        {
+            year: Number,
+            greenPoint:
+            [
+                [Number],
+            ],
+
+        }
+        
+
+    ],
+    campaignPoint:
+    [
+        {
+            joinedCities: [
+                {
+                    idLuckyWheel: String,
+                    nameLuckyWheel: String,
+                    isJoin: Number,
+                }
+            ],
+            campaignID: String,
+            votingPoint: Number,
+            votedPoint: Number,
+            postPoint: Number
+
+
+        }
+    ]
+
 })
+
 
 userSchema.pre('save', function(next){
     if(this.isModified('password')){

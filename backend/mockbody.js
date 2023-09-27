@@ -2,7 +2,7 @@
 -sign in
 "email":"myema@gmail.com",
 "password": "123456"
-
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTAzYzcwYTY0ZTVkN2IyNjY2ZGFiYWQiLCJpYXQiOjE2OTU2NDMwODV9.fegepT5cKP8JZeiWsrUP31a4r35yVaX6Bd0hgq3_u-s
 -- create user
 {
     "fullname": "nguyen tuyet anh",

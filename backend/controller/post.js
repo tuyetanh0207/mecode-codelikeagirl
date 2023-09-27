@@ -64,3 +64,32 @@ exports.createPost = async (req, res) => {
     console.log("Error while process photos when creating post.");
   }
 };
+
+exports.getAllPostOfUser = async (req,res) => {
+  console.log('running getAllpostOfUser')
+  const userId = req.params.id;
+  const { user } = req;
+  if (!user._id) {
+    return res
+      .status(401)
+      .json({ success: false, message: "unauthorized access" });
+  }
+  try {
+    let posts
+
+    console.log('user request', user._id)
+    console.log('user info', userId)
+    console.log('bang nhau', userId==user._id)
+    if (userId!==user._id) {
+       posts = await Post.find({ userId: userId }).select('userId taskName taskId campaignId address caption photos votedPoint createdDate').exec();
+    } else 
+    {
+      posts =await  Post.find({ userId: userId }).select('userId taskName taskId campaignId caption photos votedPoint address createdDate').exec();
+   }
+   console.log('posts',posts)
+    res.status(201).json({success: true, message: 'Get all post of user successfully!', posts: posts})
+
+  } catch (error) {
+    console.log('error in getAllPostOfUser function', error)
+  }
+}

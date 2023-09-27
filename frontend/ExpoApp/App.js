@@ -31,6 +31,7 @@ import { Camera } from 'expo-camera';
 import LoginProvider, { useLogin } from './Contexts/LoginProvider';
 import MapNotLoggedIn from './Screens/MapNotLoggedIn';
 import TaskNotLoggedIn from './Screens/TaskNotLoggedIn';
+import ProfileScreen from './Screens/Profile';
 // const { MongoClient } = require('mongodb');
 
 // Connect to Mongo DB host
@@ -115,7 +116,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={Home}
+          component={ProfileScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
@@ -194,6 +195,7 @@ export default function App() {
           headerShown: false
         }}>
         <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
+        {/* <Stack.Screen name="MapNotLoggedIn" component={ProfileScreen} /> */}
         <Stack.Screen name="Task" component={TaskNotLoggedIn} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="LogIn" component={LogIn} />

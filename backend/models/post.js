@@ -26,6 +26,7 @@ const postSchema = new mongoose.Schema({
         //required: true,
 
     },
+    shortAddr: String,
     address: String,
     votedPoint: Number,
     createdDate: String

@@ -44,3 +44,39 @@ export const signOut = async () => {
         return false
     }
 }
+
+export const getAllPostOfUser = async (userId) => {
+    try {
+        const token = await AsyncStorage.getItem('token')
+        if(token!=null){
+            const res = await client.get(`/post/getallpost/${userId}`, {
+                headers: {
+                    Authorization: `JWT ${token}`
+                }
+            })
+            if(res.data.success){
+                return res.data
+            }
+        }
+        return false
+    } catch (error) {
+        console.log('error inside getAllPostOfUser method', error.message)
+        return false
+    }
+}
+
+export const getUserInfo = async (userId) => {
+    try {
+        console.log("running login")
+        const getInfoRes = await client.post(`/user/${userId}/getinfo`, {
+            userId
+        })
+        if(getInfoRes.data.success) {
+           const token = getInfoRes.data.token
+        }
+        return getInfoRes
+    } catch (error) {
+        console.log('error inside getUserInfo method')
+        
+    }
+}

@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 const Post = require("../models/post");
-const { createPost, uploadPostPhotos } = require("../controller/post");
+const { createPost, uploadPostPhotos, getAllPostOfUser } = require("../controller/post");
 const {
   postValidation,
   validatePostCreate,
@@ -24,4 +24,5 @@ const storage = multer.diskStorage({
 upload = multer({ storage: storage });
 
 router.post("/create-post", isAuth, upload.array("photos"), createPost);
+router.get("/getallpost/:id", isAuth, getAllPostOfUser)
 module.exports = router;
