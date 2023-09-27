@@ -26,6 +26,6 @@ router.post('/create-user', validateUserSignUp, userValidation, createUser)
 router.post('/sign-in', validateUserSignIn, userValidation, userSignIn)
 router.post('/upload-profile',isAuth, uploads.single('profile'), uploadProfile)
 
-router.get("/notification",getNoti);
+router.get("/:id/notification",getNoti);
 
 module.exports= router

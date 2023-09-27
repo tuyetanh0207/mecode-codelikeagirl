@@ -86,8 +86,8 @@ exports.uploadProfile = async (req, res) => {
 
 exports.getNoti = async (req, res) => {
   try {
-    // var userID = user.userID;
-    var userID = "651159001f1dc1a4a78665d7";
+    var userID = user.params.id;
+    // var userID = "651159001f1dc1a4a78665d7";
     const user = await User.findOne({_id: userID});
     const noties = user.noti;
     res.json(noties);

@@ -50,11 +50,8 @@ class luckywheelController {
               break;
             }
             
-          }
-          
+          }  
         }
-        
-
       }
       
       res.json(luckywheelList);
@@ -63,7 +60,70 @@ class luckywheelController {
       console.log(error)
     }
   }
+
+  // POST /luckywheel/:userID/:luckyWheelID/shipment
+  static shipment = async (req, res) => {
+    try {
+      var userID = req.params.userID;
+      var luckyWheelID = req.params.luckyWheelID;
+      var { nameGift, addr, quantity} = req.body;
+
+      var newShipment = {
+          addr: addr,
+          userId: userID,
+          quantity: quantity,
+          date: Date.now(),
+          status: "dang chuan bi hang"
+      };
+
+      var luckywheel = await Luckywheel.findOne({_id: luckyWheelID});
+      
+      var index = -1;
+      for (let i = 0;i<luckywheel.giftList.length;i++) {
+        console.log(luckywheel.giftList[i])
+        if (luckywheel.giftList[i].nameGift == nameGift) {
+          
+          index = i;
+        }
+
+      }
+      if (index!=-1) {
+        if (quantity > luckywheel.giftList[index].restQuantity) {
+          res.json({
+            status: "failed",
+            message: "so luong qua tang khong du"
+          })
+        }
+        else {
+          luckywheel.giftList[index].shipment.push(newShipment);
+          luckywheel.giftList[index].restQuantity-=quantity;
+          await luckywheel.save();
+          luckywheel = await Luckywheel.findOne({_id: luckyWheelID});
+
+        // res.json(luckywheelList);
+        // res.json(campaignLastest.leaderboard);
+          res.json({
+            status: "success",
+            luckywheel
+          })
+
+        }
+        
+      }
+      else {
+        res.json({
+          status: "failed",
+          message: "khong tim thay nameGift"
+
+        })
+      } 
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
+
+
 
 
 

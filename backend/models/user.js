@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     [
         {
             notiDate: Date,
+            taskID: String,
             content: String,
         }
     ],
