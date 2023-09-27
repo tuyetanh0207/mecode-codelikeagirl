@@ -25,6 +25,7 @@ class campaignController {
     }
   }
 
+    // GET /campaign/leaderboard/user/:id/rank
   static rank = async (req, res) => {
     try {
       var userID = req.params.id;
@@ -59,6 +60,8 @@ class campaignController {
       console.log(error)
     }
   }
-
 }
+
+
+
 module.exports=campaignController

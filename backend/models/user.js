@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema({
     [
         {
             campaignID: String,
+            joinedCities: [String], //save luckywheelID
             votingPoint: Number,
             votedPoint: Number,
             postPoint: Number

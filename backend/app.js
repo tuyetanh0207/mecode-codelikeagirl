@@ -22,6 +22,10 @@ const activityRouter = require('./routes/activity')
 const Activity = require('./models/activity')
 const campaignRouter = require('./routes/campaign')
 const Campaign = require('./models/campaign')
+
+const luckywheelRouter = require('./routes/luckywheel')
+const Luckywheel = require('./models/luckywheel')
+
 const postRouter = require("./routes/post");
 const Post = require("./models/post");
 const app = express();
@@ -32,6 +36,7 @@ app.use("/v1/user", userRouter);
 app.use("/v1/activity", activityRouter)
 app.use("/v1/campaign", campaignRouter)
 app.use("/v1/post", postRouter);
+app.use("/v1/luckywheel", luckywheelRouter);
 app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
 
 app.listen(8000, () => {
