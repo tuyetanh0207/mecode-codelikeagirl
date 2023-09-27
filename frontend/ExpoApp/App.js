@@ -91,6 +91,14 @@ export default function App() {
       }
     };
 
+    const getMicrophonePermission = async () => {
+      const cameraStatus = await Camera.requestMicrophonePermissionsAsync();
+      if (cameraStatus !== 'granted') {
+        console.log('Permission to access microphone was denied');
+        return;
+      }
+    };
+
     const getLibraryPermission = async () => {
       const libraryStatus = await MediaLibrary.requestPermissionsAsync();
       console.log(libraryStatus);
@@ -103,6 +111,7 @@ export default function App() {
     const checkPermissions = async () => {
       await getLocationPermission();
       await getCameraPermission();
+      await getMicrophonePermission();
       await getLibraryPermission();
     };
 
@@ -203,18 +212,18 @@ export default function App() {
       </Stack.Navigator>
     );
   }
-  const MainNavigator = () =>{
-    const {isLoggedIn} = useLogin();
-    return isLoggedIn ? <RootStack/>:<NotLoggedInRootStack/>
+  const MainNavigator = () => {
+    const { isLoggedIn } = useLogin();
+    return isLoggedIn ? <RootStack /> : <NotLoggedInRootStack />
   }
   return (
-     <LoginProvider>
+    <LoginProvider>
       <UserLocationContext.Provider
         value={{ location, setLocation }}>
         <NavigationContainer>
-          <MainNavigator/>
+          <MainNavigator />
         </NavigationContainer>
       </UserLocationContext.Provider>
-     </LoginProvider>
+    </LoginProvider>
   );
 }

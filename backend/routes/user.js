@@ -4,8 +4,7 @@ const {check} = require('express-validator')
 
 const router = express.Router();
 const User = require('../models/user')
-const {createUser, userSignIn, uploadProfile, getUserInfo} = require('../controller/user')
-const {createUser, userSignIn, uploadProfile,getNoti} = require('../controller/user')
+const {createUser, userSignIn, uploadProfile, getUserInfo, getNoti} = require('../controller/user')
 const {validateUserSignUp, userValidation, validateUserSignIn} = require ('../middleware/validation/user');
 const { isAuth } = require('../middleware/auth');
 const multer = require('multer');

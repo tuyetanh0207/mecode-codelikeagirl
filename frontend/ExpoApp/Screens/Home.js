@@ -1,14 +1,14 @@
 import { React, useContext, useState, useEffect } from 'react';
-import { View, Text, Button, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import styles from '../Utils/styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Iconify } from 'react-native-iconify';
-import { TouchableOpacity, Image, Dimensions, PixelRatio } from 'react-native';
+import { TouchableOpacity, Image} from 'react-native';
 import * as CONST from '../Utils/constants';
 import Swiper from 'react-native-swiper';
 import MapComponent from '../Components/Map';
 
-export default function Home({ location }) {
+export default function Home() {
     const navigation = useNavigation();
 
     const Suggestions = () => {
@@ -25,7 +25,7 @@ export default function Home({ location }) {
             <View style={{ marginTop: CONST.TRUTH_SCREEN[1] * 0.03 }}>
                 <Text style={styles.heading2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
-                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={1.5}>
+                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={2}>
                         {images.map((image, index, destination) => (
                             <TouchableOpacity key={index} style={styles.suggestImageContainer} onPress={() => navigation.navigate(destinations[index])}>
                                 <Image source={image} style={styles.suggestImage} resizeMode="cover" />
