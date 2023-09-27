@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     [
         {
             notiDate: Date,
+            taskID: String,
             content: String,
         }
     ],
@@ -40,14 +41,8 @@ const userSchema = new mongoose.Schema({
     campaignPoint:
     [
         {
-            joinedCities: [
-                {
-                    idLuckyWheel: String,
-                    nameLuckyWheel: String,
-                    isJoin: Number,
-                }
-            ],
             campaignID: String,
+            joinedCities: [String], //save luckywheelID
             votingPoint: Number,
             votedPoint: Number,
             postPoint: Number

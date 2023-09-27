@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+// const express = require('express');
+// const router = express.Router();
 
-const TaskController = require('../controller/taskController');
+// const TaskController = require('../controller/taskController');
 
-router.get('/tasklist', TaskController.show);
+// router.get('/tasklist', TaskController.show);
 
-module.exports = router;
+// module.exports = router;

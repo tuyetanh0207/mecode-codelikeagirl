@@ -5,6 +5,7 @@ const {check} = require('express-validator')
 const router = express.Router();
 const User = require('../models/user')
 const {createUser, userSignIn, uploadProfile, getUserInfo} = require('../controller/user')
+const {createUser, userSignIn, uploadProfile,getNoti} = require('../controller/user')
 const {validateUserSignUp, userValidation, validateUserSignIn} = require ('../middleware/validation/user');
 const { isAuth } = require('../middleware/auth');
 const multer = require('multer');
@@ -26,4 +27,6 @@ router.post('/create-user', validateUserSignUp, userValidation, createUser)
 router.post('/sign-in', validateUserSignIn, userValidation, userSignIn)
 router.post('/upload-profile',isAuth, uploads.single('profile'), uploadProfile)
 router.get('/:id/getinfo', isAuth, getUserInfo)
+router.get("/:id/notification",getNoti);
+
 module.exports= router

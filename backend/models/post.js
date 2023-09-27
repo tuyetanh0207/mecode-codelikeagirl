@@ -29,7 +29,7 @@ const postSchema = new mongoose.Schema({
     shortAddr: String,
     address: String,
     votedPoint: Number,
-    createdDate: String
+    createdDate: String,
 
 })
 module.exports = mongoose.model('Post', postSchema)
