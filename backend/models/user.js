@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     [
         {
             notiDate: Date,
-            taskID: String,
+            activityID: String,
             content: String,
             distance: Number
         }

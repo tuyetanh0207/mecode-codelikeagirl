@@ -47,48 +47,36 @@ class ActivityController {
           }
           // update noti
           if(distance<50 && userID != "") {
-            // var user = await User.findByIdAndUpdate(userID,);
+            
             var user = await User.findById(userID);
-            // var newNotiDate = Date.now();
-            // var newNoti = {
-            //     notiDate: newNotiDate,
-            //     taskID: task.taskId,
-            //     content: task.nameTask,
-            //     distance: distance
-            //   }
-            // var userNoti = await User.find({_id:userID});
-            // userNoti.aggregate([
-            //   $dateToString: {
-            //     format: "%Y-%m-%d", 
-            //     date: userNoti.noti.notiDate
-            //   }
-            // ]
-            // );
-            // console.log(userNoti);
-            // if (user) {
+            
             var newNotiDate = new Date();
             var newNoti = {
               notiDate: newNotiDate,
-              taskID: task.taskId,
+              activityID: task._id,
               content: task.nameTask,
               distance: distance
             }
               
             
             var count = 0;
+            var sameActivityID = 0;
             for (let i = 0; i<user.noti.length;i++) {
               if (user.noti[i].notiDate.toString().slice(0,15) == newNotiDate.toString().slice(0,15)) {
                 count++;
               }
+              if (user.noti[i].notiDate.toString().slice(0,15) == newNotiDate.toString().slice(0,15)&&newNoti.activityID ==user.noti[i].activityID) {
+                sameActivityID = 1;
+              }
             }
             
-            if (count < 2) {
+            if (count < 4 &&sameActivityID==0 ) {
               // user.noti.push(newNoti);
               // await user.save();
               await User.findByIdAndUpdate(userID,{$push: {noti:newNoti }})
               
               user= await User.findOne({_id: userID});
-              // console.log(user.noti)
+              console.log(user.noti)
             }
           }
         }
