@@ -46,8 +46,8 @@ class ActivityController {
             nearTaskList.push(task);
           }
           // update noti
-          if(distance<50 && userID != "") {
-            
+          if(distance<150 && userID != "") {
+
             var user = await User.findById(userID);
             
             var newNotiDate = new Date();
@@ -65,7 +65,7 @@ class ActivityController {
               if (user.noti[i].notiDate.toString().slice(0,15) == newNotiDate.toString().slice(0,15)) {
                 count++;
               }
-              if (user.noti[i].notiDate.toString().slice(0,15) == newNotiDate.toString().slice(0,15)&&newNoti.activityID ==user.noti[i].activityID) {
+              if (user.noti[i].notiDate.toString().slice(0,15) == newNotiDate.toString().slice(0,15) && newNoti.activityID ==user.noti[i].activityID) {
                 sameActivityID = 1;
               }
             }
