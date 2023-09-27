@@ -1,4 +1,5 @@
 const Activity = require('../models/activity');
+const User = require('../models/user')
 const geolib = require('geolib');
 
 var idCampaign = "650b15ee597b737b1434c74f";
@@ -18,8 +19,9 @@ class ActivityController {
   static show = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req
-      const userLatitude = parseFloat(req.query.latitude);
-      const userLongitude = parseFloat(req.query.longitude);
+      const userLatitude = parseFloat(req.body.latitude);
+      const userLongitude = parseFloat(req.body.longitude);
+      const userID = req.body.userID;
 
       // const userLatitude = 10.781115855332459; 
       // const userLongitude = 106.66876032407103;
@@ -28,7 +30,8 @@ class ActivityController {
 
       const tasklist = await Activity.find({idCampaign: idCampaign}).lean();
       const nearTaskList = [];
-      tasklist.forEach(task=> {
+      for (let i = 0; i< tasklist.length;i++) {
+        var task = tasklist[i];
         if(task.isContraint == false) {
           task['distance'] = 0;
           nearTaskList.push(task);
@@ -42,9 +45,56 @@ class ActivityController {
             task['distance'] = distance;
             nearTaskList.push(task);
           }
-
+          // update noti
+          if(distance<50 && userID != "") {
+            // var user = await User.findByIdAndUpdate(userID,);
+            var user = await User.findById(userID);
+            // var newNotiDate = Date.now();
+            // var newNoti = {
+            //     notiDate: newNotiDate,
+            //     taskID: task.taskId,
+            //     content: task.nameTask,
+            //     distance: distance
+            //   }
+            // var userNoti = await User.find({_id:userID});
+            // userNoti.aggregate([
+            //   $dateToString: {
+            //     format: "%Y-%m-%d", 
+            //     date: userNoti.noti.notiDate
+            //   }
+            // ]
+            // );
+            // console.log(userNoti);
+            // if (user) {
+            var newNotiDate = new Date();
+            var newNoti = {
+              notiDate: newNotiDate,
+              taskID: task.taskId,
+              content: task.nameTask,
+              distance: distance
+            }
+              
+            
+            var count = 0;
+            for (let i = 0; i<user.noti.length;i++) {
+              if (user.noti[i].notiDate.toString().slice(0,15) == newNotiDate.toString().slice(0,15)) {
+                count++;
+              }
+            }
+            
+            if (count < 2) {
+              // user.noti.push(newNoti);
+              // await user.save();
+              await User.findByIdAndUpdate(userID,{$push: {noti:newNoti }})
+              
+              user= await User.findOne({_id: userID});
+              // console.log(user.noti)
+            }
+          }
         }
-      })
+
+      }
+      
       nearTaskList.sort(compare);
       res.json(nearTaskList)
       // res.json(activity[0]);
@@ -52,6 +102,8 @@ class ActivityController {
       console.log(error)
     }
   }
+
+
   static available = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req

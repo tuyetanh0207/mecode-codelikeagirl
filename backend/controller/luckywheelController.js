@@ -80,7 +80,6 @@ class luckywheelController {
       
       var index = -1;
       for (let i = 0;i<luckywheel.giftList.length;i++) {
-        console.log(luckywheel.giftList[i])
         if (luckywheel.giftList[i].nameGift == nameGift) {
           
           index = i;
@@ -100,8 +99,6 @@ class luckywheelController {
           await luckywheel.save();
           luckywheel = await Luckywheel.findOne({_id: luckyWheelID});
 
-        // res.json(luckywheelList);
-        // res.json(campaignLastest.leaderboard);
           res.json({
             status: "success",
             luckywheel
