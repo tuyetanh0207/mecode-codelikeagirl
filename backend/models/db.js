@@ -4,5 +4,5 @@ mongoose.connect(process.env.MONGO_URI,{
     useUnifiedTopology: true,
    // useCreateIndex: true
 }).then(()=>{
-    console.log('our db is connected')
+    console.log('our db is connected 2')
 }).catch(err=>console.log(err.message))
