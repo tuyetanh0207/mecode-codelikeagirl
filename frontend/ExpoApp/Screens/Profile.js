@@ -46,7 +46,7 @@ export default function ProfileScreen({navigation: {goBack}, route}) {
     userId: 'aaa',
     icon: 'ddd',
     shortAddr: 'ddd',
-    addr: 'ddd',
+    address: 'ddd',
     taskId: 'ddd',
     createdDate: 'Sun Sep 17 2023 19:11:13 GMT+0700 (Indochina Time)',
     caption: 'ddd',
@@ -110,8 +110,8 @@ export default function ProfileScreen({navigation: {goBack}, route}) {
           console.log('not route param')
             setIsCurrentUser(true)
             setProfileUserInfo(userInfo)
-            console.log('profile user when not ruote param kkk', userInfo)
-            console.log('profile user when not ruote param', profileUserInfo)
+           // console.log('profile user when not ruote param kkk', userInfo)
+           // console.log('profile user when not ruote param', profileUserInfo)
         }
 
         fetchPostList()
@@ -131,7 +131,7 @@ export default function ProfileScreen({navigation: {goBack}, route}) {
         userId={item.userId}
         icon={item.icon}
         shortAddr={item.shortAddr}
-        addr={item.addr}
+        addr={item.address}
         taskName={item.taskName}
         taskId={item.taskId}
         createdDate={item.createdDate}

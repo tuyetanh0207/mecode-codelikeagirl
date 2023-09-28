@@ -46,9 +46,10 @@ export const logInStyles = StyleSheet.create({
     },
     showpwd: {
         marginTop: '4%',
-        right: '15%',
+       // right: '15%',
         
-        marginLeft: 0,
+        marginLeft: '4%',
+        alignSelf: 'flex-start',
         paddingLeft: 0,
         position: "relative",
         flexDirection: "row",

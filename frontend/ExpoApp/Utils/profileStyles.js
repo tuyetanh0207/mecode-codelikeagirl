@@ -90,7 +90,7 @@ export const profileStyles = StyleSheet.create({
         marginTop: '3%',
     },
     dateText: {
-        fontSize: 14,
+        fontSize: CONST.responsiveHeight(14),
         fontWeight: "300",
     },
   

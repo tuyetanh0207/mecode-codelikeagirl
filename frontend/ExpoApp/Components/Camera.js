@@ -9,7 +9,8 @@ import styles from '../Utils/styles';
 import { AppButton } from './JoinBtn';
 import { useNavigation } from '@react-navigation/native';
 export default function CameraComponent(props) {
-    const { setIsTakingPhoto, setPhotos, photos } = props
+    const { setIsTakingPhoto, setPhotos, photos, isRecordingParent, setIsRecordingParent,
+    hasRecordedParent, setHasRecordedParent, currentVideoParent, setCurrentVideoParent } = props
     const [capturedImages, setCapturedImages] = useState(photos);
     const [type, setType] = useState(CameraType.back);
     const cameraRef = useRef(null);
@@ -65,6 +66,11 @@ export default function CameraComponent(props) {
                 setHasRecorded(true);
                 const recorded_video = await cameraRef.current.recordAsync(options);
                 setCurrentVideo(recorded_video.uri);
+                // Join component
+                setIsRecordingParent(true)
+                setHasRecordedParent(true);
+                setCurrentVideoParent(recorded_video.uri)
+
                 console.log('Uri: ', recorded_video.uri);
             }
 

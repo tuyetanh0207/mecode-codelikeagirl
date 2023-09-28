@@ -15,12 +15,15 @@ import * as CONST from "../Utils/constants";
 import { joinstyles } from "../Utils/joinStyles";
 import styles from "../Utils/styles";
 import client from "../api/client";
+import Video from 'react-native-video';
 import { useNavigation } from '@react-navigation/native';
+import ImagePicker from 'react-native-image-picker';
+import VideoPlayer from "../Components/VideoPlayer";
 export default function Join({ navigation: { goBack }, route }) {
     const navigation = useNavigation();
    // let { name, shortAddr, addr, dist, icon, hint, taskId } ={}
    let   name, shortAddr, addr, dist, icon, hint, taskId 
-   console.log('rout', route.params)
+   //console.log('rout', route.params)
    if (route.params) {
       ({ name, shortAddr, addr, dist, icon, hint, taskId } = route.params);
     } else {
@@ -43,49 +46,74 @@ export default function Join({ navigation: { goBack }, route }) {
     const [isTakingPhoto, setIsTakingPhoto] = useState(true);
     const getUser = async () => {
         const tk = await AsyncStorage.getItem("token");
-        //console.log('token get',token)
+        ////console.log('token get',token)
         setToken(tk)
         const str = await AsyncStorage.getItem("userInfo");
-        //console.log('token', token)
+        ////console.log('token', token)
         const userInfo_ = str ? JSON.parse(str) : {};
-        console.log(userInfo_)
+        //console.log(userInfo_)
         setUserInfo(userInfo_)
 
     };
     useEffect(() => {
         getUser()
+
     }, [])
-
-
+ 
     //const userFullName = userInfo.fullname
     const [feeling, setFeeling] = useState("");
     const [photos, setPhotos] = useState([]);
+    const [isRecordingParent, setIsRecordingParent] = useState(false);
+    const [hasRecordedParent, setHasRecordedParent] = useState(false);
+    const [currentVideoParent, setCurrentVideoParent] = useState(null);
+    var mp4ReExpression = /\.mp4$/; 
     const handleAddPhoto = () => {
         setIsTakingPhoto(true);
     };
     let formData;
+    useEffect(()=>{
+
+        console.log('video uri: ', currentVideoParent)
+    },[currentVideoParent])
+
+
     const handlePostBtn = async () => {
         formData = new FormData();
         //process string info
-        console.log("userId:", userInfo.userId);
+        //console.log("userId:", userInfo.userId);
         formData.append("userId", userInfo.userId);
         formData.append("taskName", name);
         formData.append("taskId", taskId);
         formData.append("caption", feeling);
         formData.append("address", addr);
-
+       
         // process photos
+        // if a video
+        if(mp4ReExpression.test(currentVideoParent)){
+            formData.append("photos", {
+                name: new Date() + "_profile",
+                uri: currentVideoParent,
+                type: "video/mp4",
+            });
+            formData.append("isMp4", true);
+        } 
+
         photos.forEach((pt, idx) => {
+            console.log('uri:', idx, "   ", pt)
             formData.append("photos", {
                 name: new Date() + "_profile",
                 uri: pt,
                 type: "image/jpg",
             });
+    
+            
         });
 
+       
+
             try {
-              // console.log('token send:', token)
-              // console.log('form data', formData)
+              // //console.log('token send:', token)
+              // //console.log('form data', formData)
               const res = await client.post("/post/create-post", formData, {
                 headers: {
                   Accept: "application/json",
@@ -111,7 +139,7 @@ export default function Join({ navigation: { goBack }, route }) {
                    })
               }
             } catch (error) {
-              console.log(error.message);
+              //console.log(error.message);
             }
     };
 
@@ -130,6 +158,13 @@ export default function Join({ navigation: { goBack }, route }) {
                     setIsTakingPhoto={setIsTakingPhoto}
                     setPhotos={setPhotos}
                     photos={photos}
+                    isRecordingParent={isRecordingParent}
+                    setIsRecordingParent={setIsRecordingParent}
+                    hasRecordedParent={hasRecordedParent}
+                    setHasRecordedParent={setHasRecordedParent}
+                    currentVideoParent={currentVideoParent}
+                    setCurrentVideoParent={setCurrentVideoParent}
+
                 />
             ) : (
                 <View style={joinstyles.container}>
@@ -190,7 +225,8 @@ export default function Join({ navigation: { goBack }, route }) {
                         />
                         {/* Photos */}
                         <View style={joinstyles.photos}>
-                            {photos.length === 0 ?
+                            {/* if there is no photo and no video to display */}
+                            {photos.length === 0 && currentVideoParent ==null ?
                                 <TouchableOpacity
                                     style={joinstyles.photo}
                                     onPress={handleAddPhoto}
@@ -200,12 +236,15 @@ export default function Join({ navigation: { goBack }, route }) {
                                         style={joinstyles.addicon}
                                     />
                                     <Text style={joinstyles.addtext}>Add</Text>
-                                </TouchableOpacity> :
-                                <FlatList
+                                </TouchableOpacity> : 
+                                photos.length>=0 ?
+                            // if there is a photo array to display
+                                <FlatList      
                                     data={photos}
                                     numColumns={3}
                                     renderItem={({ item, index }) => {
                                         return index === photos.length - 1 ? (
+                                            // add button
                                             <>
                                                 <View style={joinstyles.photo}>
                                                     <TouchableOpacity
@@ -217,7 +256,7 @@ export default function Join({ navigation: { goBack }, route }) {
 
                                                     <Image
                                                         source={{ uri: item }}
-                                                        style={{ width: "100%", height: 100 }}
+                                                        style={{ width: "100%", height: CONST.responsiveHeight(100) }}
                                                     />
                                                 </View>
                                                 <TouchableOpacity
@@ -232,6 +271,7 @@ export default function Join({ navigation: { goBack }, route }) {
                                                 </TouchableOpacity>
                                             </>
                                         ) : (
+                                            // photo element
                                             <View style={joinstyles.photo}>
                                                 <TouchableOpacity
                                                     onPress={() => handleXicon(index)}
@@ -239,18 +279,22 @@ export default function Join({ navigation: { goBack }, route }) {
                                                 >
                                                     <Image source={require("../assets/images/x.png")} />
                                                 </TouchableOpacity>
-
-                                                <Image
+                                                 <Image
                                                     source={{ uri: item }}
-                                                    style={{ width: "100%", height: 100 }}
-                                                />
+                                                    style={{ width: "100%", height: CONST.responsiveHeight(100) }}
+                                                />                     
                                             </View>
                                         )
+                                        
                                     }}
                                     keyExtractor={(item, index) => index}
                                 ></FlatList>
+                                :
+                                
+                                <></>
                             }
-
+                            {currentVideoParent && mp4ReExpression.test(currentVideoParent)?  <VideoPlayer videoUri={currentVideoParent} width={340} height={300}/> :<></>}
+                          
                         </View>
                         {/* Info */}
                         <View style={joinstyles.info}>

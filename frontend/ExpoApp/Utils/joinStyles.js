@@ -3,8 +3,8 @@ import * as CONST from "../Utils/constants";
 export const joinstyles = StyleSheet.create({
   container: {
     marginHorizontal: "4%",
-    marginTop: "10%",
-    fontSize: 19,
+    marginTop: "16%",
+    fontSize: CONST.responsiveHeight(19),
     fontWeight: "500",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
   },
@@ -14,21 +14,37 @@ export const joinstyles = StyleSheet.create({
     justifyContent: "space-between",
   },
   left: {
-    flex: 1,
-    justifyContent: "center",
+    flex: 2,
+    justifyContent: 'center'
+
+   
+  },
+  backIcon:{
+    position: "absolute",
+    // left: '4%',
+     top: '10%'
   },
   mid: {
     flex: 6,
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'center'
+
   },
   headertext: {
-    fontSize: 19,
+    fontSize: CONST.responsiveHeight(19),
     fontWeight: "500",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
+    alignItems: "center",
+    textAlign: "center",
+
+   
+   // width: '100%'
   },
+  // headertext: {
+
   right: {
-    flex: 1.5,
+    flex: 2,
+    justifyContent: 'center'
+
   },
   post: {
     padding: "4%",
@@ -55,12 +71,12 @@ export const joinstyles = StyleSheet.create({
     borderRadius: 20,
   },
   nametext: {
-    fontSize: 15,
+    fontSize: CONST.responsiveHeight(15),
     fontWeight: "500",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
   },
   feelinginput: {
-    height: "25%",
+    minHeight: "10%",
     width: "100%",
     marginTop: "4%",
     textAlignVertical: "top",
@@ -85,7 +101,7 @@ export const joinstyles = StyleSheet.create({
   addicon: {},
   addtext: {
     color: CONST.FEATURE_TEXT_COLOR,
-    fontSize: 15,
+    fontSize: CONST.responsiveHeight(15),
     fontWeight: "500",
   },
   info: {
@@ -93,16 +109,16 @@ export const joinstyles = StyleSheet.create({
   },
   taskNametext: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    fontSize: 16,
+    fontSize: CONST.responsiveHeight(16),
     fontWeight: "500",
   },
   taskShortAddrtext: {
     color: CONST.FEATURE_TEXT_COLOR,
-    fontSize: 15,
+    fontSize: CONST.responsiveHeight(15),
     fontWeight: "300",
   },
   taskAddrtext: {
-    fontSize: 14,
+    fontSize: CONST.responsiveHeight(14),
     fontWeight: "300",
   },
 });

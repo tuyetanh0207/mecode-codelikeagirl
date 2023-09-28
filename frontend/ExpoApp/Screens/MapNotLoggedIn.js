@@ -24,7 +24,7 @@ export default function MapNotLoggedIn() {
                 >
                     
                     <View style={notLoggedInStyles.taskListButton}>
-                        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }} >
+                        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                             <Iconify icon="pepicons-print:list" size={CONST.responsiveHeight(36)} color="black" />
                             <Text numberOfLines={1} style={[styles.heading4, { marginLeft: CONST.responsiveHeight(10) }, notLoggedInStyles.taskListtext]}>
                                 Task list

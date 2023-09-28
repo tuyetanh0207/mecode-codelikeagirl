@@ -17,10 +17,10 @@ export const notLoggedInStyles = StyleSheet.create({
         width: '100%',
     },
     taskListButton: {
-        maxWidth: '70%',
+        width: CONST.responsiveWidth(260),
         height: CONST.responsiveHeight(45),
       
-        paddingHorizontal: '25%',
+        //paddingHorizontal: '15%',
         borderRadius: CONST.responsiveHeight(40),
         borderWidth: CONST.responsiveHeight(1),
         backgroundColor: CONST.BACKGROUND_COLOR,
@@ -32,12 +32,13 @@ export const notLoggedInStyles = StyleSheet.create({
         shadowRadius: 50,
         elevation: 5,
         alignItems: "center",
+       // justifyContent: "center"
     },
     signInButton: {
-        maxWidth: '70%',
+        width: CONST.responsiveWidth(260),
         height: CONST.responsiveHeight(45),
       
-        paddingHorizontal: '15%',
+      //  paddingHorizontal: '15%',
         //paddingVertical: 10,
         borderRadius: CONST.responsiveHeight(40),
         borderWidth: CONST.responsiveHeight(1),
@@ -50,12 +51,13 @@ export const notLoggedInStyles = StyleSheet.create({
         shadowRadius: 50,
         elevation: 5,
         backgroundColor: 'black',
+        alignItems:'center'
     },
     mapButton: {
-        maxWidth: '70%',
+        width: CONST.responsiveWidth(260),
         height: CONST.responsiveHeight(45),
       
-        paddingHorizontal: '30%',
+       // paddingHorizontal: '30%',
         borderRadius: CONST.responsiveHeight(40),
         borderWidth: CONST.responsiveHeight(1),
         backgroundColor: CONST.BACKGROUND_COLOR,
@@ -66,14 +68,15 @@ export const notLoggedInStyles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 50,
         elevation: 5,
-        alignItems: "center",
+       // alignItems: "center",
     },
     taskListtext: {
-        width: '100%',
+       // width: CONST.responsiveHeight(200),
+        fontSize: CONST.responsiveHeight(20)
     },
     signIntext: {
-        width: '100%',
+       // width: CONST.responsiveHeight(200),
         color: CONST.BACKGROUND_COLOR,
-    
+        fontSize: CONST.responsiveHeight(20)
     }
 })

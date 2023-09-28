@@ -43,8 +43,8 @@ export default function LogInScreen({ navigation: { goBack }, route }) {
             //     password,
             // })
             // console.log(signInRes.data)
-            navigation.navigate('BottomTabs')
-
+           // navigation.navigate('BottomTabs')
+            console.log('loggin sucess')
         } catch (error) {
             console.log(error.message)
         }
@@ -69,7 +69,7 @@ export default function LogInScreen({ navigation: { goBack }, route }) {
             <View style={logInStyles.container}>
 
                 <View style={logInStyles.header}>
-                    <Text style={styles.heading2}>Sign in with Google</Text>
+                    <Text style={styles.heading2}>Sign in</Text>
                 </View>
                 <Text style={logInStyles.continuetext}>
                     Sign in to continue

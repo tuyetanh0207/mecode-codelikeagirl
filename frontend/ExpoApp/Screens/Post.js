@@ -16,10 +16,12 @@ import * as CONST from '../Utils/constants';
 import { joinstyles } from "../Utils/joinStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppButton } from "../Components/JoinBtn";
+import VideoPlayer from '../Components/VideoPlayer';
 // use style of Join screen
 
 export default function Post({navigation: {goBack}, route}) {
   const navigation = useNavigation()
+  var mp4ReExpression = /\.mp4$/; 
     const {isJustPosted, userId, taskName, taskId,campaignId, 
     caption, photos, postId, addr, shortAddr,
     createdDate} = route.params
@@ -55,7 +57,7 @@ export default function Post({navigation: {goBack}, route}) {
             {/* backicon */}
             <View style={joinstyles.left}>
               {/* <TouchableOpacity onPress={() => goBack()}> */}
-              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Task')} style={joinstyles.backIcon}>
                 <Image
                   source={require("../assets/images/x.png")}
                   style={joinstyles.backicon}
@@ -105,17 +107,23 @@ export default function Post({navigation: {goBack}, route}) {
               </Text>
             {/* Photos */}
             <View style={joinstyles.photos}>
-              
+            
              <FlatList
              data={photos}
              numColumns={3}
              renderItem={({ item, index }) => {
-               return   <View style={joinstyles.photo}>
-                     <Image
-                       src={ item }
-                       style={{ width: "100%", height: 100 }}
-                     />
-                   </View>
+               return <>
+                {!mp4ReExpression.test(item) ?
+                  <View style={joinstyles.photo}>
+                    <Image
+                      src={ item }
+                      style={{ width: "100%", height: 100 }}
+                    />
+                  </View>
+                  :
+                  <VideoPlayer videoUri={photos[0]} width={340} height={300}/>
+                 }
+                  </>
              }
             }
              keyExtractor={(item, index) => index}

@@ -126,7 +126,7 @@ class MapComponent extends Component {
             },
             newLocation => {
                 this.updateMapRegion(newLocation.coords);
-                console.log('New location:', newLocation.coords);
+               // console.log('New location:', newLocation.coords);
             }
         );
     }

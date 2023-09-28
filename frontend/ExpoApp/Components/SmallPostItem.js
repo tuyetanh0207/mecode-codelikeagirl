@@ -4,85 +4,139 @@ import { StyleSheet, Text, Image, TouchableOpacity, View } from "react-native";
 import { Iconify } from "react-native-iconify";
 import { AppButton } from "./JoinBtn.js";
 import * as CONST from "../Utils/constants.js";
-
-export const SmallPostItem = ({ postId, point, fullname, userId, icon, shortAddr, addr, taskName, taskId, createdDate, caption, votedPoint, photos }) => {
-   const navigation = useNavigation();
-   
+import VideoPlayer from "./VideoPlayer.js";
+export const SmallPostItem = ({
+  postId,
+  point,
+  fullname,
+  userId,
+  icon,
+  shortAddr,
+  addr,
+  taskName,
+  taskId,
+  createdDate,
+  caption,
+  votedPoint,
+  photos,
+}) => {
+  const navigation = useNavigation();
+  var mp4ReExpression = /\.mp4$/; 
   const handlePressJoinBtn = () => {
     navigation.navigate("TaskDetails", {
-
       icon: icon,
       shortAddr: shortAddr,
       addr: addr,
       dist: dist,
       hint: hint,
-      taskId: taskId
+      taskId: taskId,
     });
   };
 
   return (
     <TouchableOpacity style={smallPoststyles.container}>
-      {addr?
-       <View style={smallPoststyles.left}>
-        <View style={smallPoststyles.header}>
-          {CONST.getIconByTitle(taskName,mappingType = CONST.boldHeading2TextColorIconMapping)}
-          <Text style={smallPoststyles.name} numberOfLines={1}>
-            {taskName}
+      {addr ? (
+        <View style={smallPoststyles.left}>
+          <View style={smallPoststyles.header}>
+            {CONST.getIconByTitle(
+              taskName,
+              (mappingType = CONST.boldHeading2TextColorIconMapping)
+            )}
+            <Text style={smallPoststyles.name} numberOfLines={1}>
+              {taskName}
+            </Text>
+          </View>
+          <Text style={smallPoststyles.shortAddr} numberOfLines={2}>
+            {shortAddr} - <Text style={smallPoststyles.addr}>{addr}</Text>
           </Text>
+          {createdDate ? (
+            <Text style={smallPoststyles.dateText}>
+              {createdDate.slice(0, createdDate.length - 29)}
+            </Text>
+          ) : (
+            <></>
+          )}
         </View>
-        <Text style={smallPoststyles.shortAddr} numberOfLines={2}>{shortAddr} - <Text style={smallPoststyles.addr} >
-            {addr}
-          </Text>
-        </Text>
-        {createdDate? <Text style={smallPoststyles.dateText}>{createdDate.slice(0, createdDate.length - 29)}</Text>
-        :
-        <></>}
-     </View>
-     :
-     <View style={smallPoststyles.left}>
-     <View style={smallPoststyles.header}>
-       {CONST.getIconByTitle(taskName,mappingType = CONST.boldHeading2TextColorIconMapping_44)}
-       <Text style={smallPoststyles.name} numberOfLines={1}>
-         {taskName}
-       </Text>
-       {createdDate? <Text style={smallPoststyles.dateText}>{createdDate.slice(0, createdDate.length - 29)}</Text>
-     :
-     <></>}
-     </View>
-   
-     {addr?
-     <Text style={smallPoststyles.shortAddr} numberOfLines={2}>{shortAddr} - <Text style={smallPoststyles.addr} >
-         {addr}
-     </Text>
-   </Text>
-   :
-   <Text style={smallPoststyles.shortAddr} numberOfLines={2}>{shortAddr}  <Text style={smallPoststyles.addr} >
-         {addr}
-     </Text>
-   </Text>}
-  
-     {addr?createdDate? <Text style={smallPoststyles.dateText}>{createdDate.slice(0, createdDate.length - 29)}</Text>
-     :
-     <></>
-   :
-   <></>}
-     
-   </View>
-      }
-     
+      ) : (
+        // not address
+        <View style={smallPoststyles.left}>
+          <View style={smallPoststyles.header}>
+            {CONST.getIconByTitle(
+              taskName,
+              (mappingType = CONST.boldHeading2TextColorIconMapping_44)
+            )}
+            <View style={smallPoststyles.notAddrNameContainer}>
+              <Text style={smallPoststyles.name} numberOfLines={1}>
+                {taskName}
+              </Text>
+              {createdDate ? (
+                <Text style={smallPoststyles.dateTextnotAdrr}>
+                  {createdDate.slice(0, createdDate.length - 29)}
+                </Text>
+              ) : (
+                <></>
+              )}
+            </View>
+          </View>
+
+          {addr ? (
+            <Text style={smallPoststyles.shortAddr} numberOfLines={2}>
+              {shortAddr} - <Text style={smallPoststyles.addr}>{addr}</Text>
+            </Text>
+          ) : (
+            <Text style={smallPoststyles.shortAddr} numberOfLines={2}>
+              {shortAddr} <Text style={smallPoststyles.addr}>{addr}</Text>
+            </Text>
+          )}
+
+          {addr ? (
+            createdDate ? (
+              <Text style={smallPoststyles.dateText}>
+                {createdDate.slice(0, createdDate.length - 29)}
+              </Text>
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          )}
+        </View>
+      )}
+
       <View style={smallPoststyles.right}>
-        {
-          photos.length >=0? 
-          <Image  src={ photos[0] }
-          style={[{ width: CONST.responsiveHeight(100), height: CONST.responsiveHeight(100) }, smallPoststyles.photo]}/>
+        {photos.length >= 0 ? addr ? (
+          mp4ReExpression.test(photos[0]) ?
+            <VideoPlayer videoUri={photos[0]} width={100} height={100}/>
           :
-          <></>
-        }
+          <Image
+            src={photos[0]}
+            style={[
+              {
+                width: CONST.responsiveHeight(100),
+                height: CONST.responsiveHeight(100),
+              },
+              smallPoststyles.photo,
+            ]}
+          />
         
-       
-        
+         
+        ) : (
+          mp4ReExpression.test(photos[0]) ?
+          <VideoPlayer videoUri={photos[0]} width={80} height={80}/>
+          :
+          <Image
+          src={photos[0]}
+          style={[
+            {
+              width: CONST.responsiveHeight(80),
+              height: CONST.responsiveHeight(80),
+            },
+            smallPoststyles.photo,
+          ]}
+        />
+        ):
+        (<></>)}
       </View>
-    
     </TouchableOpacity>
   );
 };
@@ -94,16 +148,23 @@ const smallPoststyles = StyleSheet.create({
     justifyContent: "space-around",
 
     marginBottom: 12,
-    paddingVertical: '4%',
+    paddingVertical: "4%",
     borderRadius: 16,
-    paddingHorizontal: '4%',
+    paddingHorizontal: "4%",
+  
   },
   left: {
     flex: 7,
-   // alignItems: 'center'
+  
+ 
   },
   header: {
-    flexDirection: 'row'
+    flexDirection: "row",
+    alignItems: 'center'
+  },
+  notAddrNameContainer: {
+    flexDirection: "column",
+
   },
   icon: {
     flex: 1,
@@ -119,7 +180,7 @@ const smallPoststyles = StyleSheet.create({
     color: CONST.NAVIGATION_ACTIVE_COLOR,
     fontSize: 20,
     fontWeight: "400",
-    marginLeft: '3%'
+    marginLeft: "3%",
   },
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
@@ -127,10 +188,9 @@ const smallPoststyles = StyleSheet.create({
     fontSize: CONST.responsiveHeight(17),
   },
   right: {
-   // flex: 3,
+    // flex: 3,
     //justifyContent: "center",
-    overflow:"hidden",
-
+    overflow: "hidden",
   },
   addr: {
     color: CONST.FEATURE_TEXT_COLOR,
@@ -145,7 +205,12 @@ const smallPoststyles = StyleSheet.create({
     fontSize: CONST.responsiveHeight(14),
     fontWeight: "300",
   },
+  dateTextnotAdrr: {
+    fontSize: CONST.responsiveHeight(14),
+    fontWeight: "300",
+    marginLeft: "3%",
+  },
   photo: {
-    borderRadius: 8
-  }
+    borderRadius: 8,
+  },
 });

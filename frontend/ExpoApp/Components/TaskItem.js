@@ -73,29 +73,29 @@ const taskDetailstyles = StyleSheet.create({
   disText: {
     flex: 0,
     color: CONST.FEATURE_TEXT_COLOR,
-    fontSize: 16,
+    fontSize: CONST.responsiveHeight(16),
     justifyContent: "flex-end",
   },
   mid: {
     flex: 0.55,
-    paddingRight: 14,
+    paddingRight: '4%',
   },
   name: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    fontSize: 20,
+    fontSize: CONST.responsiveHeight(20),
     fontWeight: "bold",
   },
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     fontWeight: "bold",
-    fontSize: 13,
+    fontSize: CONST.responsiveHeight(13),
   },
   right: {
     flex: 0.2,
     justifyContent: "center",
   },
   addr: {
-    fontSize: 13,
+    fontSize: CONST.responsiveHeight(13),
     fontWeight: "400",
   },
   btn: {

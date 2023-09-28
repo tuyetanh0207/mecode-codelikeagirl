@@ -125,7 +125,7 @@ export default function App() {
     return (
       <Tab.Navigator screenOptions={screenOpts}>
         <Tab.Screen name="Home"
-          component={ProfileScreen}
+          component={Home}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused)
