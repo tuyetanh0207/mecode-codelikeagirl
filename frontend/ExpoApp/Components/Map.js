@@ -5,6 +5,8 @@ import styles from '../Utils/styles';
 import { UserLocationContext } from '../Contexts/user_location';
 import * as CONST from '../Utils/constants';
 import { View, Text, TouchableOpacity } from 'react-native';
+import client from '../api/client';
+import { activity } from '../api/activity';
 
 class MapComponent extends Component {
     static contextType = UserLocationContext;
@@ -124,9 +126,11 @@ class MapComponent extends Component {
                 accuracy: Location.Accuracy.Balanced,
                 distanceInterval: CONST.THRESOLD_LOCATION_DISTANCE,
             },
-            newLocation => {
+            async newLocation => {
                 this.updateMapRegion(newLocation.coords);
                 console.log('New location:', newLocation.coords);
+                // need render new task list !!!!
+                const res = await activity(newLocation.coords.latitude, newLocation.coords.longitude);
             }
         );
     }
