@@ -129,11 +129,45 @@ class MapComponent extends Component {
             async newLocation => {
                 this.updateMapRegion(newLocation.coords);
                 console.log('New location:', newLocation.coords);
-                // need render new task list !!!!
-                const res = await activity(newLocation.coords.latitude, newLocation.coords.longitude);
+
+                // Fetch new task list
+                const newLatitude = newLocation.coords.latitude;
+                const newLongitude = newLocation.coords.longitude;
+                console.log('New latitude: ', newLatitude);
+                console.log('New longitude: ', newLongitude);
+                const newTaskList = await activity(newLatitude, newLongitude);
+
+                // Update markerCoords with the newTaskList data
+                const updatedMarkerCoords = newTaskList.data.map(task => ({
+                    id: task._id,
+                    location: {
+                        latitude: task.latitude,
+                        longitude: task.longitude,
+                    },
+                    icon: CONST.getIconByTitle(task.nameTask, CONST.boldIconMapping),
+                    title: task.nameTask,
+                    container_style: CONST.getTaskContainerSizeByTitle(task.nameTask),
+                }));
+
+                this.setState({ markerCoords: updatedMarkerCoords });
             }
         );
     }
+
+    // startLocationTracking = async () => {
+    //     await Location.watchPositionAsync(
+    //         {
+    //             accuracy: Location.Accuracy.Balanced,
+    //             distanceInterval: CONST.THRESOLD_LOCATION_DISTANCE,
+    //         },
+    //         async newLocation => {
+    //             this.updateMapRegion(newLocation.coords);
+    //             console.log('New location:', newLocation.coords);
+    //             // need render new task list !!!!
+    //             const res = await activity(newLocation.coords.latitude, newLocation.coords.longitude);
+    //         }
+    //     );
+    // }
 
     updateMapRegion = newCoords => {
         // Change map view when the user move

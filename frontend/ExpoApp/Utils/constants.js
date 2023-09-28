@@ -50,7 +50,7 @@ export const normalIconMapping_60 = {
     'Collect trash': FEATURE_TEXT_TRASH_ICON_60,
     'Bring your own bottle': FEATURE_TEXT_BOTTLE_ICON_60,
     'Bring your own bag': FEATURE_TEXT_BAG_ICON_60,
-    'Plan a tree': FEATURE_TEXT_TREE_ICON_60,
+    'Plant a tree': FEATURE_TEXT_TREE_ICON_60,
 };
 export const VIDEO_RECORD_BUTTON = require('../assets/images/record.png');
 
