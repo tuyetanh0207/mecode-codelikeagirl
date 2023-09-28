@@ -19,9 +19,9 @@ class ActivityController {
   static show = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req
-      const userLatitude = parseFloat(req.body.latitude);
-      const userLongitude = parseFloat(req.body.longitude);
-      const userID = req.body.userID;
+      const userLatitude = parseFloat(req.query.latitude);
+      const userLongitude = parseFloat(req.query.longitude);
+      const userID = req.query.userID;
 
       // const userLatitude = 10.781115855332459; 
       // const userLongitude = 106.66876032407103;

@@ -64,3 +64,43 @@ exports.createPost = async (req, res) => {
     console.log("Error while process photos when creating post.");
   }
 };
+
+exports.votelist = async (req, res) => {
+  var userID = req.query.userID;
+  var postList = await Post.find({userId: {$ne:userID }}).sort({votedPoint:1});
+
+  var post1, post2 = {};
+  var found = 0;
+
+  if (postList.length > 1) {
+    for (let i = 0;i<postList.length-1;i++) {
+      post1 = postList[i];
+      
+      for (let j = i + 1;j<postList.length;j++) {
+        if(post1.taskId == postList[j].taskId ) {
+          post2 = postList[j];
+          found = 1;
+          break;
+        }
+      }
+      if(found == 1) {
+        break;
+      }
+  
+    }
+
+  }
+  if (found == 1) {
+    var voteList = [post1, post2]
+    res.json(voteList)
+  } else {
+    res.json(
+      {
+      success: 0,
+      message: "khong tim thay post de vote"
+      }
+      
+    )
+    }
+  
+}
