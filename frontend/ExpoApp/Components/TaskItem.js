@@ -23,7 +23,7 @@ export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId }) => {
     <TouchableOpacity style={taskDetailstyles.container}>
       <View style={taskDetailstyles.left}>
         <View style={taskDetailstyles.icon}>
-          {CONST.getIconByTitle(name,mappingType = CONST.normalIconMapping_60)}
+          {icon}
         </View>
         <View style={taskDetailstyles.dis}>
           <Text style={taskDetailstyles.disText}>{dist}m</Text>

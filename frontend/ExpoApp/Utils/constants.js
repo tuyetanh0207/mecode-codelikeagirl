@@ -44,8 +44,9 @@ export const boldIconMapping = {
     'Collect trash': BOLD_TRASH_ICON,
     'Bring your own bottle': BOLD_BOTTLE_ICON,
     'Bring your own bag': BOLD_BAG_ICON,
-    'Plan a tree': BOLD_TREE_ICON,
+    'Plant a tree': BOLD_TREE_ICON,
 };
+
 export const normalIconMapping_60 = {
     'Collect trash': FEATURE_TEXT_TRASH_ICON_60,
     'Bring your own bottle': FEATURE_TEXT_BOTTLE_ICON_60,
@@ -56,6 +57,8 @@ export const VIDEO_RECORD_BUTTON = require('../assets/images/record.png');
 
 // Get the suitable task icon corresponding to its title
 export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMapping) => {
+    // console.log(title, ': title');
+    // console.log(mappingType[title], ': mapping type');
     return mappingType[title] || UNKNOWN_ICON_60;
 }
 

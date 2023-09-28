@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import styles from '../Utils/styles';
-import { UserLocationContext } from '../Contexts/user_location';
+import { UserLocationContext } from '../Contexts/UserLocation';
 import * as CONST from '../Utils/constants';
 import { View, Text, TouchableOpacity } from 'react-native';
 import client from '../api/client';
@@ -17,59 +17,7 @@ class MapComponent extends Component {
         // state of map component
         this.state = {
             mapRegion: null,
-            markerCoords: [
-                {
-                    id: 1,
-                    location: {
-                        latitude: 10.79,
-                        longitude: 106.71,
-                    },
-                    icon: null,
-                    title: "Collect trash",
-                    container_style: null,
-                },
-                {
-                    id: 2,
-                    location: {
-                        latitude: 10.60,
-                        longitude: 106.59,
-                    },
-                    icon: null,
-                    title: "Bring your own bottle",
-                    container_style: null,
-                },
-                {
-                    id: 3,
-                    location: {
-                        latitude: 10.63,
-                        longitude: 106.59,
-                    },
-                    icon: null,
-                    title: "Collect trash",
-                    container_style: null,
-                },
-                {
-                    id: 4,
-                    location: {
-                        latitude: 10.61,
-                        longitude: 106.58,
-                    },
-                    icon: null,
-                    title: "Bring your own bag",
-                    container_style: null,
-                },
-                {
-                    id: 5,
-                    location: {
-                        latitude: 10.62,
-                        longitude: 106.59,
-                    },
-                    icon: null,
-                    title: "Plan a tree",
-                    container_style: null,
-                }
-
-            ],
+            markerCoords: [],
             showTitle: true,
             showIcon: true,
         };
@@ -154,20 +102,6 @@ class MapComponent extends Component {
         );
     }
 
-    // startLocationTracking = async () => {
-    //     await Location.watchPositionAsync(
-    //         {
-    //             accuracy: Location.Accuracy.Balanced,
-    //             distanceInterval: CONST.THRESOLD_LOCATION_DISTANCE,
-    //         },
-    //         async newLocation => {
-    //             this.updateMapRegion(newLocation.coords);
-    //             console.log('New location:', newLocation.coords);
-    //             // need render new task list !!!!
-    //             const res = await activity(newLocation.coords.latitude, newLocation.coords.longitude);
-    //         }
-    //     );
-    // }
 
     updateMapRegion = newCoords => {
         // Change map view when the user move
