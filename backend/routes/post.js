@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 const Post = require("../models/post");
-const { createPost, uploadPostPhotos,votelist } = require("../controller/post");
+const { createPost, uploadPostPhotos,votelist,vote } = require("../controller/post");
 const {
   postValidation,
   validatePostCreate,
@@ -25,5 +25,6 @@ upload = multer({ storage: storage });
 
 router.post("/create-post", isAuth, upload.array("photos"), createPost);
 router.get('/vote-list',votelist);
+router.post("/vote",vote)
 
 module.exports = router;
