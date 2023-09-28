@@ -93,6 +93,7 @@ exports.getUserInfo= async (req,res) => {
       .json({ success: false, message: "unauthorized access" });
   }
   try {
+   
     let user
     if (userId!==user._id) {
        user = await User.find({ userId: userId }).select('userId email avatar greenStep campaignPoint').exec();

@@ -9,7 +9,7 @@ exports.createPost = async (req, res) => {
     return res
       .status(401)
       .json({ success: false, message: "unauthorized access" });
-  const { userId, taskName, taskId, caption, address } = req.body;
+  const { userId, taskName, taskId, caption, address, isMp4 } = req.body;
 
   const len = req.files.length;
   const votedPoint = 0;
@@ -17,13 +17,42 @@ exports.createPost = async (req, res) => {
   let photo_urls = [];
   let post;
   try {
+    var mp4ReExpression = /\.mp4$/;
     req.files.forEach(async (file, idx) => {
-      const result = await cloudinary.uploader.upload(file.path, {
-        public_id: `${user._id}_post_${Date()}_${idx}`,
-        width: 500,
-        height: 500,
-        crop: "fill",
-      });
+      // check if it a video
+      // if a video
+      console.log('file idx', idx, ' ', file.path)
+      let result=''
+      if(isMp4){
+        console.log('is Mp4 file:', idx)
+        try {
+          result = await cloudinary.uploader.upload(file.path, {
+            resource_type: 'video',
+            public_id: `${user._id}_post_${Date()}_${idx}`,
+            width: 500,
+            height: 500,
+            crop: "fill",
+          });
+          
+        } catch (error) {
+          console.log('error in uploading cloudinary', error)
+        }
+      
+      } else{
+        console.log('is Photo file:', idx)
+        try {
+          result = await cloudinary.uploader.upload(file.path, {
+            public_id: `${user._id}_post_${Date()}_${idx}`,
+            width: 500,
+            height: 500,
+            crop: "fill",
+          });
+        } catch (error) {
+          console.log('error in uploading cloudinary', error)
+        }
+       
+      }
+      console.log('done upload cloudinary:', idx)
       photo_urls.push(result.url);
       if (photo_urls.length === len) {
         post = await Post({
@@ -76,15 +105,18 @@ exports.getAllPostOfUser = async (req,res) => {
   }
   try {
     let posts
-
+    let str ='userId taskName taskId campaignId caption photos votedPoint createdDate'
     console.log('user request', user._id)
     console.log('user info', userId)
-    console.log('bang nhau', userId==user._id)
-    if (userId!==user._id) {
-       posts = await Post.find({ userId: userId }).select('userId taskName taskId campaignId address caption photos votedPoint createdDate').exec();
+    
+    if (userId==user._id) {
+      console.log('bang nhau', userId==user._id) //shortAddr address
+      posts =await  Post.find({ userId: userId }).select('userId taskName taskId shortAddr address campaignId caption photos votedPoint createdDate').exec();
+
     } else 
     {
-      posts =await  Post.find({ userId: userId }).select('userId taskName taskId campaignId caption photos votedPoint address createdDate').exec();
+
+      posts = await Post.find({ userId: userId }).select('userId taskName taskId campaignId caption photos votedPoint createdDate').exec();
    }
    console.log('posts',posts)
     res.status(201).json({success: true, message: 'Get all post of user successfully!', posts: posts})
