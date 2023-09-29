@@ -19,14 +19,18 @@ import Video from 'react-native-video';
 import { useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
 import VideoPlayer from "../Components/VideoPlayer";
+import { ChooseTaskBtn } from "../Components/ChooseTaskBtn";
+import { ChooseTaskList } from "../Components/ChooseTaskList";
 export default function Join({ navigation: { goBack }, route }) {
     const navigation = useNavigation();
    // let { name, shortAddr, addr, dist, icon, hint, taskId } ={}
-   let   name, shortAddr, addr, dist, icon, hint, taskId 
+   let   name, shortAddr, addr, dist, icon, hint, taskId , idCampaign, nameCampaign, isContraint, luckywheelID 
    //console.log('rout', route.params)
+   //const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
    if (route.params) {
-      ({ name, shortAddr, addr, dist, icon, hint, taskId } = route.params);
+      ({ name, shortAddr, addr, dist, icon, hint, taskId, idCampaign, nameCampaign, isContraint, luckywheelID  } = route.params);
     } else {
+        IsNeedChoosingTask= true
       name=""
       shortAddr=""
       addr=""
@@ -34,13 +38,13 @@ export default function Join({ navigation: { goBack }, route }) {
       icon=""
       hint=""
       taskId=""
+    
+        idCampaign = "" 
+        nameCampaign = "" 
+        isContraint = "" 
+        luckywheelID = "" 
     }
-  
 
-    // const name = "haha";
-    // const id = "aaa";
-    // const shortAddr = "haha";
-    // const addr = "jaaa";
     const [token, setToken] = useState('');
     const [userInfo, setUserInfo] = useState({})
     const [isTakingPhoto, setIsTakingPhoto] = useState(true);
@@ -66,6 +70,7 @@ export default function Join({ navigation: { goBack }, route }) {
     const [isRecordingParent, setIsRecordingParent] = useState(false);
     const [hasRecordedParent, setHasRecordedParent] = useState(false);
     const [currentVideoParent, setCurrentVideoParent] = useState(null);
+    const [isChoosing, setIsChoosing] = useState(false)
     var mp4ReExpression = /\.mp4$/; 
     const handleAddPhoto = () => {
         setIsTakingPhoto(true);
@@ -83,9 +88,16 @@ export default function Join({ navigation: { goBack }, route }) {
         //console.log("userId:", userInfo.userId);
         formData.append("userId", userInfo.userId);
         formData.append("taskName", name);
+        console.log('taskid:', taskId)
         formData.append("taskId", taskId);
         formData.append("caption", feeling);
         formData.append("address", addr);
+        formData.append("idCampaign", idCampaign);
+        formData.append("nameCampaign", nameCampaign);
+        formData.append("isContraint", isContraint);
+        formData.append("luckywheelID", luckywheelID);
+
+
        
         // process photos
         // if a video
@@ -109,8 +121,6 @@ export default function Join({ navigation: { goBack }, route }) {
             
         });
 
-       
-
             try {
               // //console.log('token send:', token)
               // //console.log('form data', formData)
@@ -124,6 +134,7 @@ export default function Join({ navigation: { goBack }, route }) {
               console.log("result posting: ", res.data);
               if (res.data.success===true){
                 const donePost = res.data.post
+      
                 navigation.navigate('Post', {
                   isJustPosted: true,
                    userId: donePost.userId,
@@ -135,7 +146,9 @@ export default function Join({ navigation: { goBack }, route }) {
                    postId: donePost._id,
                    addr: donePost.address,
                    createdDate: donePost.createdDate,
-                   shortAddr: shortAddr
+                   shortAddr: shortAddr,
+                   fullname: donePost.fullname,
+                   avatar: donePost.avatar
                    })
               }
             } catch (error) {
@@ -153,7 +166,7 @@ export default function Join({ navigation: { goBack }, route }) {
             style={styles.imageBackground}
         >
             {/* container */}
-            {isTakingPhoto ? (
+            {isTakingPhoto ? !isChoosing ? (
                 <CameraComponent
                     setIsTakingPhoto={setIsTakingPhoto}
                     setPhotos={setPhotos}
@@ -212,7 +225,14 @@ export default function Join({ navigation: { goBack }, route }) {
                                     />}
 
                             </TouchableOpacity>
+                            <View style={joinstyles.name}>
                             <Text style={joinstyles.nametext}>{userInfo.fullname}</Text>
+                            {IsNeedChoosingTask===true? 
+                            <ChooseTaskBtn  isChooesed= {false}/>
+                            :
+                            <></>}
+                            </View>
+                           
                         </View>
                         {/* text input */}
                         <TextInput
@@ -309,7 +329,9 @@ export default function Join({ navigation: { goBack }, route }) {
                         </View>
                     </View>
                 </View>
-            )}
+            ):
+            <ChooseTaskList/>
+        }
         </ImageBackground>
     );
 }

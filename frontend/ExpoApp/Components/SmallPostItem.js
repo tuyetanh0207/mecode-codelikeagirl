@@ -154,7 +154,7 @@ const smallPoststyles = StyleSheet.create({
   
   },
   left: {
-    flex: 7,
+    flex: 8,
   
  
   },
@@ -172,13 +172,13 @@ const smallPoststyles = StyleSheet.create({
   disText: {
     flex: 0,
     color: CONST.FEATURE_TEXT_COLOR,
-    fontSize: 16,
+    fontSize: CONST.responsiveHeight(16),
     justifyContent: "flex-end",
   },
 
   name: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    fontSize: 20,
+    fontSize: CONST.responsiveHeight(20),
     fontWeight: "400",
     marginLeft: "3%",
   },
@@ -188,7 +188,7 @@ const smallPoststyles = StyleSheet.create({
     fontSize: CONST.responsiveHeight(17),
   },
   right: {
-    // flex: 3,
+     //flex: 3,
     //justifyContent: "center",
     overflow: "hidden",
   },

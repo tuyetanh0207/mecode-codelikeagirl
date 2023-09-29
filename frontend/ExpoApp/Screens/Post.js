@@ -11,7 +11,7 @@ import {
   Image
 } from 'react-native';
 import styles from '../Utils/styles';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import * as CONST from '../Utils/constants';
 import { joinstyles } from "../Utils/joinStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -23,7 +23,7 @@ export default function Post({navigation: {goBack}, route}) {
   const navigation = useNavigation()
   var mp4ReExpression = /\.mp4$/; 
     const {isJustPosted, userId, taskName, taskId,campaignId, 
-    caption, photos, postId, addr, shortAddr,
+    caption, photos, postId, addr, shortAddr, fullname, avatar,
     createdDate} = route.params
     const [token, setToken] = useState('') ;
   const [userInfo, setUserInfo] = useState({})
@@ -57,7 +57,7 @@ export default function Post({navigation: {goBack}, route}) {
             {/* backicon */}
             <View style={joinstyles.left}>
               {/* <TouchableOpacity onPress={() => goBack()}> */}
-              <TouchableOpacity onPress={()=>navigation.navigate('Task')} style={joinstyles.backIcon}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Profile')} style={joinstyles.backIcon}>
                 <Image
                   source={require("../assets/images/x.png")}
                   style={joinstyles.backicon}
@@ -83,12 +83,12 @@ export default function Post({navigation: {goBack}, route}) {
             {/* profile */}
             <View style={joinstyles.profile}>
               <TouchableOpacity
-                onPress={() => goBack()}
+                onPress={() => navigation.navigate('Profile', {userId: userId, fullname: fullname})}
                 style={joinstyles.profilePhoto}
               >
-                {userInfo.avatar?
+                {avatar?
                 <Image
-                src={userInfo.avatar}
+                src={avatar}
                 style={joinstyles.profileImage}
                 />
                 :
@@ -98,7 +98,7 @@ export default function Post({navigation: {goBack}, route}) {
                 />}
                 
               </TouchableOpacity>
-              <Text style={joinstyles.nametext}>{userInfo.fullname}</Text>
+              <Text style={joinstyles.nametext}>{fullname}</Text>
             </View>
             {/* text input */}
             <Text

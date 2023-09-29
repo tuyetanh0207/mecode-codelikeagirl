@@ -5,7 +5,7 @@ import { Iconify } from "react-native-iconify";
 import { AppButton } from "../Components/JoinBtn.js";
 import * as CONST from "../Utils/constants";
 
-export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId }) => {
+export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId, idCampaign, nameCampaign, isContraint, luckywheelID }) => {
   const navigation = useNavigation();
   const handlePressJoinBtn = () => {
     navigation.navigate("TaskDetails", {
@@ -15,7 +15,11 @@ export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId }) => {
       addr: addr,
       dist: dist,
       hint: hint,
-      taskId: taskId
+      taskId: taskId,
+      idCampaign: idCampaign,
+      nameCampaign: nameCampaign,
+      isContraint: isContraint,
+      luckywheelID: luckywheelID
     });
   };
 

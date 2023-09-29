@@ -13,7 +13,7 @@ export const signIn = async (email, password) => {
            console.log(userInfo)
            await AsyncStorage.setItem('token', token)
            await AsyncStorage.setItem('userInfo', userInfo)
-
+            
 
         }
         return signInRes
@@ -77,6 +77,25 @@ export const getUserInfo = async (userId) => {
         return getInfoRes
     } catch (error) {
         console.log('error inside getUserInfo method')
+        
+    }
+}
+////campaign/leaderboard/user/:id/rank
+export const getUserRankLatestCampaign = async (userId) => {
+    try {
+        const rankRes = await client.get(`/campaign/leaderboard/user/${userId}/rank`)
+       // console.log('rankREs', rankRes.data)
+        return rankRes
+    }
+    catch(error){
+
+    }
+}
+
+export const getAvailableTaskList = async () => {
+    try {
+        const res = await client.get(``)
+    } catch (error) {
         
     }
 }

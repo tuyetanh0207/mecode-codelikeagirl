@@ -69,8 +69,12 @@ export const logInStyles = StyleSheet.create({
         borderBottomWidth :1,
         borderRadius: 4,
         marginRight: '4%',
-        marginBottom: '10%'
+        marginBottom: '2%'
     },
+    notiText: {
+        marginBottom: '8%',
+        color: CONST.FEATURE_TEXT_COLOR
+    }
 
 
 })

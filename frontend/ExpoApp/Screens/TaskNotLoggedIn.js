@@ -21,39 +21,34 @@ export default function TaskNotLoggedIn() {
   const navigation = useNavigation();
   const [TaskList, setTaskList] = useState([
     {
-      name: "Collect trash",
+      idCampaign: '65115ac21f1dc1a4a78665db',
+      nameCampaign: 'First Campaign',
+      isContraint:true,
+      nameTask: "Trash teh prescribed places", 
+      taskId: '650abede9dc2c4fdbcaeff71',
       shortAddr: "Thao Cam Vien Zoo",
-      addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-      dist: 80,
+      address: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      distance: 80,
+      luckywheelID: '6512b4b9d0d942a5a461815e',
       icon: "fluent:bin-recycle-20-regular",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
+      hint: "Disposing of trash according to regulations reduces the amount of daily waste and helps maintain general hygiene",
     },
     {
-      name: "Collect trash",
+      idCampaign: '65115ac21f1dc1a4a78665db',
+      nameCampaign: 'First Campaign',
+      isContraint:true,
+      nameTask: "Trash teh prescribed places", 
+      taskId: '650abede9dc2c4fdbcaeff71',
       shortAddr: "Thao Cam Vien Zoo",
-      addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-      dist: 80,
+      address: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      distance: 80,
+      luckywheelID: '6512b4b9d0d942a5a461815e',
       icon: "fluent:bin-recycle-20-regular",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
+      hint: "Disposing of trash according to regulations reduces the amount of daily waste and helps maintain general hygiene",
     },
     {
-      name: "Collect rash",
-      shortAddr: "Thao Cam Vien Zoo",
-      addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
-      dist: 80,
-      icon: "fluent:bin-recycle-20-regular",
-    },
-    {
-      name: "Collect rash",
-      shortAddr: "Thao Cam Vien Zoo",
-      addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
-      dist: 80,
-      icon: "fluent:bin-recycle-20-regular",
-    },
-    {
-      name: "Collect rash",
+      nameTask: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
       hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
@@ -61,47 +56,90 @@ export default function TaskNotLoggedIn() {
       icon: "fluent:bin-recycle-20-regular",
     },
     {
-      name: "Collect rash",
+      nameTask: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
       dist: 80,
       icon: "fluent:bin-recycle-20-regular",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect rash",
+      nameTask: "Collect trash", 
+      taskId: 'collect trash',
       shortAddr: "Thao Cam Vien Zoo",
       addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
       dist: 80,
       icon: "fluent:bin-recycle-20-regular",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
     },
     {
-      name: "Collect rash",
+      idCampaign: '65115ac21f1dc1a4a78665db',
+      nameCampaign: 'First Campaign',
+      isContraint:true,
+      nameTask: "Trash teh prescribed places", 
+      taskId: '650abede9dc2c4fdbcaeff71',
       shortAddr: "Thao Cam Vien Zoo",
-      addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-      dist: 80,
+      address: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      distance: 80,
+      luckywheelID: '6512b4b9d0d942a5a461815e',
       icon: "fluent:bin-recycle-20-regular",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
+      hint: "Disposing of trash according to regulations reduces the amount of daily waste and helps maintain general hygiene",
     },
     {
-      name: "Collect rash",
+      idCampaign: '65115ac21f1dc1a4a78665db',
+      nameCampaign: 'First Campaign',
+      isContraint:true,
+      nameTask: "Trash teh prescribed places", 
+      taskId: '650abede9dc2c4fdbcaeff71',
       shortAddr: "Thao Cam Vien Zoo",
-      addr: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
-      dist: 80,
+      address: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      distance: 80,
+      luckywheelID: '6512b4b9d0d942a5a461815e',
       icon: "fluent:bin-recycle-20-regular",
-      hint: "Collect as much trash as possible and put it in the nearest bin according to its classification.",
+      hint: "Disposing of trash according to regulations reduces the amount of daily waste and helps maintain general hygiene",
+    },
+    {
+      idCampaign: '65115ac21f1dc1a4a78665db',
+      nameCampaign: 'First Campaign',
+      isContraint:true,
+      nameTask: "Trash teh prescribed places", 
+      taskId: '650abede9dc2c4fdbcaeff71',
+      shortAddr: "Thao Cam Vien Zoo",
+      address: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      distance: 80,
+      luckywheelID: '6512b4b9d0d942a5a461815e',
+      icon: "fluent:bin-recycle-20-regular",
+      hint: "Disposing of trash according to regulations reduces the amount of daily waste and helps maintain general hygiene",
+    },
+    {
+      idCampaign: '65115ac21f1dc1a4a78665db',
+      nameCampaign: 'First Campaign',
+      isContraint:true,
+      nameTask: "Trash teh prescribed places", 
+      taskId: '650abede9dc2c4fdbcaeff71',
+      shortAddr: "Thao Cam Vien Zoo",
+      address: "2 Nguyen Binh Khiem, Ward Ben Nghe, District 1",
+      distance: 80,
+      luckywheelID: '6512b4b9d0d942a5a461815e',
+      icon: "fluent:bin-recycle-20-regular",
+      hint: "Disposing of trash according to regulations reduces the amount of daily waste and helps maintain general hygiene",
     },
   ]);
 
   const renderTaskItem = ({ item }) => (
     <Item
-      name={item.name}
+      name={item.nameTask}
       icon={item.icon}
       shortAddr={item.shortAddr}
-      addr={item.addr}
-      dist={item.dist}
+      addr={item.address}
+      dist={item.distance}
       hint={item.hint}
+      taskId={item.taskId}
+      idCampaign={item.idCampaign}
+      nameCampaign={item.nameCampaign}
+      isContraint={item.isContraint}
+      luckywheelID={item.luckywheelID}
     />
   );
   return (

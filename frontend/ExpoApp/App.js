@@ -32,6 +32,7 @@ import LoginProvider, { useLogin } from './Contexts/LoginProvider';
 import MapNotLoggedIn from './Screens/MapNotLoggedIn';
 import TaskNotLoggedIn from './Screens/TaskNotLoggedIn';
 import ProfileScreen from './Screens/Profile';
+import { ChooseTaskList } from './Components/ChooseTaskList';
 // const { MongoClient } = require('mongodb');
 
 // Connect to Mongo DB host
@@ -203,7 +204,7 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
-        <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
+        <Stack.Screen name="MapNotLoggedIn" component={ChooseTaskList} />
         {/* <Stack.Screen name="MapNotLoggedIn" component={ProfileScreen} /> */}
         <Stack.Screen name="Task" component={TaskNotLoggedIn} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />

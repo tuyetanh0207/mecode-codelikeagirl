@@ -16,7 +16,7 @@ import { taskDetailstyles } from "../Utils/taskDetailsStyles";
 import MapComponent from '../Components/Map'
 import { getIconByTitle } from "../Utils/constants";
 export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
-  const { name, shortAddr, addr, dist, icon, hint } = route.params;
+  const { name, shortAddr, addr, dist, icon, taskId, hint,idCampaign, nameCampaign, isContraint, luckywheelID  } = route.params;
   const navigation = useNavigation();
   const handleJoinBtn = () => {
     navigation.navigate("Join", {
@@ -26,6 +26,11 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
       addr: addr,
       dist: dist,
       hint: hint,
+      idCampaign: idCampaign,
+      nameCampaign:nameCampaign,
+      isContraint: isContraint,
+      luckywheelID: luckywheelID,
+      taskId: taskId
     });
   };
   return (
