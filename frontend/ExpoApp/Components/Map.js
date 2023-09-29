@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import styles from '../Utils/styles';
-import { UserLocationContext } from '../Contexts/user_location';
+import { UserLocationContext } from '../Contexts/UserLocation';
 import * as CONST from '../Utils/constants';
 import { View, Text, TouchableOpacity } from 'react-native';
+import client from '../api/client';
+import { activity } from '../api/activity';
 
 class MapComponent extends Component {
     static contextType = UserLocationContext;
@@ -15,59 +17,7 @@ class MapComponent extends Component {
         // state of map component
         this.state = {
             mapRegion: null,
-            markerCoords: [
-                {
-                    id: 1,
-                    location: {
-                        latitude: 10.79,
-                        longitude: 106.71,
-                    },
-                    icon: null,
-                    title: "Collect trash",
-                    container_style: null,
-                },
-                {
-                    id: 2,
-                    location: {
-                        latitude: 10.60,
-                        longitude: 106.59,
-                    },
-                    icon: null,
-                    title: "Bring your own bottle",
-                    container_style: null,
-                },
-                {
-                    id: 3,
-                    location: {
-                        latitude: 10.63,
-                        longitude: 106.59,
-                    },
-                    icon: null,
-                    title: "Collect trash",
-                    container_style: null,
-                },
-                {
-                    id: 4,
-                    location: {
-                        latitude: 10.61,
-                        longitude: 106.58,
-                    },
-                    icon: null,
-                    title: "Bring your own bag",
-                    container_style: null,
-                },
-                {
-                    id: 5,
-                    location: {
-                        latitude: 10.62,
-                        longitude: 106.59,
-                    },
-                    icon: null,
-                    title: "Plan a tree",
-                    container_style: null,
-                }
-
-            ],
+            markerCoords: [],
             showTitle: true,
             showIcon: true,
         };
@@ -124,12 +74,34 @@ class MapComponent extends Component {
                 accuracy: Location.Accuracy.Balanced,
                 distanceInterval: CONST.THRESOLD_LOCATION_DISTANCE,
             },
-            newLocation => {
+            async newLocation => {
                 this.updateMapRegion(newLocation.coords);
-               // console.log('New location:', newLocation.coords);
+                console.log('New location:', newLocation.coords);
+
+                // Fetch new task list
+                const newLatitude = newLocation.coords.latitude;
+                const newLongitude = newLocation.coords.longitude;
+                console.log('New latitude: ', newLatitude);
+                console.log('New longitude: ', newLongitude);
+                const newTaskList = await activity(newLatitude, newLongitude);
+
+                // Update markerCoords with the newTaskList data
+                const updatedMarkerCoords = newTaskList.data.map(task => ({
+                    id: task._id,
+                    location: {
+                        latitude: task.latitude,
+                        longitude: task.longitude,
+                    },
+                    icon: CONST.getIconByTitle(task.nameTask, CONST.boldIconMapping),
+                    title: task.nameTask,
+                    container_style: CONST.getTaskContainerSizeByTitle(task.nameTask),
+                }));
+
+                this.setState({ markerCoords: updatedMarkerCoords });
             }
         );
     }
+
 
     updateMapRegion = newCoords => {
         // Change map view when the user move

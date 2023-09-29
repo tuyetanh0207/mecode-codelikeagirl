@@ -57,7 +57,7 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
           <View style={taskDetailstyles.name}>
             {/* icon */}
             <View style={taskDetailstyles.left}>
-            {CONST.getIconByTitle(name,mappingType = CONST.normalIconMapping_60)}
+              {icon}
             </View>
             {/* name */}
             <View style={taskDetailstyles.right}>
@@ -79,7 +79,7 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
         {/* map */}
         <View style={taskDetailstyles.map}>
           <View style={taskDetailstyles.mapContainer}>
-              <MapComponent />
+            <MapComponent />
 
           </View>
         </View>

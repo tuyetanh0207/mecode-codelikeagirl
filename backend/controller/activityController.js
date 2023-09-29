@@ -19,6 +19,8 @@ class ActivityController {
   static show = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req
+
+      // console.log(req.query.latitude)
       const userLatitude = parseFloat(req.query.latitude);
       const userLongitude = parseFloat(req.query.longitude);
       const userID = req.query.userID;
@@ -35,12 +37,14 @@ class ActivityController {
           task['distance'] = 0;
           nearTaskList.push(task);
 
-        }
-        else {
+        } else {
+          
           const distance = geolib.getDistance(
             { latitude: userLatitude, longitude: userLongitude },
             { latitude: task.latitude, longitude: task.longitude });
+            console.log(userLatitude);
           if(distance < 50000) {
+            
             task['distance'] = distance;
             nearTaskList.push(task);
           }

@@ -23,9 +23,8 @@ import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TaskDetailsScreen from './Screens/TaskDetails';
-import { UserLocationContext } from './Contexts/user_location';
+import { UserLocationContext } from './Contexts/UserLocation';
 import LogInScreen from './Screens/LogIn';
-// import MapComponent from './Components/Map';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 import LoginProvider, { useLogin } from './Contexts/LoginProvider';
@@ -33,17 +32,6 @@ import MapNotLoggedIn from './Screens/MapNotLoggedIn';
 import TaskNotLoggedIn from './Screens/TaskNotLoggedIn';
 import ProfileScreen from './Screens/Profile';
 import { ChooseTaskList } from './Components/ChooseTaskList';
-// const { MongoClient } = require('mongodb');
-
-// Connect to Mongo DB host
-// const uri = CONST.MONGO_DB_HOST;
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// client.connect().then(() => {
-//   console.log('Connected to MongoDB');
-// }).catch(err => {
-//   console.error('Error connecting to MongoDB', err);
-// });
 
 // Navigators
 const Tab = createBottomTabNavigator();
