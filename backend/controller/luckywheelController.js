@@ -66,7 +66,10 @@ class luckywheelController {
     try {
       var userID = req.params.userID;
       var luckyWheelID = req.params.luckyWheelID;
-      var { nameGift, addr, quantity} = req.body;
+      var nameGift = req.query.nameGift;
+      var addr = req.query.addr;
+      var quantity = req.query.quantity;
+      // var { nameGift, addr, quantity} = req.body;
 
       var newShipment = {
           addr: addr,
@@ -80,7 +83,6 @@ class luckywheelController {
       
       var index = -1;
       for (let i = 0;i<luckywheel.giftList.length;i++) {
-        console.log(luckywheel.giftList[i])
         if (luckywheel.giftList[i].nameGift == nameGift) {
           
           index = i;
@@ -100,8 +102,6 @@ class luckywheelController {
           await luckywheel.save();
           luckywheel = await Luckywheel.findOne({_id: luckyWheelID});
 
-        // res.json(luckywheelList);
-        // res.json(campaignLastest.leaderboard);
           res.json({
             status: "success",
             luckywheel

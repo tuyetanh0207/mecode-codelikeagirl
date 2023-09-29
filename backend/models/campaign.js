@@ -7,7 +7,7 @@ const campaignSchema = new mongoose.Schema({
     leaderboard: 
     [
         {
-            userId: String,
+            userID: String,
             nameUser: String,
             score: Number,  
         }
