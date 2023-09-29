@@ -142,7 +142,7 @@ exports.vote = async (req,res) => {
         userVote = await User.findOne({_id: userVoteID});
        
         totalPointUserVote = userVote.campaignPoint[i].votingPoint + userVote.campaignPoint[i].votedPoint + userVote.campaignPoint[i].postPoint;
-        console.log(newVotingPoint,totalPointUserVote)
+        // console.log(newVotingPoint,totalPointUserVote)
         
         break;
 
@@ -169,7 +169,7 @@ exports.vote = async (req,res) => {
         userVoted = await User.findOne({_id: userVotedID});
        
         totalPointUserVoted = userVoted.campaignPoint[i].votingPoint + userVoted.campaignPoint[i].votedPoint + userVoted.campaignPoint[i].postPoint;
-        console.log(newVotedPoint,totalPointUserVoted)
+        // console.log(newVotedPoint,totalPointUserVoted)
         
         break;
 
@@ -186,7 +186,7 @@ exports.vote = async (req,res) => {
           )
         .then((updatedDocument) => {
           
-          console.log(updatedDocument);
+          // console.log(updatedDocument);
           updatedDocument.save();
         })
         .catch((err) => {
@@ -201,7 +201,7 @@ exports.vote = async (req,res) => {
           )
         .then((updatedDocument) => {
           
-          console.log(updatedDocument);
+          // console.log(updatedDocument);
           updatedDocument.save();
         })
         .catch((err) => {
@@ -210,6 +210,11 @@ exports.vote = async (req,res) => {
         
       }
     }
+    // campaign = await Campaign.findOne({_id: idCampaign})
+    // console.log(campaign.leaderboard)
+
+
+    console.log("vote thanh cong")
     res.json( {success:1})
 
   } catch(err) {
