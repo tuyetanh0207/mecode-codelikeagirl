@@ -19,9 +19,9 @@ class ActivityController {
   static show = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req
-      const userLatitude = parseFloat(req.body.latitude);
-      const userLongitude = parseFloat(req.body.longitude);
-      const userID = req.body.userID;
+      const userLatitude = parseFloat(req.query.latitude);
+      const userLongitude = parseFloat(req.query.longitude);
+      const userID = req.query.userID;
 
       // const userLatitude = 10.781115855332459; 
       // const userLongitude = 106.66876032407103;
@@ -70,12 +70,9 @@ class ActivityController {
             }
             
             if (count < 4 &&sameActivityID==0 ) {
-              // user.noti.push(newNoti);
-              // await user.save();
+              
               await User.findByIdAndUpdate(userID,{$push: {noti:newNoti }})
               
-              // user= await User.findOne({_id: userID});
-              // console.log(user.noti)
             }
           }
         }
@@ -83,6 +80,7 @@ class ActivityController {
       }
       
       nearTaskList.sort(compare);
+      console.log("sending tasklist");
       res.json(nearTaskList)
       // res.json(activity[0]);
     } catch (error) {
@@ -94,8 +92,8 @@ class ActivityController {
   static available = async (req, res) => {
     try {
       // Lấy tọa độ của người dùng từ req
-      const userLatitude = parseFloat(req.body.latitude);
-      const userLongitude = parseFloat(req.body.longitude);
+      const userLatitude = parseFloat(req.query.latitude);
+      const userLongitude = parseFloat(req.query.longitude);
 
       // const userLatitude = 10.781115855332459; 
       // const userLongitude = 106.66876032407103;
@@ -120,6 +118,7 @@ class ActivityController {
         }
       })
       availableTaskList.sort(compare);
+      console.log("sending available tasklist");
       res.json(availableTaskList)
       
     } catch (error) {

@@ -73,7 +73,7 @@ exports.createPost = async (req, res) => {
 };
 
 exports.votelist = async (req, res) => {
-  var userID = req.body.userID;
+  var userID = req.query.userID;
   var postList = await Post.find({userId: {$ne:userID }}).sort({votedPoint:1});
 
   var post1, post2 = {};
@@ -114,62 +114,105 @@ exports.votelist = async (req, res) => {
 
 exports.vote = async (req,res) => {
   try {
-    // const {userVoteID, postVotedID, userVotedID} = req.body;
-    // var totalPointUserVote,totalPointUserVoted  =0
+    const {userVoteID, postVotedID, userVotedID} = req.body;
+    var totalPointUserVote,totalPointUserVoted  =0
 
-    // var post = await Post.findOne({_id: postVotedID});
-    // post.votedPoint += 1;
-    // await post.save();
+    var post = await Post.findOne({_id: postVotedID});
+    post.votedPoint += 1;
+    await post.save();
     
 
-    // var userVote = await User.findOne({_id: userVoteID});
-    // for (let i =0;i<userVote.campaignPoint.length;i++) {
-    //   if(userVote.campaignPoint[i].campaignID == idCampaign) {
-    //     var votingPoint =  userVote.campaignPoint[i].votingPoint + 1;
+    var userVote = await User.findOne({_id: userVoteID});
+    for (let i =0;i<userVote.campaignPoint.length;i++) {
+      if(userVote.campaignPoint[i].campaignID == idCampaign) {
+        var newVotingPoint =  userVote.campaignPoint[i].votingPoint + 1;
+
+        User.findOneAndUpdate({_id: userVoteID},
+          {$set: {"campaignPoint.$[campaign].votingPoint":newVotingPoint}},
+          { arrayFilters: [{"campaign.campaignID": idCampaign}],new : true},
+          )
+        .then((updatedDocument) => {
+          updatedDocument.save();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+        
+        userVote = await User.findOne({_id: userVoteID});
        
-    //     totalPointUserVote = userVote.campaignPoint[i].votingPoint + userVote.campaignPoint[i].votedPoint + userVote.campaignPoint[i].postPoint;
+        totalPointUserVote = userVote.campaignPoint[i].votingPoint + userVote.campaignPoint[i].votedPoint + userVote.campaignPoint[i].postPoint;
+        console.log(newVotingPoint,totalPointUserVote)
+        
+        break;
 
-
-    //     // await userVote.save();
-    //     User.findOneAndUpdate({_id: userVoteID},{campaignPoint:{campaignID: idCampaign,{$set: {votingPoint:votingPoint}}}});
-    //     console.log(userVote)
-    //     break;
-
-      // }
-    // }
+      }
+    }
 
     var userVoted = await User.findOne({_id: userVotedID});
+    
     for (let i =0;i<userVoted.campaignPoint.length;i++) {
       if(userVoted.campaignPoint[i].campaignID == idCampaign) {
-        userVoted.campaignPoint[i].votingPoint +=1;
+        var newVotedPoint =  userVoted.campaignPoint[i].votedPoint + 1;
+        User.findOneAndUpdate({_id: userVotedID},
+          {$set: {"campaignPoint.$[campaign].votedPoint":newVotedPoint}},
+          { arrayFilters: [{"campaign.campaignID": idCampaign}],new : true},
+          )
+        .then((updatedDocument) => {
+          updatedDocument.save();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+        
+        userVoted = await User.findOne({_id: userVotedID});
+       
         totalPointUserVoted = userVoted.campaignPoint[i].votingPoint + userVoted.campaignPoint[i].votedPoint + userVoted.campaignPoint[i].postPoint;
-        await userVoted.save();
+        console.log(newVotedPoint,totalPointUserVoted)
+        
+        break;
+
       }
     }
 
     var campaign = await Campaign.findOne({_id: idCampaign})
     for (let i =0;i<campaign.leaderboard.length;i++) {
-      if(campaign.leaderboard[i].userId == userVoteID) {
-        campaign.leaderboard[i].score =totalPointUserVote;
+      if(campaign.leaderboard[i].userID == userVotedID) {
+
+        Campaign.findOneAndUpdate({_id: idCampaign},
+          {$set: {"leaderboard.$[leaderboard].score":totalPointUserVoted}},
+          { arrayFilters: [{"leaderboard.userID": userVotedID}],new : true},
+          )
+        .then((updatedDocument) => {
+          
+          console.log(updatedDocument);
+          updatedDocument.save();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
         
       }
-      if(campaign.leaderboard[i].userId == userVotedID) {
-        campaign.leaderboard[i].score =totalPointUserVoted;
+      if(campaign.leaderboard[i].userID == userVoteID) {
+        Campaign.findOneAndUpdate({_id: idCampaign},
+          {$set: {"leaderboard.$[leaderboard].score":totalPointUserVote}},
+          { arrayFilters: [{"leaderboard.userID": userVoteID}],new : true},
+          )
+        .then((updatedDocument) => {
+          
+          console.log(updatedDocument);
+          updatedDocument.save();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
         
       }
     }
-    await campaign.save();
-
-
-
-    return res.json( {success:1})
-    
-
+    res.json( {success:1})
 
   } catch(err) {
     console.log(err);
   }
-  
-
-
 }

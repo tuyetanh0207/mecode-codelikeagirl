@@ -66,7 +66,10 @@ class luckywheelController {
     try {
       var userID = req.params.userID;
       var luckyWheelID = req.params.luckyWheelID;
-      var { nameGift, addr, quantity} = req.body;
+      var nameGift = req.query.nameGift;
+      var addr = req.query.addr;
+      var quantity = req.query.quantity;
+      // var { nameGift, addr, quantity} = req.body;
 
       var newShipment = {
           addr: addr,
