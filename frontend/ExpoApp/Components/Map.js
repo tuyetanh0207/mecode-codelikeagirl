@@ -5,7 +5,6 @@ import styles from '../Utils/styles';
 import { UserLocationContext } from '../Contexts/UserLocation';
 import * as CONST from '../Utils/constants';
 import { View, Text, TouchableOpacity } from 'react-native';
-import client from '../api/client';
 import { activity } from '../api/activity';
 
 class MapComponent extends Component {
@@ -22,7 +21,6 @@ class MapComponent extends Component {
             showIcon: true,
         };
     }
-
 
     componentDidMount() {
         // This function will be automatically called at the first render
