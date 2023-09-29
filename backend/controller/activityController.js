@@ -23,6 +23,7 @@ class ActivityController {
       // console.log(req.query.latitude)
       const userLatitude = parseFloat(req.query.latitude);
       const userLongitude = parseFloat(req.query.longitude);
+      console.log('location', userLatitude, userLongitude)
       const userID = req.query.userID;
 
       // const userLatitude = 10.781115855332459; 
@@ -43,7 +44,9 @@ class ActivityController {
             { latitude: userLatitude, longitude: userLongitude },
             { latitude: task.latitude, longitude: task.longitude });
             console.log(userLatitude);
-          if(distance < 50000) {
+            console.log('dis', distance)
+            if(distance < 20000000) {
+          // if(distance < 50000) {
             
             task['distance'] = distance;
             nearTaskList.push(task);
@@ -114,7 +117,8 @@ class ActivityController {
           const distance = geolib.getDistance(
             { latitude: userLatitude, longitude: userLongitude },
             { latitude: task.latitude, longitude: task.longitude });
-          if(distance < 300) {
+            if(distance < 20000000) {
+          //if(distance < 300) {
             task['distance'] = distance;
             availableTaskList.push(task);
           }

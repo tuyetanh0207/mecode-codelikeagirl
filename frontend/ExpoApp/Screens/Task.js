@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as CONST from "../Utils/constants";
 import { StatusBar } from "react-native";
 import TaskListComponent from '../Components/TaskList';
-
+import { taskstyles } from "../Utils/taskStyles";
 export default function Task() {
   return (
     <ImageBackground

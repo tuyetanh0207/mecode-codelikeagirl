@@ -367,7 +367,8 @@ export default function Join({ navigation: { goBack }, route }) {
           </View>
         )
       ) : (
-<ChooseTaskList/>
+
+<></>
       )}
     </ImageBackground>
   );

@@ -18,13 +18,14 @@ import styles from "../Utils/styles";
 import { taskDetailstyles } from "../Utils/taskDetailsStyles";
 import { taskstyles } from "../Utils/taskStyles";
 import { getAvailableTaskList } from "../api/activity";
-import { Item } from "./TaskItem";
+import { Item } from "./TaskItemToChoose";
+
 class ChooseTaskList extends Component {
   static contextType = UserLocationContext;
 
   constructor(props) {
     super(props);
-    this.state = { tasks: [] };
+    this.state = { tasks: [], isChoosed: [] };
   }
 
   componentDidMount() {
@@ -54,9 +55,11 @@ class ChooseTaskList extends Component {
           dist: task.distance,
           hint: task.hint,
         }));
-
+        const updateIsChoose = newTaskList.data.map((task) => (false));
+        console.log('isChoosed array', this.state.isChoosed)
         // Update the state with the new task list
-        this.setState({ tasks: updateTaskList });
+        this.setState({ tasks: updateTaskList, isChoosed: updateIsChoose });
+        console.log('isChoosed array', this.state.isChoosed)
       }
     );
   };
@@ -82,7 +85,7 @@ class ChooseTaskList extends Component {
             <FlatList
               keyExtractor={(task, index) => index.toString()}
               data={this.state.tasks}
-              renderItem={({ item }) => (
+              renderItem={({ item, index }) => (
                 <Item
                   name={item.name}
                   icon={item.icon}
@@ -91,6 +94,9 @@ class ChooseTaskList extends Component {
                   dist={item.dist}
                   hint={item.hint}
                   taskId={item.taskId}
+                  isChoosed={this.state.isChoosed}
+                  index={index}
+                  setState={this.setState}
                 />
               )}
             />

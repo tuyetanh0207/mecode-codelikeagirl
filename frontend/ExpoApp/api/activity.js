@@ -28,7 +28,7 @@ export const getAvailableTaskList = async (userLatitude, userLongitude) => {
         console.log("render task list")
 
 
-        const res = await client.get('/activity/tasklist', {
+        const res = await client.get('/activity/available', {
             params: {latitude: userLatitude,
                 longitude: userLongitude}
             
