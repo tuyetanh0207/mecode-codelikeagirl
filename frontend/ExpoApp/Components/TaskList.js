@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as Location from 'expo-location';
 import { UserLocationContext } from '../Contexts/UserLocation';
 import * as CONST from '../Utils/constants';
-import { FlatList } from 'react-native'; // Import FlatList, View, Text
+import { FlatList } from 'react-native';
 import { activity } from '../api/activity';
 import { Item } from "../Components/TaskItem";
 
@@ -34,7 +34,7 @@ class TaskListComponent extends Component {
                 // Update tasklist
                 const updateTaskList = newTaskList.data.map(task => ({
                     taskId: task._id,
-                    name: task.name,
+                    name: task.nameTask,
                     icon: CONST.getIconByTitle(task.nameTask, CONST.normalIconMapping_60),
                     shortAddr: task.shortAddr,
                     addr: task.address,
@@ -44,6 +44,7 @@ class TaskListComponent extends Component {
 
                 // Update the state with the new task list
                 this.setState({ tasks: updateTaskList });
+                // console.log('UPDATE....', this.states.tasks);
             }
         );
     }
