@@ -45,7 +45,7 @@ class campaignController {
       if (foundIndex == -1) {
         res.json({
           status: "false",
-          message: "Khong tim thay user"
+          message: "User not found"
         });
       } else {
         res.json(

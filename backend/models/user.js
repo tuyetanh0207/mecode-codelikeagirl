@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bcrypt = require ('bcrypt')
 
 const userSchema = new mongoose.Schema({
+    //_id: { type: String },
     fullname: {
         type: String,
         required: true
@@ -33,10 +34,7 @@ const userSchema = new mongoose.Schema({
             [
                 [Number],
             ],
-
         }
-        
-
     ],
     campaignPoint:
     [

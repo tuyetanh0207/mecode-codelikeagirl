@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const luckywheelSchema = new mongoose.Schema(
     {
+       // _id: { type: String },
         campaignID: String,
         nameLuckyWheel: String,
         requireParticipant: Number,

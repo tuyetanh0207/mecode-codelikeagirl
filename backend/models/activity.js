@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Task = require('./task.js')
 const activitySchema = new mongoose.Schema({
+   // _id: { type: String },
     idCampaign: String,
     nameCampaign: String,
     nameTask: String,

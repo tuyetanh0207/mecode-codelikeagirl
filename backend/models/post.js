@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema({
+    //_id: { type: String },
     userId: {
         type: String,
         required: true
@@ -30,6 +31,7 @@ const postSchema = new mongoose.Schema({
     address: String,
     votedPoint: Number,
     createdDate: String,
+    luckywheelID: String,
 
 })
 module.exports = mongoose.model('Post', postSchema)
