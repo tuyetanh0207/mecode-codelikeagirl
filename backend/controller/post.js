@@ -25,12 +25,17 @@ exports.createPost = async (req, res) => {
     taskId,
     caption,
     shortAddr,
-    luckywheelID,
     idCampaign,
     isContraint,
-    address,
     isMp4,
   } = req.body;
+  let {address, luckywheelID} = req.body
+  if (!luckywheelID){
+    luckywheelID=''
+  }
+  if(!address){
+    address=''
+  }
 
   const len = req.files.length;
   // all attribute which have default value
@@ -215,7 +220,7 @@ exports.getAllPostOfUser = async (req, res) => {
         )
         .exec();
     }
-    console.log("posts", posts);
+    //console.log("posts", posts);
     res
       .status(201)
       .json({

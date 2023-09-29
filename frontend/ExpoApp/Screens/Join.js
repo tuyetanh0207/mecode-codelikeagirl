@@ -36,8 +36,10 @@ export default function Join({ navigation: { goBack }, route }) {
     nameCampaign,
     isContraint,
     luckywheelID;
+  let IsNeedChoosingTask=false
+  let isChoosed=false
   //console.log('rout', route.params)
-  const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
+ // const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
   if (route.params) {
     ({
       name,
@@ -53,7 +55,8 @@ export default function Join({ navigation: { goBack }, route }) {
       luckywheelID,
     } = route.params);
   } else {
-    IsNeedChoosingTask = true;
+    //setIsNeedChoosingTask(true)
+    IsNeedChoosingTask=true
     name = "";
     shortAddr = "";
     addr = "";
@@ -91,7 +94,9 @@ export default function Join({ navigation: { goBack }, route }) {
   const [isRecordingParent, setIsRecordingParent] = useState(false);
   const [hasRecordedParent, setHasRecordedParent] = useState(false);
   const [currentVideoParent, setCurrentVideoParent] = useState(null);
-  const [isChoosing, setIsChoosing] = useState(false);
+  const [isChoosing, setIsChoosing] = useState(0);
+  const [taskChoosed, setTaskChoosed] = useState(null)
+
   var mp4ReExpression = /\.mp4$/;
   const handleAddPhoto = () => {
     setIsTakingPhoto(true);
@@ -100,21 +105,37 @@ export default function Join({ navigation: { goBack }, route }) {
   useEffect(() => {
     console.log("video uri: ", currentVideoParent);
   }, [currentVideoParent]);
-
+  const [noti, setNoti] = useState('')
   const handlePostBtn = async () => {
     formData = new FormData();
+    if(IsNeedChoosingTask && isChoosing!==2)
+    {
+      setNoti('Please choose the task you want to join to post!')
+    }
     //process string info
     //console.log("userId:", userInfo.userId);
     formData.append("userId", userInfo.userId);
-    formData.append("taskName", name);
-    console.log("taskid:", taskId);
-    formData.append("taskId", taskId);
     formData.append("caption", feeling);
-    formData.append("address", addr);
-    formData.append("idCampaign", idCampaign);
-    formData.append("nameCampaign", nameCampaign);
-    formData.append("isContraint", isContraint);
-    formData.append("luckywheelID", luckywheelID);
+    if (IsNeedChoosingTask && isChoosing===2){
+      formData.append("taskName", taskChoosed.name);
+      formData.append("taskId", taskChoosed.taskId);
+      formData.append("shortAddr", taskChoosed.shortAddr);
+      formData.append("address", taskChoosed.addr);
+      formData.append("idCampaign", taskChoosed.idCampaign);
+      formData.append("nameCampaign", taskChoosed.nameCampaign);
+      formData.append("isContraint", taskChoosed.isContraint);
+      formData.append("luckywheelID", taskChoosed.luckywheelID);
+    } else {
+      formData.append("taskName", name);
+      formData.append("taskId", taskId);
+      formData.append("shortAddr", taskChoosed.shortAddr);
+      formData.append("address", addr);
+      formData.append("idCampaign", idCampaign);
+      formData.append("nameCampaign", nameCampaign);
+      formData.append("isContraint", isContraint);
+      formData.append("luckywheelID", luckywheelID);
+    }
+
 
     // process photos
     // if a video
@@ -194,7 +215,7 @@ export default function Join({ navigation: { goBack }, route }) {
             currentVideoParent={currentVideoParent}
             setCurrentVideoParent={setCurrentVideoParent}
           />
-        ) : (
+        ) : ( isChoosing===0 || isChoosing===2?
           <View style={joinstyles.container}>
             {/* header */}
             <View style={joinstyles.header}>
@@ -247,7 +268,9 @@ export default function Join({ navigation: { goBack }, route }) {
                 <View style={joinstyles.name}>
                   <Text style={joinstyles.nametext}>{userInfo.fullname}</Text>
                   {IsNeedChoosingTask === true ? (
-                    <ChooseTaskBtn isChooesed={false} />
+                    <TouchableOpacity  onPress = {()=>{setIsChoosing(1); setNoti('')}}>
+                    <ChooseTaskBtn isChoosed={isChoosing} taskChoosed={taskChoosed} />
+                    </TouchableOpacity>
                   ) : (
                     <></>
                   )}
@@ -298,7 +321,7 @@ export default function Join({ navigation: { goBack }, route }) {
                             <Image
                               source={{ uri: item }}
                               style={{
-                                width: "100%",
+                                width: CONST.responsiveHeight(100),
                                 height: CONST.responsiveHeight(100),
                               }}
                             />
@@ -326,7 +349,7 @@ export default function Join({ navigation: { goBack }, route }) {
                           <Image
                             source={{ uri: item }}
                             style={{
-                              width: "100%",
+                              width: CONST.responsiveHeight(100),
                               height: CONST.responsiveHeight(100),
                             }}
                           />
@@ -365,8 +388,11 @@ export default function Join({ navigation: { goBack }, route }) {
               </View>
             </View>
           </View>
+          :
+          <ChooseTaskList onCallBack = {setIsChoosing} setTaskChoosed={setTaskChoosed}/>
         )
         }
+        <Text style={joinstyles.notiText}>{noti}</Text>
     </ImageBackground>
   );
 }

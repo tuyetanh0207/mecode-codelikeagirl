@@ -117,7 +117,7 @@ export default function Post({navigation: {goBack}, route}) {
                   <View style={joinstyles.photo}>
                     <Image
                       src={ item }
-                      style={{ width: "100%", height: 100 }}
+                      style={{ width: CONST.responsiveHeight(100), height: CONST.responsiveHeight(100) }}
                     />
                   </View>
                   :

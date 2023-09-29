@@ -64,8 +64,8 @@ export const joinstyles = StyleSheet.create({
 
   },
   profileImage: {
-    width: 40,
-    height: 40,
+    width: CONST.responsiveHeight(40),
+    height: CONST.responsiveHeight(40),
     marginRight: "4%",
     overflow: "hidden",
     borderRadius: 20,
@@ -85,8 +85,8 @@ export const joinstyles = StyleSheet.create({
     justifyContent: "space-between",
   },
   photo: {
-    width: "32%",
-    height: 100,
+    width: CONST.responsiveHeight(100),
+    height: CONST.responsiveHeight(100),
     backgroundColor: CONST.BACKGROUND_COLOR,
     alignItems: "center",
     justifyContent: "center",
@@ -121,4 +121,13 @@ export const joinstyles = StyleSheet.create({
     fontSize: CONST.responsiveHeight(14),
     fontWeight: "300",
   },
+  notiText: {
+    marginTop: '10%',
+
+    alignItems: "center",
+
+    fontSize: CONST.responsiveHeight(14),
+    marginLeft: '18%'
+
+  }
 });

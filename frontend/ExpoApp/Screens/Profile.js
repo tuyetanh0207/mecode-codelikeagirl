@@ -39,6 +39,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const [profileUserInfo, setProfileUserInfo] = useState({});
   const [profileUserPoint, setProfileUserPoint] = useState(null)
   const [profileUserRank, setProfileUserRank] = useState(null)
+  const [fetchedPost, setIsFetchPost] = useState(false)
   const [PostList, setPostList] = useState([
     {
       taskName: "Collect trash",
@@ -80,10 +81,11 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   };
   const fetchPostList = async () => {
     try {
-      if(userId){
+      if(userId && !fetchedPost){
         const res = await getAllPostOfUser(userId);
         //console.log('res', res)
-        setPostList(res.posts);
+        setPostList(res.posts.reverse());
+        setIsFetchPost(true)
       }
      
     } catch (error) {
@@ -93,7 +95,8 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const fetchRankUser = async () => {
     try {
       const res = await getUserRankLatestCampaign(userId);
-      setProfileUserRank(res)
+      setProfileUserRank(res.rank)
+      console.log('rank', res)
     } catch (error) {
       console.log('error while get rank', error)
     }
@@ -129,8 +132,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       // console.log('profile user when not ruote param kkk', userInfo)
       // console.log('profile user when not ruote param', profileUserInfo)
     }
-    fetchPostList();
-    fetchRankUser();
+  
    // console.log("");
     if (isCurrentUser) {
       // const parts = profileUserInfo.fullname.split(" ");
@@ -139,8 +141,9 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
 
   }, [isCurrentUser, userInfo]);
   useEffect(() => {
-  
-  }, []);
+    fetchPostList();
+    fetchRankUser();
+  }, [isCurrentUser,userInfo]);
   // console.log('user info after getting in useEffect toekn', token)
   const { setIsLoggedIn } = useLogin();
   const handleSettingBtn = async () => {
@@ -199,8 +202,8 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
               {profileUserInfo.fullname}
             </Text>
             <Text style={profileStyles.pointText}>
-              {/* profileUserRank */}
-              Top {}
+              
+              Top {profileUserRank}
               <Text style={profileStyles.linePoint}> | </Text>
               <Text> {profileUserPoint} Points </Text>
             </Text>

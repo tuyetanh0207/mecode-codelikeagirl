@@ -30,7 +30,7 @@ export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId, idCampai
           {icon}
         </View>
         <View style={taskDetailstyles.dis}>
-          <Text style={taskDetailstyles.disText}>{dist}m</Text>
+          <Text style={taskDetailstyles.disText} numberOfLines={1}>{dist}m</Text>
         </View>
       </View>
       <View style={taskDetailstyles.mid}>

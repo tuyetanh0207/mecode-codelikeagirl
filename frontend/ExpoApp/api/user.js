@@ -84,11 +84,11 @@ export const getUserInfo = async (userId) => {
 export const getUserRankLatestCampaign = async (userId) => {
     try {
         const rankRes = await client.get(`/campaign/leaderboard/user/${userId}/rank`)
-       // console.log('rankREs', rankRes.data)
-        return rankRes
+       console.log('rankREs', rankRes.data)
+        return rankRes.data
     }
     catch(error){
-
+        console.log('error while fetch rank', error)
     }
 }
 

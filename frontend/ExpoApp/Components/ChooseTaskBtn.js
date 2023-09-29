@@ -4,29 +4,29 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as CONST from "../Utils/constants";
 import { Iconify } from "react-native-iconify";
 import { ChooseTaskList } from "./ChooseTaskList";
-export const ChooseTaskBtn = ({ isChooesed, isChoosing, setIsChoosing, title, shortAddr }) => {
+export const ChooseTaskBtn = (isChoosed, taskChoosed) => {
   const navigation = useNavigation();
   const iconSize= 18
-
-  const handleChooseBtn =() =>{
-    setIsChoosing(true)
-  }
+  //console.log('ischoosed', isChoosed)
+  //console.log('ttaskcho', taskChoosed)
+  
   return (
-    <>
-    <TouchableOpacity
+    <View style ={[chooseTaskBtnstyles.container, isChoosed ===2 ? {maxWidth: CONST.responsiveWidth(300)}: {maxWidth: CONST.responsiveWidth(120)} ]}>
+    <View
       //onPress={() => navigation.navigate('TaskDetails')}
-      style={chooseTaskBtnstyles.container}
-      onPress={()=> handleChooseBtn()}
+      style={chooseTaskBtnstyles.innerContainer}
+      //onPress={()=> handleChooseBtn()}
     >
-      {isChooesed?<>
+      {isChoosed.isChoosed===2?<>
         <Iconify 
        icon = 'solar-pin-list-linear'
         color={CONST.FEATURE_TEXT_COLOR} 
         size={CONST.responsiveHeight(iconSize)}/>
        <Text
          style={chooseTaskBtnstyles.title}
+         numberOfLines={1}
        >
-         {title}
+         {isChoosed.taskChoosed.name} - {isChoosed.taskChoosed.shortAddr}
        </Text>
        <Iconify 
        icon = 'akar-icons:triangle-down-fill' 
@@ -40,7 +40,7 @@ export const ChooseTaskBtn = ({ isChooesed, isChoosing, setIsChoosing, title, sh
         color={CONST.FEATURE_TEXT_COLOR} 
         size={CONST.responsiveHeight(iconSize)}/>
        <Text
-         style={chooseTaskBtnstyles.title}
+         style={chooseTaskBtnstyles.titleNot}
        >
          Choose a task
        </Text>
@@ -54,30 +54,42 @@ export const ChooseTaskBtn = ({ isChooesed, isChoosing, setIsChoosing, title, sh
       </>
      
       }
-    </TouchableOpacity>
+    </View>
 
-    </>
+    </View>
   );
 };
 
 const chooseTaskBtnstyles = StyleSheet.create({
   container: {
-    marginTop: '2%',
+    marginTop: '1%',
+
+    //maxWidth: CONST.responsiveWidth(200),
+    alignSelf: 'flex-start'
+  },
+  innerContainer: {
     backgroundColor:CONST.LIGHT_PINK_COLOR,
     flexDirection: 'row',
     justifyContent: 'space-between',
     //flex: 1,
     borderRadius: 3,
-    padding: '1%',
+
     paddingHorizontal: '2%',
-    alignItems: "center"
-
-
+    alignItems: "center",
   },
   title: {
     color: CONST.FEATURE_TEXT_COLOR,
     fontSize: CONST.responsiveHeight(14),
     fontWeight: '300',
+    width: '80%',
+    marginLeft: '4%',
+
+  },
+  titleNot: {
+    color: CONST.FEATURE_TEXT_COLOR,
+    fontSize: CONST.responsiveHeight(14),
+    fontWeight: '300',
+    marginHorizontal: '4%',
 
   },
 });
