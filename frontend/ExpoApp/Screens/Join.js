@@ -37,7 +37,7 @@ export default function Join({ navigation: { goBack }, route }) {
     isContraint,
     luckywheelID;
   //console.log('rout', route.params)
-  //const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
+  const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
   if (route.params) {
     ({
       name,
@@ -181,8 +181,8 @@ export default function Join({ navigation: { goBack }, route }) {
       style={styles.imageBackground}
     >
       {/* container */}
-      {isTakingPhoto ? (
-        !isChoosing ? (
+      {isTakingPhoto ? 
+        (
           <CameraComponent
             setIsTakingPhoto={setIsTakingPhoto}
             setPhotos={setPhotos}
@@ -366,10 +366,7 @@ export default function Join({ navigation: { goBack }, route }) {
             </View>
           </View>
         )
-      ) : (
-
-<></>
-      )}
+        }
     </ImageBackground>
   );
 }

@@ -39,10 +39,14 @@ class TaskListComponent extends Component {
                     shortAddr: task.shortAddr,
                     addr: task.address,
                     dist: task.distance,
-                    hint: task.hint
-                }));
+                    hint: task.hint,
+                    idCampaign: task.idCampaign,
+                    nameCampaign: task.nameCampaign,
+                    isContraint: task.isContraint,
+                    luckywheelID: task.luckywheelID
 
-                // Update the state with the new task list
+                }));
+              
                 this.setState({ tasks: updateTaskList });
                 // console.log('UPDATE....', this.states.tasks);
             }
@@ -63,6 +67,10 @@ class TaskListComponent extends Component {
                         dist={item.dist}
                         hint={item.hint}
                         taskId={item.taskId}
+                        idCampaign= {item.idCampaign}
+                        nameCampaign= {item.nameCampaign}
+                        isContraint= {item.isContraint}
+                        luckywheelID= {item.luckywheelID}
                     />
                 )}
             />

@@ -14,7 +14,7 @@ export default function Task() {
     >
       <View style={taskstyles.container}>
         <View style={taskstyles.header}>
-          <Text style={styles.heading2}>Profile</Text>
+          <Text style={styles.heading2}>Task list</Text>
         </View>
         <SafeAreaView style={taskstyles.list}>
           <TaskListComponent />
