@@ -192,8 +192,8 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
-        <Stack.Screen name="MapNotLoggedIn" component={ChooseTaskList} />
-        {/* <Stack.Screen name="MapNotLoggedIn" component={ProfileScreen} /> */}
+        {/* <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} /> */}
+        <Stack.Screen name="MapNotLoggedIn" component={Join} />
         <Stack.Screen name="Task" component={TaskNotLoggedIn} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="LogIn" component={LogIn} />

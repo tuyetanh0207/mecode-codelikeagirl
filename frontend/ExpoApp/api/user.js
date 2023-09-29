@@ -92,10 +92,5 @@ export const getUserRankLatestCampaign = async (userId) => {
     }
 }
 
-export const getAvailableTaskList = async () => {
-    try {
-        const res = await client.get(``)
-    } catch (error) {
-        
-    }
-}
+
+
