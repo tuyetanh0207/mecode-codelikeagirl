@@ -47,7 +47,7 @@ export const BOLD_HEADING2_COLOR_TREE_ICON_44 = <Iconify icon="ri:seedling-fill"
 export const FEATURE_TEXT_TRASH_ICON_60 = <Iconify icon="fluent:bin-recycle-20-regular" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_BOTTLE_ICON_60 = <Iconify icon="solar:bottle-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_BAG_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
-export const FEATURE_TEXT_TREE_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const FEATURE_TEXT_TREE_ICON_60 = <Iconify icon="ri:seedling-line" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const UNKNOWN_ICON_60 = <Iconify icon="carbon:unknown" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 
 export const boldIconMapping = {
