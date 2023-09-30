@@ -4,15 +4,15 @@ import client from "./client"
 export const activity = async (userLatitude, userLongitude) => {
     try {
         console.log("render task list")
-
-
         const res = await client.get('/activity/tasklist', {
-            params: {latitude: userLatitude,
-                longitude: userLongitude}
-            
+            params: {
+                latitude: userLatitude,
+                longitude: userLongitude
+            }
+
         })
 
-        console.log('Tasklist: ', res.data);
+        // console.log('Tasklist: ', res.data);
         return res;
 
     } catch (error) {
@@ -29,9 +29,11 @@ export const getAvailableTaskList = async (userLatitude, userLongitude) => {
 
 
         const res = await client.get('/activity/available', {
-            params: {latitude: userLatitude,
-                longitude: userLongitude}
-            
+            params: {
+                latitude: userLatitude,
+                longitude: userLongitude
+            }
+
         })
 
         console.log('Tasklist: ', res.data);

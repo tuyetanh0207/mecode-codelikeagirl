@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import { Video } from 'expo-av';
-import * as MediaLibrary from 'expo-media-library';
 import * as CONST from '../Utils/constants';
 import { Iconify } from 'react-native-iconify';
 import styles from '../Utils/styles';
