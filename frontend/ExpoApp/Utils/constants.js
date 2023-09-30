@@ -13,7 +13,7 @@ export const SHADOW_BLACK_COLOR = 'rgba(11, 37, 40, 0.55)';
 export const DARK_PINK_COLOR = '#FD3D6C';
 export const LIGHT_PINK_COLOR = '#FEE6EC';
 export const DARK_GREEN_COLOR = '#0B2528';
-
+export const GREENSTEP_TEXT_COLOR = '#0EA7A5'
 // Responsive size
 import { Dimensions } from 'react-native';
 export const STANDARD_SCREEN = [400, 870];

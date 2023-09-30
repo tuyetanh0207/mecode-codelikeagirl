@@ -193,6 +193,7 @@ export default function App() {
           headerShown: false
         }}>
         {/* <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} /> */}
+        <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
         <Stack.Screen name="Task" component={TaskNotLoggedIn} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
