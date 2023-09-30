@@ -45,6 +45,13 @@ export default function Post({navigation: {goBack}, route}) {
     setPhotos(photos.filter((photo, index) => index !== currIdx));
     return;
   };
+  const handleXBtn = () => {
+    if(isJustPosted) {
+      navigation.navigate('Profile')
+    } else {
+      goBack()
+    }
+  }
     return (
         <ImageBackground
       source={require("../assets/images/background.png")}
@@ -57,7 +64,7 @@ export default function Post({navigation: {goBack}, route}) {
             {/* backicon */}
             <View style={joinstyles.left}>
               {/* <TouchableOpacity onPress={() => goBack()}> */}
-              <TouchableOpacity onPress={()=>navigation.navigate('Profile')} style={joinstyles.backIcon}>
+              <TouchableOpacity onPress={()=>handleXBtn()} style={joinstyles.backIcon}>
                 <Image
                   source={require("../assets/images/x.png")}
                   style={joinstyles.backicon}
@@ -68,7 +75,7 @@ export default function Post({navigation: {goBack}, route}) {
                 {isJustPosted === true? 
                 <Text style={joinstyles.headertext}>Posted</Text>
                 :
-                <Text style={joinstyles.headertext}>Create post</Text>
+                <Text style={joinstyles.headertext}>View post</Text>
                 }
               
             </View>

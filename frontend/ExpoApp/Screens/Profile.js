@@ -57,6 +57,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       createdDate: "Sun Sep 17 2023 19:11:13 GMT+0700 (Indochina Time)",
       caption: "...",
       votedPoint: "ddd",
+      avatar: '',
       photos: [
         "http://res.cloudinary.com/dzcxfc257/image/upload/v1694952669/64fec297428317cfb0a2fc21_post_Sun%20Sep%2017%202023%2019:11:10%20GMT%2B0700%20%28Indochina%20Time%29_0.jpg",
       ],
@@ -79,13 +80,15 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     setProfileUserInfo(user.userInfo);
     setProfileUserPoint(user.userInfo.campaignPoint.postPoint + user.userInfo.campaignPoint.votingPoint + user.userInfo.campaignPoint.votedPoint)
   };
+  const [headerUser, setHeaderUser] = useState({avatar: '', fullname: ''})
   const fetchPostList = async () => {
     try {
       if(userId && !fetchedPost){
         const res = await getAllPostOfUser(userId);
-        //console.log('res', res)
+        console.log('res', res)
         setPostList(res.posts.reverse());
         setIsFetchPost(true)
+        setHeaderUser({avatar: res.avatar, fullname: res.fullname})
       }
      
     } catch (error) {
@@ -96,7 +99,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     try {
       const res = await getUserRankLatestCampaign(userId);
       setProfileUserRank(res.rank)
-      console.log('rank', res)
+    //  console.log('rank', res)
     } catch (error) {
       console.log('error while get rank', error)
     }
@@ -157,7 +160,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     <SmallPostItem
       postId={item.postId}
       point={item.point}
-      fullname={item.fullname}
+      fullname={headerUser.fullname}
       userId={item.userId}
       icon={item.icon}
       shortAddr={item.shortAddr}
@@ -168,6 +171,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       caption={item.caption}
       votedPoint={item.votedPoint}
       photos={item.photos}
+      avatar={headerUser.avatar}
     />
   );
   return (

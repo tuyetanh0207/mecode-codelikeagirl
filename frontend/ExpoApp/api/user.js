@@ -84,7 +84,7 @@ export const getUserInfo = async (userId) => {
 export const getUserRankLatestCampaign = async (userId) => {
     try {
         const rankRes = await client.get(`/campaign/leaderboard/user/${userId}/rank`)
-       console.log('rankREs', rankRes.data)
+      // console.log('rankREs', rankRes.data)
         return rankRes.data
     }
     catch(error){
@@ -93,4 +93,41 @@ export const getUserRankLatestCampaign = async (userId) => {
 }
 
 
+export const GetPostToVote= async (userID) => {
+    try {
+        console.log("post to vote")
 
+
+        const res = await client.get('/post/vote-list', {
+            params: {userID: userID}
+            
+        })
+
+        console.log('post list: ', res.data);
+        return res;
+
+    } catch (error) {
+        console.log(error)
+
+    }
+}
+export const VotePost= async (userVoteID, postVotedID, userVotedID) => {
+    try {
+        console.log("voting post")
+
+
+        const res = await client.post('/post/vote', 
+            {userVoteID: userVoteID, 
+            postVotedID: postVotedID,
+        userVotedID: userVotedID}
+            
+        )
+
+        console.log('post list: ', res.data);
+        return res;
+
+    } catch (error) {
+        console.log(error)
+
+    }
+}

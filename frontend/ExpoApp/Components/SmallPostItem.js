@@ -19,22 +19,29 @@ export const SmallPostItem = ({
   caption,
   votedPoint,
   photos,
+  avatar
 }) => {
   const navigation = useNavigation();
   var mp4ReExpression = /\.mp4$/; 
   const handlePressJoinBtn = () => {
-    navigation.navigate("TaskDetails", {
+    navigation.navigate("Post", {
       icon: icon,
       shortAddr: shortAddr,
       addr: addr,
-      dist: dist,
-      hint: hint,
       taskId: taskId,
+      isJustPosted: false,
+      userId: userId,
+      postId: postId,
+      fullname: fullname,
+      caption: caption,
+      photos: photos,
+      createdDate: createdDate,
+      avatar: avatar
     });
   };
 
   return (
-    <TouchableOpacity style={smallPoststyles.container}>
+    <TouchableOpacity style={smallPoststyles.container} onPress={() => handlePressJoinBtn()}>
       {addr ? (
         <View style={smallPoststyles.left}>
           <View style={smallPoststyles.header}>

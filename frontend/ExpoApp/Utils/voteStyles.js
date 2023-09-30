@@ -3,13 +3,16 @@ import * as CONST from './constants'
 import { StatusBar } from 'react-native'
 export const voteStyles = StyleSheet.create({
     container: {
-        flex: 1,
+       // flex: 1,
         marginVertical: "2%",
         marginTop: StatusBar.currentHeight || 0,
         marginHorizontal: '4%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: '4%',
     },
     header: {
-        //flex: 0.2,
+        flex: 1,
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 14,
@@ -17,23 +20,26 @@ export const voteStyles = StyleSheet.create({
       },
     backicon: {
         position: 'absolute',
-        //left: '5%',
-        top: '2%'
+        left: '4%',
+        top: '6%'
     },
-    inforContainer: {
-        width: '100%',
-        //height: '10%',
-        marginTop: '4%',
-        backgroundColor: 'black',
-        padding: '4%',
-        borderRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        justifyContent: 'center',
-
+   
+    intruct: {
         
     },
-    
+    intruct2Text: {
+        color: CONST.NAVIGATION_ACTIVE_COLOR
+    },
+    photos: {
+       marginTop: '8%',
+    },
+    photo: {
+        marginTop: '4%',
+        width: CONST.responsiveWidth(360),
+        height: CONST.responsiveHeight(290),
+        borderRadius: 20
+
+    }
 
   
 })
