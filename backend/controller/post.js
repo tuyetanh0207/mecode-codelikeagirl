@@ -288,6 +288,10 @@ exports.vote = async (req,res) => {
     var userVote = await User.findOne({_id: userVoteID});
     for (let i =0;i<userVote.campaignPoint.length;i++) {
       if(userVote.campaignPoint[i].campaignID == idCampaign) {
+        var newVotingPoint
+        if (!userVote.campaignPoint[i].votingPoint){
+          newVotingPoint=0
+        }
         var newVotingPoint =  userVote.campaignPoint[i].votingPoint + 1;
 
         User.findOneAndUpdate({_id: userVoteID},
@@ -303,7 +307,8 @@ exports.vote = async (req,res) => {
 
         
         userVote = await User.findOne({_id: userVoteID});
-       
+       if(!userVote.campaignPoint[i].votingPoint )
+       totalPointUserVote = 0
         totalPointUserVote = userVote.campaignPoint[i].votingPoint + userVote.campaignPoint[i].votedPoint + userVote.campaignPoint[i].postPoint;
         // console.log(newVotingPoint,totalPointUserVote)
         
