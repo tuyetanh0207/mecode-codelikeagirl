@@ -318,31 +318,42 @@ exports.vote = async (req,res) => {
     }
 
     var userVoted = await User.findOne({_id: userVotedID});
-    
-    for (let i =0;i<userVoted.campaignPoint.length;i++) {
-      if(userVoted.campaignPoint[i].campaignID == idCampaign) {
-        var newVotedPoint =  userVoted.campaignPoint[i].votedPoint + 1;
-        User.findOneAndUpdate({_id: userVotedID},
-          {$set: {"campaignPoint.$[campaign].votedPoint":newVotedPoint}},
-          { arrayFilters: [{"campaign.campaignID": idCampaign}],new : true},
-          )
-        .then((updatedDocument) => {
-          updatedDocument.save();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-
-        
-        userVoted = await User.findOne({_id: userVotedID});
-       
-        totalPointUserVoted = userVoted.campaignPoint[i].votingPoint + userVoted.campaignPoint[i].votedPoint + userVoted.campaignPoint[i].postPoint;
-        // console.log(newVotedPoint,totalPointUserVoted)
-        
-        break;
-
-      }
+    console.log('uservoted', userVoted)
+    if (userVoted==null){
+      console.log('user not found')
     }
+      if (userVoted && userVoted.campaignPoint)
+      {
+        for (let i =0;i<userVoted.campaignPoint.length;i++) {
+          if(userVoted.campaignPoint[i].campaignID == idCampaign) {
+            var newVotedPoint 
+            if (!userVoted.campaignPoint[i].votedPoint) {
+              newVotedPoint =0
+            } else
+            newVotedPoint =  userVoted.campaignPoint[i].votedPoint + 1;
+            User.findOneAndUpdate({_id: userVotedID},
+              {$set: {"campaignPoint.$[campaign].votedPoint":newVotedPoint}},
+              { arrayFilters: [{"campaign.campaignID": idCampaign}],new : true},
+              )
+            .then((updatedDocument) => {
+              updatedDocument.save();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+    
+            
+            userVoted = await User.findOne({_id: userVotedID});
+           
+            totalPointUserVoted = userVoted.campaignPoint[i].votingPoint + userVoted.campaignPoint[i].votedPoint + userVoted.campaignPoint[i].postPoint;
+            // console.log(newVotedPoint,totalPointUserVoted)
+            
+            break;
+    
+          }
+        }
+      }
+ 
 
     var campaign = await Campaign.findOne({_id: idCampaign})
     for (let i =0;i<campaign.leaderboard.length;i++) {
