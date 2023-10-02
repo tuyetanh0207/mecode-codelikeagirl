@@ -1,3 +1,7 @@
+// Navigate from Leaderboard to Profile:
+// - File Screens/Leaderboard.js: line 91
+// - File Components/Top3.js: lines 17, 36, 55 
+
 import { React, useContext, useState, useEffect } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, FlatList, Image } from 'react-native';
 import styles from '../Utils/styles';
@@ -69,7 +73,7 @@ export default function LeaderBoard({ navigation: { goBack }, route }) {
                 <View style={LeaderBoardStyles.container}>
                     <View style={LeaderBoardStyles.campaignContainer}>
                         <Text style={LeaderBoardStyles.campaignTime}>
-                            August 1 - 31, 2023
+                            August 20 - October 20, 2023
                         </Text>
                         <Top3Component data={leaderboard} />
                     </View>

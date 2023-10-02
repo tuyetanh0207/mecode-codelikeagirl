@@ -51,21 +51,24 @@ export const LeaderBoardStyles = StyleSheet.create({
     top3Containers: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
+        paddingHorizontal: CONST.PRIMARY_VERTICAL_MARGIN,
     },
     top1Container: {
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
         flex: 1,
     },
     top2Container: {
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
         flex: 1,
         marginTop: CONST.responsiveHeight(40),
         marginBottom: CONST.PRIMARY_VERTICAL_MARGIN,
     },
     subContainerTop: {
-        width: "90%",
+        // width: "90%",
         alignItems: "center",
         flexWrap: 'wrap',
         justifyContent: 'center',
