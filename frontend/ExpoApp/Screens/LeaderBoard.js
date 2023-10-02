@@ -9,9 +9,10 @@ import Top3Component from "../Components/Top3";
 import { LeaderBoardStyles } from '../Utils/leaderboardStyles';
 import { getLeaderboard, getUserRank } from '../api/leaderboard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
 export default function LeaderBoard({ navigation: { goBack }, route }) {
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
     const [token, setToken] = useState("");
     const [userInfo, setUserInfo] = useState({});
     const getUserID = async () => {
@@ -53,7 +54,7 @@ export default function LeaderBoard({ navigation: { goBack }, route }) {
         fetchUserRank(userInfo.userId);
     }, []);
 
-    if (leaderboard && userRank) {
+    if (leaderboard && userRank && userInfo) {
         return (
             <ImageBackground
                 source={require('../assets/images/background.png')}
@@ -86,10 +87,18 @@ export default function LeaderBoard({ navigation: { goBack }, route }) {
                                                 style={LeaderBoardStyles.starIcon}>
                                                 <Text style={LeaderBoardStyles.rank}>{index + 4}</Text>
                                             </ImageBackground>
-                                            <Image
-                                                source={samplePhoto}
-                                                style={LeaderBoardStyles.avatar}
-                                            />
+
+                                            <TouchableOpacity onPress={() => navigation.navigate('Profile', {
+                                                userId: item.userID,
+                                                fullname: item.nameUser,
+                                                avatar: item.avatar
+                                            })}>
+                                                <Image
+                                                    source={samplePhoto}
+                                                    style={LeaderBoardStyles.avatar}
+                                                />
+                                            </TouchableOpacity>
+
                                             <Text style={LeaderBoardStyles.username}>{item.nameUser}</Text>
                                         </View>
                                         <View style={LeaderBoardStyles.subContainer}>

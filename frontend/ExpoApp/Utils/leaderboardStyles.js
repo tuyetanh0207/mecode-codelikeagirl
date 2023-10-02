@@ -54,12 +54,12 @@ export const LeaderBoardStyles = StyleSheet.create({
     },
     top1Container: {
         alignItems: 'center',
-        marginHorizontal: "-1%",
+        justifyContent: 'center',
         flex: 1,
     },
     top2Container: {
         alignItems: 'center',
-        marginHorizontal: "-1%",
+        justifyContent: 'center',
         flex: 1,
         marginTop: CONST.responsiveHeight(40),
         marginBottom: CONST.PRIMARY_VERTICAL_MARGIN,
@@ -68,6 +68,7 @@ export const LeaderBoardStyles = StyleSheet.create({
         width: "90%",
         alignItems: "center",
         flexWrap: 'wrap',
+        justifyContent: 'center',
     },
     subContainer: {
         paddingTop: CONST.responsiveHeight(15),
@@ -125,9 +126,11 @@ export const LeaderBoardStyles = StyleSheet.create({
         lineHeight: CONST.responsiveHeight(19),
         letterSpacing: 0,
         color: CONST.FEATURE_TEXT_COLOR,
+        textAlign: 'center',
     },
     scoreTop: {
         color: CONST.DARK_PINK_COLOR,
+        textAlign: 'center',
     },
     avatar: {
         width: CONST.responsiveWidth(30),
