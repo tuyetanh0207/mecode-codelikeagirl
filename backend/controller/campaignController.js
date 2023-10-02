@@ -1,5 +1,5 @@
 const campaign = require('../models/campaign');
-// const user = require('../models/user');
+const User = require('../models/user');
 
 var idCampaign = "65115ac21f1dc1a4a78665db";
 
@@ -18,8 +18,14 @@ class campaignController {
       const campaignLastest = await campaign.findOne({_id: idCampaign}).lean();
       var leaderboard = campaignLastest.leaderboard;
       leaderboard.sort(compare);
+
+      for(let i = 0;i<leaderboard.length;i++) {
+        var user = await User.findById(leaderboard[i].userID);
+        leaderboard[i]['avatar'] = user.avatar;
+      }
+
       res.json(leaderboard);
-      // res.json(campaignLastest.leaderboard);
+      
     } catch (error) {
       console.log(error)
     }
