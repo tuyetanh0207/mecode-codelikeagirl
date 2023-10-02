@@ -11,6 +11,7 @@ export const TASK_ICON_COLOR = 'rgba(14, 167, 165, 1)';
 export const TASK_LABEL_COLOR = 'rgba(14, 167, 165, 0.75)';
 export const SHADOW_BLACK_COLOR = 'rgba(11, 37, 40, 0.55)';
 export const DARK_PINK_COLOR = '#FD3D6C';
+export const MEDIUM_PINK_COLOR = '#FE7899';
 export const LIGHT_PINK_COLOR = '#FEE6EC';
 export const DARK_GREEN_COLOR = '#0B2528';
 

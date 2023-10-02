@@ -10,24 +10,16 @@ import { LeaderBoardStyles } from '../Utils/leaderboardStyles';
 import { getLeaderboard, getUserRank } from '../api/leaderboard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//const data = /campaign/leaderboard/user/:id/rank
-
-// import client from "api/client.js"
-
 export default function LeaderBoard({ navigation: { goBack }, route }) {
     // const navigation = useNavigation();
     const [token, setToken] = useState("");
     const [userInfo, setUserInfo] = useState({});
     const getUserID = async () => {
         const tk = await AsyncStorage.getItem("token");
-        ////console.log('token get',token)
         setToken(tk);
         const str = await AsyncStorage.getItem("userInfo");
-        ////console.log('token', token)
         const userInfo_ = str ? JSON.parse(str) : {};
-        //console.log(userInfo_)
         setUserInfo(userInfo_);
-        console.log('----------------------------------------------userId: ', userInfo_.userId);
         return userInfo_.userId;
     };
 
@@ -85,23 +77,27 @@ export default function LeaderBoard({ navigation: { goBack }, route }) {
                         data={leaderboard.slice(3)}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item, index }) => (
-                            <View style={[LeaderBoardStyles.item, { backgroundColor: index + 4 === userRank ? 'pink' : 'transparent' }]}>
-                                <View style={LeaderBoardStyles.subContainer}>
-                                    <ImageBackground
-                                        source={starIcon}
-                                        style={LeaderBoardStyles.starIcon}>
-                                        <Text style={LeaderBoardStyles.rank}>{index + 4}</Text>
-                                    </ImageBackground>
-                                    <Image
-                                        source={samplePhoto}
-                                        style={LeaderBoardStyles.avatar}
-                                    />
+                            <View>
+                                <View style={[index + 4 === userRank ? LeaderBoardStyles.userItem : null]}>
+                                    <View style={LeaderBoardStyles.item}>
+                                        <View style={LeaderBoardStyles.subContainer}>
+                                            <ImageBackground
+                                                source={starIcon}
+                                                style={LeaderBoardStyles.starIcon}>
+                                                <Text style={LeaderBoardStyles.rank}>{index + 4}</Text>
+                                            </ImageBackground>
+                                            <Image
+                                                source={samplePhoto}
+                                                style={LeaderBoardStyles.avatar}
+                                            />
+                                            <Text style={LeaderBoardStyles.username}>{item.nameUser}</Text>
+                                        </View>
+                                        <View style={LeaderBoardStyles.subContainer}>
+                                            <Text style={LeaderBoardStyles.score}>{item.score}</Text>
+                                        </View>
+                                    </View>
                                 </View>
-                                <View style={LeaderBoardStyles.subContainer}>
-                                    <Text style={LeaderBoardStyles.username}>{item.nameUser}</Text>
-                                    <Text style={LeaderBoardStyles.score}>{item.score}</Text>
-                                </View>
-                                {/* <View style={LeaderBoardStyles.separator}></View> */}
+                                <View style={LeaderBoardStyles.separator}></View>
                             </View>
                         )}
                     />
