@@ -163,21 +163,6 @@ export default function App() {
                 return <Iconify icon="iconamoon:profile-light" size={CONST.responsiveHeight(32)} color="black" />
             }
           }} />
-        {/* <Tab.Screen name="Task" component={Task} options={{
-          tabBarVisible: false
-        }} />
-        <Tab.Screen name="TaskDetails" component={Task} options={{
-          tabBarVisible: false
-        }} />
-        <Tab.Screen name="Gift" component={LeaderBoard} options={{
-          tabBarVisible: false
-        }} />
-        <Tab.Screen name="Vote" component={LeaderBoard} options={{
-          tabBarVisible: false
-        }} />
-        <Tab.Screen name="LeaderBoard" component={LeaderBoard} options={{
-          tabBarVisible: false
-        }} /> */}
       </Tab.Navigator>
     );
   };

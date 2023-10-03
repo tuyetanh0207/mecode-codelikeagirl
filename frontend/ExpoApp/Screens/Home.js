@@ -15,9 +15,9 @@ export default function Home() {
         // now, temporarily using static image, must change to dynamic information later !!!
         const images = [
             require('../assets/images/sample_suggestions/task.png'),
-            require('../assets/images/sample_suggestions/gifts.jpg'),
-            require('../assets/images/sample_suggestions/leaderboard.jpg'),
-            require('../assets/images/sample_suggestions/vote.jpg')
+            require('../assets/images/sample_suggestions/gift.png'),
+            require('../assets/images/sample_suggestions/leaderboard.png'),
+            require('../assets/images/sample_suggestions/vote.png')
         ];
         const destinations = ['Task', 'Gift', 'LeaderBoard', 'Vote'];
 
