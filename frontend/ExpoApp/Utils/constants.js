@@ -14,7 +14,9 @@ export const DARK_PINK_COLOR = '#FD3D6C';
 export const MEDIUM_PINK_COLOR = '#FE7899';
 export const LIGHT_PINK_COLOR = '#FEE6EC';
 export const DARK_GREEN_COLOR = '#0B2528';
-export const GREENSTEP_TEXT_COLOR = '#0EA7A5'
+export const GREENSTEP_TEXT_COLOR = '#0EA7A5';
+export const YELLOW_COLOR = '#FCD53F';
+
 // Responsive size
 import { Dimensions } from 'react-native';
 export const STANDARD_SCREEN = [400, 870];
@@ -30,25 +32,31 @@ export const SCROLL_VIEW_WIDTH = TRUTH_SCREEN[0] * 0.8;
 
 // Icon
 import { Iconify } from 'react-native-iconify';
+export const PIN_ICON = <Iconify icon="mingcute:pin-fill" size={responsiveHeight(20)} color={DARK_PINK_COLOR} />;
 export const BOLD_TRASH_ICON = <Iconify icon="fluent:bin-recycle-24-filled" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 export const BOLD_BOTTLE_ICON = <Iconify icon="solar:bottle-bold-duotone" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 export const BOLD_BAG_ICON = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 export const BOLD_TREE_ICON = <Iconify icon="ri:seedling-fill" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
+export const BOLD_SUN_ICON = <Iconify icon="mingcute:sun-fill" size={responsiveHeight(40)} color={TASK_ICON_COLOR} />;
 
 export const BOLD_HEADING2_COLOR_TRASH_ICON = <Iconify icon="fluent:bin-recycle-24-filled" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_BOTTLE_ICON = <Iconify icon="solar:bottle-bold-duotone" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_BAG_ICON = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_TREE_ICON = <Iconify icon="ri:seedling-fill" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
+export const BOLD_HEADING2_COLOR_SUN_ICON = <Iconify icon="solar:sun-linear" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
+export const UNKNOWN_ICON = <Iconify icon="carbon:unknown" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
 
 export const BOLD_HEADING2_COLOR_TRASH_ICON_44 = <Iconify icon="fluent:bin-recycle-24-filled" size={responsiveHeight(54)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_BOTTLE_ICON_44 = <Iconify icon="solar:bottle-bold-duotone" size={responsiveHeight(54)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_BAG_ICON_44 = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(54)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_TREE_ICON_44 = <Iconify icon="ri:seedling-fill" size={responsiveHeight(54)} color={HEADING2_COLOR} />;
 
+
 export const FEATURE_TEXT_TRASH_ICON_60 = <Iconify icon="fluent:bin-recycle-20-regular" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_BOTTLE_ICON_60 = <Iconify icon="solar:bottle-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_BAG_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_TREE_ICON_60 = <Iconify icon="ri:seedling-line" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const FEATURE_TEXT_SUN_ICON_60 = <Iconify icon="solar:sun-linear" size={responsiveHeight(60)} color={HEADING2_COLOR} />;
 export const UNKNOWN_ICON_60 = <Iconify icon="carbon:unknown" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 
 export const boldIconMapping = {
@@ -56,6 +64,7 @@ export const boldIconMapping = {
     'Bring your own bottle': BOLD_BOTTLE_ICON,
     'Bring your own bag': BOLD_BAG_ICON,
     'Plant a tree': BOLD_TREE_ICON,
+    'Take advantage of sunlight': BOLD_SUN_ICON,
 };
 export const boldHeading2TextColorIconMapping_44 = {
     'Collect trash': BOLD_HEADING2_COLOR_TRASH_ICON_44,
@@ -68,12 +77,14 @@ export const boldHeading2TextColorIconMapping = {
     'Bring your own bottle': BOLD_HEADING2_COLOR_BOTTLE_ICON,
     'Bring your own bag': BOLD_HEADING2_COLOR_BAG_ICON,
     'Plan a tree': BOLD_HEADING2_COLOR_TREE_ICON,
+    'Take advantage of sunlight': BOLD_HEADING2_COLOR_SUN_ICON,
 };
 export const normalIconMapping_60 = {
     'Collect trash': FEATURE_TEXT_TRASH_ICON_60,
     'Bring your own bottle': FEATURE_TEXT_BOTTLE_ICON_60,
     'Bring your own bag': FEATURE_TEXT_BAG_ICON_60,
     'Plant a tree': FEATURE_TEXT_TREE_ICON_60,
+    'Take advantage of sunlight': FEATURE_TEXT_SUN_ICON_60,
 };
 export const VIDEO_RECORD_BUTTON = require('../assets/images/record.png');
 
@@ -81,7 +92,7 @@ export const VIDEO_RECORD_BUTTON = require('../assets/images/record.png');
 export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMapping) => {
     // console.log(title, ': title');
     // console.log(mappingType[title], ': mapping type');
-    return mappingType[title] || UNKNOWN_ICON_60;
+    return mappingType[title] || (mappingType === boldIconMapping ? UNKNOWN_ICON : UNKNOWN_ICON_60);
 }
 
 // Map

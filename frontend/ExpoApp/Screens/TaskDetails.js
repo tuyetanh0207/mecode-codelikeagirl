@@ -16,7 +16,7 @@ import { taskDetailstyles } from "../Utils/taskDetailsStyles";
 import MapComponent from '../Components/Map'
 import { getIconByTitle } from "../Utils/constants";
 export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
-  const { name, shortAddr, addr, dist, icon, taskId, hint,idCampaign, nameCampaign, isContraint, luckywheelID  } = route.params;
+  const { name, shortAddr, addr, dist, icon, taskId, hint, idCampaign, nameCampaign, isContraint, luckywheelID, latitude, longitude } = route.params;
   const navigation = useNavigation();
   const handleJoinBtn = () => {
     navigation.navigate("Join", {
@@ -27,10 +27,12 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
       dist: dist,
       hint: hint,
       idCampaign: idCampaign,
-      nameCampaign:nameCampaign,
+      nameCampaign: nameCampaign,
       isContraint: isContraint,
       luckywheelID: luckywheelID,
-      taskId: taskId
+      taskId: taskId,
+      latitude: task.latitude,
+      longitude: task.longitude,
     });
   };
   return (
@@ -79,7 +81,12 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
         {/* map */}
         <View style={taskDetailstyles.map}>
           <View style={taskDetailstyles.mapContainer}>
-            <MapComponent />
+            <MapComponent currentTask={{
+              nameTask: name,
+              latitude: latitude,
+              longitude: longitude
+            }} />
+
 
           </View>
         </View>

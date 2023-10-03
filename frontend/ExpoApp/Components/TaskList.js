@@ -43,10 +43,11 @@ class TaskListComponent extends Component {
                     idCampaign: task.idCampaign,
                     nameCampaign: task.nameCampaign,
                     isContraint: task.isContraint,
-                    luckywheelID: task.luckywheelID
-
+                    luckywheelID: task.luckywheelID,
+                    latitude: task.latitude,
+                    longitude: task.longitude,
                 }));
-              
+
                 this.setState({ tasks: updateTaskList });
                 // console.log('UPDATE....', this.states.tasks);
             }
@@ -67,10 +68,12 @@ class TaskListComponent extends Component {
                         dist={item.dist}
                         hint={item.hint}
                         taskId={item.taskId}
-                        idCampaign= {item.idCampaign}
-                        nameCampaign= {item.nameCampaign}
-                        isContraint= {item.isContraint}
-                        luckywheelID= {item.luckywheelID}
+                        idCampaign={item.idCampaign}
+                        nameCampaign={item.nameCampaign}
+                        isContraint={item.isContraint}
+                        luckywheelID={item.luckywheelID}
+                        latitude={item.latitude}
+                        longitude={item.longitude}
                     />
                 )}
             />
