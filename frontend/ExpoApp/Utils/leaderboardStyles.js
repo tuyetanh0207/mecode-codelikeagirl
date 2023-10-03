@@ -23,7 +23,8 @@ export const LeaderBoardStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: CONST.PRIMARY_VERTICAL_MARGIN,
+        paddingVertical: CONST.PRIMARY_VERTICAL_MARGIN,
+        // paddingHorizontal: CONST.PRIMARY_VERTICAL_MARGIN,
     },
     campaignContainer: {
         width: "90%",
@@ -39,6 +40,7 @@ export const LeaderBoardStyles = StyleSheet.create({
         shadowRadius: CONST.responsiveWidth(30),
         paddingHorizontal: CONST.PRIMARY_VERTICAL_MARGIN,
         marginBottom: CONST.PRIMARY_VERTICAL_MARGIN,
+        justifyContent: 'center',
     },
     campaignTime: {
         color: CONST.MEDIUM_PINK_COLOR,
@@ -83,7 +85,6 @@ export const LeaderBoardStyles = StyleSheet.create({
     item: {
         flexDirection: 'row',
         alignItems: "center",
-        marginHorizontal: "6%",
         justifyContent: 'space-between',
     },
     userItem: {
@@ -107,6 +108,7 @@ export const LeaderBoardStyles = StyleSheet.create({
         height: CONST.responsiveWidth(25),
         alignItems: 'center',
         justifyContent: 'center',
+        marginLeft: CONST.responsiveWidth(CONST.PRIMARY_VERTICAL_MARGIN),
     },
     username: {
         fontFamily: 'Inter-Medium',
@@ -136,10 +138,10 @@ export const LeaderBoardStyles = StyleSheet.create({
         textAlign: 'center',
     },
     avatar: {
-        width: CONST.responsiveWidth(30),
-        height: CONST.responsiveWidth(30),
-        borderRadius: CONST.responsiveWidth(15),
-        marginHorizontal: CONST.responsiveWidth(20),
+        width: CONST.responsiveWidth(40),
+        height: CONST.responsiveWidth(40),
+        borderRadius: CONST.responsiveWidth(20),
+        marginHorizontal: CONST.responsiveWidth(30),
     },
     avatarTop1: {
         width: CONST.responsiveWidth(100),

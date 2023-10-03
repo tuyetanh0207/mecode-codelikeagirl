@@ -1,6 +1,5 @@
 import * as CONST from "../Utils/constants";
-import { StatusBar } from "react-native";
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet} from "react-native";
 export const taskstyles = StyleSheet.create({
   imageBackground: {
     flex: 1,

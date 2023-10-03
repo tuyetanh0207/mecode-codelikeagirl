@@ -21,7 +21,7 @@ export default function Top3Component(props) {
                 })}>
                     <ImageBackground source={top2}>
                         <Image
-                            source={samplePhoto}
+                            source={{ uri: data[1].avatar }}
                             style={LeaderBoardStyles.avatarTop2}
                         />
                     </ImageBackground>
@@ -40,7 +40,7 @@ export default function Top3Component(props) {
                 })}>
                     <ImageBackground source={top1}>
                         <Image
-                            source={samplePhoto}
+                            source={{ uri: data[0].avatar }}
                             style={LeaderBoardStyles.avatarTop1}
                         />
                     </ImageBackground>
@@ -59,7 +59,7 @@ export default function Top3Component(props) {
                 })}>
                     <ImageBackground source={top3}>
                         <Image
-                            source={samplePhoto}
+                            source={{ uri: data[2].avatar }}
                             style={LeaderBoardStyles.avatarTop2}
                         />
                     </ImageBackground>
