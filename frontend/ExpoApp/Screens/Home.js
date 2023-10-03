@@ -3,7 +3,7 @@ import { View, Text, ImageBackground } from 'react-native';
 import styles from '../Utils/styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Iconify } from 'react-native-iconify';
-import { TouchableOpacity, Image} from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import * as CONST from '../Utils/constants';
 import Swiper from 'react-native-swiper';
 import MapComponent from '../Components/Map';
@@ -16,16 +16,16 @@ export default function Home() {
         const images = [
             require('../assets/images/sample_suggestions/task.png'),
             require('../assets/images/sample_suggestions/gift.png'),
+            require('../assets/images/sample_suggestions/vote.png'),
             require('../assets/images/sample_suggestions/leaderboard.png'),
-            require('../assets/images/sample_suggestions/vote.png')
         ];
-        const destinations = ['Task', 'Gift', 'LeaderBoard', 'Vote'];
+        const destinations = ['Task', 'Gift', 'Vote', 'LeaderBoard'];
 
         return (
             <View style={{ marginTop: CONST.TRUTH_SCREEN[1] * 0.03 }}>
                 <Text style={styles.heading2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
-                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={2}>
+                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={3}>
                         {images.map((image, index, destination) => (
                             <TouchableOpacity key={index} style={styles.suggestImageContainer} onPress={() => navigation.navigate(destinations[index])}>
                                 <Image source={image} style={styles.suggestImage} resizeMode="cover" />
