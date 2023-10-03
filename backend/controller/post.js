@@ -235,9 +235,11 @@ exports.getAllPostOfUser = async (req, res) => {
   }
 };
 
+
+
 exports.votelist = async (req, res) => {
   var userID = req.query.userID;
-  var postList = await Post.find({userId: {$ne:userID }}).sort({votedPoint:1});
+  var postList = await Post.find({userId: {$ne:userID }}).sort({votedPoint:1}).lean();
 
   var post1, post2 = {};
   var found = 0;
@@ -262,6 +264,13 @@ exports.votelist = async (req, res) => {
   }
   if (found == 1) {
     var voteList = [post1, post2]
+    for (let i = 0;i<voteList.length;i++) {
+      var userPost = await User.findOne({_id:voteList[i].userId})
+      voteList[i]['userName'] = userPost.fullname
+      voteList[i]['avatar'] = userPost.avatar
+      
+    }
+    console.log("sending vote list post")
     res.json(voteList)
   } else {
     res.json(

@@ -94,7 +94,8 @@ exports.createUser = async (req, res) => {
   var userInLeaderboard = {
     userID: user._id,
     nameUser : user.fullname,
-    score: 0
+    score: 0,
+    avatar:user.avatar
   }
 
   await Campaign.findByIdAndUpdate(idCampaign,{$push: {leaderboard: userInLeaderboard}})

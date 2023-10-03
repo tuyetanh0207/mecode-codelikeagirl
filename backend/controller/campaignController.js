@@ -15,15 +15,16 @@ class campaignController {
   // GET /campaign/leaderboard
   static leaderboard = async (req, res) => {
     try {
-      const campaignLastest = await campaign.findOne({ _id: idCampaign }).lean();
-      var leaderboard = campaignLastest.leaderboard;
+      var campaignLastest = await campaign.findOne({ _id: idCampaign });
+      var leaderboardLatest = campaignLastest.leaderboard;
 
-      for (let i = 0; i < leaderboard.length; i++) {
-        var user = await User.findById(leaderboard[i].userID);
-        leaderboard[i]['avatar'] = user.avatar;
+      leaderboardLatest.sort(compare);
+      res.json({
+        startDate:campaignLastest.startDate,
+        endDate:campaignLastest.endDate,
+        leaderboard:leaderboardLatest
       }
-      leaderboard.sort(compare);
-      res.json(leaderboard);
+        );
 
     } catch (error) {
       console.log(error)
