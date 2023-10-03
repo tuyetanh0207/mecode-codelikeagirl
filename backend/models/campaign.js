@@ -10,6 +10,7 @@ const campaignSchema = new mongoose.Schema({
             userID: String,
             nameUser: String,
             score: Number,  
+            avatar: String
         }
     ]
 })
