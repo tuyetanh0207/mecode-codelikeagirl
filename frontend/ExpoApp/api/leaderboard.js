@@ -4,7 +4,7 @@ export const getLeaderboard = async () => {
     try {
         console.log("render leaderboard");
         const res = await client.get('/campaign/leaderboard');
-        console.log('Leaderboard: ', res.data);
+        // console.log('Leaderboard: ', res.data);
         return res;
 
     } catch (error) {

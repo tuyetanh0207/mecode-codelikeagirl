@@ -36,7 +36,7 @@ export const getAvailableTaskList = async (userLatitude, userLongitude) => {
 
         })
 
-        console.log('Tasklist: ', res.data);
+        // console.log('Tasklist: ', res.data);
         return res;
 
     } catch (error) {

@@ -33,15 +33,16 @@ export default function LeaderBoard({ navigation: { goBack }, route }) {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const leaderboardData = await getLeaderboard();
-                const data = leaderboardData.data.map(item => ({
-                    nameUser: item.nameUser,
-                    score: item.score,
-                    userID: item.userID,
-                    avatar: item.avatar,
-                }));
+                const rawData = await getLeaderboard();
+                const leaderboardData = rawData.data.leaderboard;
+                // const data = leaderboardData.map(item => ({
+                //     nameUser: item.nameUser,
+                //     score: item.score,
+                //     userID: item.userID,
+                //     avatar: item.avatar,
+                // }));
 
-                setLeaderboard(data);
+                setLeaderboard(leaderboardData);
             } catch (error) {
                 console.error(error);
             }
