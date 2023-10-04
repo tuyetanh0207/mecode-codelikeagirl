@@ -51,7 +51,7 @@ export default function LogInScreen({ navigation: { goBack }, route }) {
             //     password,
             // })
             // console.log(signInRes.data)
-           // navigation.navigate('BottomTabs')
+            navigation.navigate('BottomTabs')
             
         } catch (error) {
             console.log(error.message)

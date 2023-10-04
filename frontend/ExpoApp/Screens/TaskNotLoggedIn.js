@@ -38,7 +38,7 @@ export default function TaskNotLoggedIn() {
           onPress={() => navigation.navigate('MapNotLoggedIn')}
         >
 
-          <View style={notLoggedInStyles.mapButton}>
+          <View style={notLoggedInStyles.taskListButton}>
             <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }} >
               <Iconify icon="bxs:map" size={CONST.responsiveHeight(36)} color="black" />
               <Text numberOfLines={1} style={[styles.heading4, { marginLeft: CONST.responsiveHeight(10) }, notLoggedInStyles.taskListtext]}>

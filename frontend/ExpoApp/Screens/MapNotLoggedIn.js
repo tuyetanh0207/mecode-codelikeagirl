@@ -20,7 +20,7 @@ export default function MapNotLoggedIn() {
             <View  style={notLoggedInStyles.bottom}>
                 <TouchableOpacity
                     style={{  }}
-                    onPress={() => navigation.navigate('Task')}
+                    onPress={() => navigation.navigate('TaskNotLoggedIn')}
                 >
                     
                     <View style={notLoggedInStyles.taskListButton}>

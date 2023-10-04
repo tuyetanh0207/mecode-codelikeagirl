@@ -119,16 +119,17 @@ export default function Join({ navigation: { goBack }, route }) {
     if (IsNeedChoosingTask && isChoosing===2){
       formData.append("taskName", taskChoosed.name);
       formData.append("taskId", taskChoosed.taskId);
-      formData.append("shortAddr", taskChoosed.shortAddr);
+     //\\ formData.append("shortAddr", taskChoosed.shortAddr);
       formData.append("address", taskChoosed.addr);
       formData.append("idCampaign", taskChoosed.idCampaign);
       formData.append("nameCampaign", taskChoosed.nameCampaign);
       formData.append("isContraint", taskChoosed.isContraint);
       formData.append("luckywheelID", taskChoosed.luckywheelID);
-    } else {
+    }
+     if(IsNeedChoosingTask===false) {
       formData.append("taskName", name);
       formData.append("taskId", taskId);
-      formData.append("shortAddr", taskChoosed.shortAddr);
+      formData.append("shortAddr", shortAddr);
       formData.append("address", addr);
       formData.append("idCampaign", idCampaign);
       formData.append("nameCampaign", nameCampaign);

@@ -41,27 +41,27 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const [profileUserRank, setProfileUserRank] = useState(null)
   const [fetchedPost, setIsFetchPost] = useState(false)
   const [PostList, setPostList] = useState([
-    {
-      taskName: "Collect trash",
-      addr: "1, Nguyen Chi Thanh",
-      shortAddr: "Hoa binh",
-      createdDate: "12:20 12/04/23",
-      postId: "6506ece166adf132aa477e61",
-      point: 20,
-      fullname: "User",
-      userId: "aaa",
-      icon: "ddd",
-      shortAddr: "...",
-      address: "...",
-      taskId: "ddd",
-      createdDate: "Sun Sep 17 2023 19:11:13 GMT+0700 (Indochina Time)",
-      caption: "...",
-      votedPoint: "ddd",
-      avatar: '',
-      photos: [
-        "http://res.cloudinary.com/dzcxfc257/image/upload/v1694952669/64fec297428317cfb0a2fc21_post_Sun%20Sep%2017%202023%2019:11:10%20GMT%2B0700%20%28Indochina%20Time%29_0.jpg",
-      ],
-    },
+    // {
+    //   taskName: "Collect trash",
+    //   addr: "1, Nguyen Chi Thanh",
+    //   shortAddr: "Hoa binh",
+    //   createdDate: "12:20 12/04/23",
+    //   postId: "6506ece166adf132aa477e61",
+    //   point: 20,
+    //   fullname: "User",
+    //   userId: "aaa",
+    //   icon: "ddd",
+    //   shortAddr: "...",
+    //   address: "...",
+    //   taskId: "ddd",
+    //   createdDate: "Sun Sep 17 2023 19:11:13 GMT+0700 (Indochina Time)",
+    //   caption: "...",
+    //   votedPoint: "ddd",
+    //   avatar: '',
+    //   photos: [
+    //     "http://res.cloudinary.com/dzcxfc257/image/upload/v1694952669/64fec297428317cfb0a2fc21_post_Sun%20Sep%2017%202023%2019:11:10%20GMT%2B0700%20%28Indochina%20Time%29_0.jpg",
+    //   ],
+    // },
   ]);
   const getLocalUser = async () => {
     const tk = await AsyncStorage.getItem("token");
@@ -72,13 +72,13 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     const userInfo_ = str ? JSON.parse(str) : {};
     //console.log('in local ',userInfo_)
     setUserInfo(userInfo_);
-    setProfileUserPoint(userInfo_.campaignPoint.postPoint + userInfo_.campaignPoint.votingPoint + userInfo_.campaignPoint.votedPoint)
+    setProfileUserPoint(userInfo_?.campaignPoint.postPoint + userInfo_?.campaignPoint.votingPoint + userInfo_?.campaignPoint.votedPoint)
   };
   const getProfileUser = async (userId) => {
     const user = await getUserInfo(userId);
     //console.log('user profile', user)
     setProfileUserInfo(user.userInfo);
-    setProfileUserPoint(user.userInfo.campaignPoint.postPoint + user.userInfo.campaignPoint.votingPoint + user.userInfo.campaignPoint.votedPoint)
+    setProfileUserPoint(user?.userInfo?.campaignPoint?.postPoint + user?.userInfo?.campaignPoint?.votingPoint + user?.userInfo?.campaignPoint?.votedPoint)
   };
   const [headerUser, setHeaderUser] = useState({avatar: '', fullname: ''})
   const fetchPostList = async () => {
@@ -113,7 +113,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     if (route.params) {
       ({ fullname, userId } = route.params);
       // if is current logged in is profile's user
-      if (userId === userInfo.userId) {
+      if (userId === userInfo?.userId) {
         setIsCurrentUser(true);
         setProfileUserInfo(userInfo);
       }
@@ -196,14 +196,14 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
           <View style={profileStyles.avatar}>
             <Image
               style={profileStyles.avatarPhoto}
-              src={profileUserInfo.avatar}
+              src={profileUserInfo?.avatar}
               width={20}
-              height={"100%"}
+              height={20}
             />
           </View>
           <View style={profileStyles.mid}>
             <Text style={profileStyles.nameText}>
-              {profileUserInfo.fullname}
+              {profileUserInfo?.fullname}
             </Text>
             <Text style={profileStyles.pointText}>
               
@@ -232,7 +232,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
           </TouchableOpacity>
         </View>
         {/* green step container */}
-        <View style={profileStyles.greenStepContainer}>
+        {/* <View style={profileStyles.greenStepContainer}>
           <View style={profileStyles.headerSection}>
             <Iconify
               icon="majesticons:edit-pen-4"
@@ -251,7 +251,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
             )}
           </View>
           <View style={profileStyles.calendarContainer}></View>
-        </View>
+        </View> */}
         {/* activity container */}
         <View style={profileStyles.greenStepContainer}>
           <View style={profileStyles.headerSection}>

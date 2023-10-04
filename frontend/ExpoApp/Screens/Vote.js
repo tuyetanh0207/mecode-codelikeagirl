@@ -22,8 +22,16 @@ import { StatusBar } from "react-native";
 import { Iconify } from "react-native-iconify";
 import { SmallPostItem } from "../Components/SmallPostItem";
 import client from "../api/client";
-import { Swipeable, GestureHandlerRootView } from "react-native-gesture-handler";
-import { GetPostToVote, VotePost, getAllPostOfUser, getUserInfo } from "../api/user";
+import {
+  Swipeable,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
+import {
+  GetPostToVote,
+  VotePost,
+  getAllPostOfUser,
+  getUserInfo,
+} from "../api/user";
 import { profileStyles } from "../Utils/profileStyles";
 export default function ProfileScreen({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
@@ -32,8 +40,8 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const [firstList, setFirstList] = useState([]);
   const [secondList, setSecondList] = useState([]);
   const [isVoted, setIsVoted] = useState(false);
-  const [next, setNext] = useState(1)
-  const [noti, setNoti] = useState('')
+  const [next, setNext] = useState(1);
+  const [noti, setNoti] = useState("");
   const fetchPosts = async () => {
     const res1 = await GetPostToVote(userInfo.userId);
     console.log("res11", res1.data);
@@ -95,28 +103,26 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     });
   };
   const handleSwipeRight = async (idx) => {
-    console.log('swipe right', idx)
+    console.log("swipe right", idx);
     try {
-      if(!isVoted) {
-        const res = await VotePost(userInfo.userId,firstList[idx]._id,firstList[idx].userId)
-        console.log('res', res.data)
-        if (res.data.success ===1){
-         // setIsVoted(true)
-         setNext(next-1)
-         setIsVoted(true)
-          setNoti('You just voted for this post!')
-          setTimeout(() => {
-            setNoti('')
-          }, 2000);
-        }
-      }
-     
+      // if(!isVoted) {
+      //   const res = await VotePost(userInfo.userId,firstList[idx]._id,firstList[idx].userId)
+      //   console.log('res', res.data)
+      //   if (res.data.success ===1){
+      //    // setIsVoted(true)
+      //    setNext(next-1)
+      //    setIsVoted(true)
+      //     setNoti('You just voted for this post!')
+      //     setTimeout(() => {
+      //       setNoti('')
+      //     }, 2000);
+      //   }
+      //  }
     } catch (error) {
-      setNext(next-1)
-      console.log('error in voting', error)
+      setNext(next - 1);
+      console.log("error in voting", error);
     }
-   
-  } 
+  };
   return (
     <ImageBackground
       source={require("../assets/images/background.png")}
@@ -138,79 +144,40 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
         <Text style={voteStyles.intruct2Text}>
           Click to view detail, swipe right to vote!
         </Text>
-        {noti? 
-        <Text style={voteStyles.intruct2Text}>
-        {noti}
-      </Text>:
-      <Text style={voteStyles.intruct2Text}>
-     
-    </Text>}
+        {noti ? (
+          <Text style={voteStyles.intruct2Text}>{noti}</Text>
+        ) : (
+          <Text style={voteStyles.intruct2Text}></Text>
+        )}
         <View style={voteStyles.photos}>
           {firstList ? (
             <GestureHandlerRootView>
-            <Swipeable
-              renderRightActions={(progress, dragX) => {
-              //  if(!isVoted)
-                //handleSwipeRight(0)
-                // const trans = dragX.interpolate({
-                //   inputRange: [0, 50, 100, 101],
-                //   outputRange: [0, 0, 0, 1],
-                // });
-                return (
-                  <TouchableOpacity
-                    style={{
-                     // backgroundColor: 'green',
-                      justifyContent: 'center',
-                      alignItems: 'flex-end',
-                      paddingRight: 20,
-                    }}
-                    onPress={() => handleSwipeRight(0)}
-                  >
-                   
-                  </TouchableOpacity>
-                );
-              }}
-            >
-              <TouchableOpacity onPress={() => handleClick(0)}>
-                <Image
-                  src={firstList[0]?.photos[0]}
-                  style={voteStyles.photo}
-                />
-              </TouchableOpacity>
-            </Swipeable>
-          
-            <Swipeable
-              renderRightActions={(progress, dragX) => {
-               // if(!isVoted)
-               // handleSwipeRight(1)
-                // const trans = dragX.interpolate({
-                //   inputRange: [0, 50, 100, 101],
-                //   outputRange: [0, 0, 0, 1],
-                // });
-                return (
-                  <TouchableOpacity
-                    style={{
-                      //backgroundColor: 'green',
-                      justifyContent: 'center',
-                      alignItems: 'flex-end',
-                      paddingRight: 20,
-                    }}
-                   onPress={() => handleSwipeRight(1)}
-                  >
-                  
-                  </TouchableOpacity>
-                );
-              }}
-            >
-              <TouchableOpacity onPress={() => handleClick(1)}>
-                <Image
-                  src={firstList[1]?.photos[0]}
-                  style={voteStyles.photo}
-                />
-              </TouchableOpacity>
-            </Swipeable>
-          </GestureHandlerRootView>
-          
+              <Swipeable
+                renderRightActions={(progress, dragX) => {
+                  // handleSwipeRight(0)
+                }}
+              >
+                <TouchableOpacity onPress={() => handleClick(0)}>
+                  <Image
+                    src={firstList[0]?.photos[0]}
+                    style={voteStyles.photo}F
+                  />
+                </TouchableOpacity>
+              </Swipeable>
+
+              <Swipeable
+                renderRightActions={(progress, dragX) => {
+                  // handleSwipeRight(1)
+                }}
+              >
+                <TouchableOpacity onPress={() => handleClick(1)}>
+                  <Image
+                    src={firstList[1]?.photos[0]}
+                    style={voteStyles.photo}
+                  />
+                </TouchableOpacity>
+              </Swipeable>
+            </GestureHandlerRootView>
           ) : (
             <></>
           )}
