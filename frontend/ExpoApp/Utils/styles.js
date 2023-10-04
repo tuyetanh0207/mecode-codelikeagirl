@@ -115,6 +115,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: CONST.TASK_LABEL_COLOR,
     },
+    // current_task_label: {
+    //     fontFamily: 'Inter-Medium',
+    //     fontSize: CONST.responsiveHeight(16),
+    //     lineHeight: CONST.responsiveHeight(19),
+    //     letterSpacing: 0,
+    //     color: CONST.TASK_LABEL_COLOR,
+    // },
+    // current_task_label_container: {
+    //     paddingVertical: CONST.responsiveHeight(2),
+    //     paddingHorizontal: CONST.responsiveWidth(6),
+    //     borderRadius: CONST.responsiveHeight(8),
+    //     marginHorizontal: CONST.responsiveWidth(10),
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     backgroundColor: CONST.YELLOW_COLOR,
+    //     // borderColor: CONST.DARK_PINK_COLOR,
+    // },
     subtitle: {
         fontFamily: 'Inter-Medium',
         fontSize: CONST.responsiveHeight(22),

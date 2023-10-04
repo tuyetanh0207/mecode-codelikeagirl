@@ -19,6 +19,7 @@ class MapComponent extends Component {
             markerCoords: [],
             showTitle: true,
             showIcon: true,
+            currentTask: props.currentTask,
         };
     }
 
@@ -90,6 +91,7 @@ class MapComponent extends Component {
                         latitude: task.latitude,
                         longitude: task.longitude,
                     },
+                    // distance: task.distance,
                     icon: CONST.getIconByTitle(task.nameTask, CONST.boldIconMapping),
                     title: task.nameTask,
                     container_style: CONST.getTaskContainerSizeByTitle(task.nameTask),
@@ -112,6 +114,16 @@ class MapComponent extends Component {
         }));
     }
 
+    moveToCurrentTaskRegion = (currentTask) => {
+        newMapRegion = {
+            ...this.state.mapRegion,
+            latitude: currentTask.latitude,
+            longitude: currentTask.longitude,
+        };
+        console.log('NEW MAP REGION: ', newMapRegion);
+        return newMapRegion;
+    }
+
     // Hide the marker when zoom out
     onRegionChangeComplete = (newRegion) => {
         const { latitudeDelta, longitudeDelta } = newRegion;
@@ -122,16 +134,35 @@ class MapComponent extends Component {
         this.setState({ showIcon: shouldShowIcons });
     };
 
+    // current joinning task
+    getCurrentMarkerCoords = currentTask => ({
+        // id: currentTask._id,
+        location: {
+            latitude: currentTask.latitude,
+            longitude: currentTask.longitude,
+        },
+        icon: CONST.getIconByTitle(currentTask.nameTask, CONST.boldIconMapping),
+        nameTask: currentTask.nameTask,
+        container_style: CONST.getTaskContainerSizeByTitle(currentTask.nameTask),
+    });
+
     render() {
-        const { mapRegion, markerCoords, showTitle, showIcon } = this.state;
+        const { mapRegion, markerCoords, showTitle, showIcon, currentTask } = this.state;
+        if (currentTask) {
+            currentMarkerCoords = this.getCurrentMarkerCoords(currentTask);
+            // this.updateMapRegion(currentTask.latitude, currentTask.longitude);
+            console.log('CURRENT TASK: ', currentTask);
+            console.log('CURRENT MARKER: ', currentMarkerCoords);
+        }
         return (
             <MapView
                 style={[styles.map, { position: 'absolute', zIndex: 0 }]}
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation={true}
-                region={mapRegion}
+                region={!currentTask ? mapRegion : this.moveToCurrentTaskRegion(currentTask)}
                 scrollEnabled={true}
                 onRegionChangeComplete={this.onRegionChangeComplete}
+            // onPress={() => navigate}
             >
                 {
                     // show title + icon at nearly location, else hide icon or hide all when zoom out further
@@ -152,6 +183,27 @@ class MapComponent extends Component {
                         </Marker>
                     ))
                 }
+                {
+                    currentTask && currentMarkerCoords ? (
+                        <Marker key={currentMarkerCoords.id} coordinate={currentMarkerCoords.location}>
+                            <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    {/* {currentMarkerCoords.icon} */}
+                                    <View style={{ marginLeft: 100 }}>
+                                        {CONST.PIN_ICON}
+                                    </View>
+                                </View>
+
+                                <View style={styles.task_label_container}>
+                                    <Text style={styles.task_label}>
+                                        {currentMarkerCoords.nameTask}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </Marker>
+                    ) : null
+                }
+
             </MapView>
         );
     }

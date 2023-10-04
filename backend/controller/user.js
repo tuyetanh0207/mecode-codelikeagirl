@@ -1,8 +1,12 @@
 const { JsonWebTokenError } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Campaign = require("../models/campaign");
 const sharp = require("sharp");
 const cloudinary = require("../helper/imageUpload");
+
+var idCampaign = "65115ac21f1dc1a4a78665db";
+
 exports.createUser = async (req, res) => {
   const { fullname, email, password } = req.body;
   const isNewUser = await User.isThisEmailInUse(email);
@@ -65,7 +69,7 @@ exports.createUser = async (req, res) => {
       
   }
   //console.log('final greenpoint', newGreenPoint)
-  user = await User({
+  var user = await User({
     fullname: fullname,
     email: email,
     password: password,
@@ -85,6 +89,19 @@ exports.createUser = async (req, res) => {
   });
   await User.deleteMany({ $or : [{avatar: ''}, {avatar: {$exists:false}}]});
   await user.save();
+
+  user = await User.findOne({email: email})
+  var userInLeaderboard = {
+    userID: user._id,
+    nameUser : user.fullname,
+    score: 0,
+    avatar:user.avatar
+  }
+
+  await Campaign.findByIdAndUpdate(idCampaign,{$push: {leaderboard: userInLeaderboard}})
+  
+
+
   res.json(user);
 };
 

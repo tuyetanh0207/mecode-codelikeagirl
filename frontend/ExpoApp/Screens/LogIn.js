@@ -35,17 +35,17 @@ export default function LogInScreen({ navigation: { goBack }, route }) {
         try {
 
             console.log('prepare sending')
-            const res = await signIn('email07@gmail.com', '123456')
+            const res = await signIn('ktuyen@gmail.com', '123456')
             //const res = await signIn(userInfo.email, userInfo.password)
             console.log(res.data)
-            if(res.data.success==true){
+            if (res.data.success == true) {
                 setIsLoggedIn(true)
                 console.log('loggin sucess')
             }
             else {
                 setNoti(res.data.message)
             }
-           
+
             // const signInRes = await client.post('/sign-in', {
             //     email,
             //     password,
@@ -106,7 +106,7 @@ export default function LogInScreen({ navigation: { goBack }, route }) {
                     <Text style={logInStyles.showpwdtext}>Show password</Text>
 
                 </View>
-                    <Text style={logInStyles.notiText}>{noti}</Text>
+                <Text style={logInStyles.notiText}>{noti}</Text>
                 <TouchableOpacity onPress={handleLogInBtn}>
                     <AppButton title={"Log in"} backgroundColor={'black'} color={CONST.BACKGROUND_COLOR} size='m' />
                 </TouchableOpacity>
