@@ -50,14 +50,14 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     const userInfo_ = str ? JSON.parse(str) : {};
     //console.log('in local ',userInfo_)
     setUserInfo(userInfo_);
-    if(isCurrentUser){
+    if (isCurrentUser) {
       setProfileUserPoint(
         userInfo_?.campaignPoint.postPoint +
-          userInfo_?.campaignPoint.votingPoint +
-          userInfo_?.campaignPoint.votedPoint
+        userInfo_?.campaignPoint.votingPoint +
+        userInfo_?.campaignPoint.votedPoint
       );
     }
-    
+
   };
   const getProfileUser = async () => {
     console.log('user d', userId)
@@ -66,8 +66,8 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     setProfileUserInfo(user.data.userInfo);
     setProfileUserPoint(
       user.data.userInfo?.campaignPoint[0].postPoint +
-        user.data.userInfo?.campaignPoint[0].votingPoint +
-        user.data.userInfo?.campaignPoint[0].votedPoint
+      user.data.userInfo?.campaignPoint[0].votingPoint +
+      user.data.userInfo?.campaignPoint[0].votedPoint
     );
   };
   const [headerUser, setHeaderUser] = useState({ avatar: "", fullname: "" });
@@ -75,7 +75,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     try {
       if (userId && !fetchedPost) {
         const res = await getAllPostOfUser(userId);
-       // console.log("res", res);
+        // console.log("res", res);
         setPostList(res.posts.reverse());
         setIsFetchPost(true);
         setHeaderUser({ avatar: res.avatar, fullname: res.fullname });
@@ -96,13 +96,13 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   useEffect(() => {
     getLocalUser();
   }, [userInfo]);
- 
+
 
   useEffect(() => {
     // if the screen is transfered from somewhere
     if (route.params) {
       ({ fullname, userId, avatar } = route.params);
-      setProfileUserInfo({fullname, userId, avatar})
+      setProfileUserInfo({ fullname, userId, avatar })
       // console.log('fullname, user id', fullname, userId)
       // if is current logged in is profile's user
       if (userId === userInfo.userId) {
@@ -111,8 +111,8 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       }
       // if is current logged in isn't profile's user
       else {
-       // console.log('userId', userId)
-       // getProfileUser(userId);
+        // console.log('userId', userId)
+        // getProfileUser(userId);
         setIsCurrentUser(false);
       }
     }
@@ -134,13 +134,13 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       // const parts = profileUserInfo.fullname.split(" ");
       // firstName = parts[parts.length - 1];
     }
-  }, [userInfo ]);
+  }, [userInfo]);
   useEffect(() => {
     fetchPostList();
     fetchRankUser();
   }, [isCurrentUser, userInfo]);
-  useEffect(()=>{
-    if (!isCurrentUser){
+  useEffect(() => {
+    if (!isCurrentUser) {
       getProfileUser();
     }
   }, [isCurrentUser])
@@ -189,89 +189,94 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
         <View style={profileStyles.header}>
           <Text style={styles.heading2}>Profile</Text>
         </View>
-        <View style={profileStyles.inforContainer}>
-          <View style={profileStyles.avatar}>
-            <Image
-              style={profileStyles.avatarPhoto}
-              src={profileUserInfo?.avatar}
-              width={20}
-              height={20}
-            />
-          </View>
-          <View style={profileStyles.mid}>
-            <Text style={profileStyles.nameText}>
-              {profileUserInfo?.fullname}
-            </Text>
-            <Text style={profileStyles.pointText}>
-              Top {profileUserRank}
-              <Text style={profileStyles.linePoint}> | </Text>
-              <Text> {profileUserPoint} Points </Text>
-            </Text>
-          </View>
-          <TouchableOpacity
-            style={profileStyles.right}
-            onPress={() => handleSettingBtn()}
-          >
-            {/* solar/settings-outline/ */}
-            {isCurrentUser ? (
-              <View>
-                <Iconify
-                  icon="solar:settings-outline"
-                  style={profileStyles.icon}
-                  size={CONST.responsiveHeight(30)}
-                  color={CONST.FEATURE_COLOR}
-                />
-              </View>
-            ) : (
-              <></>
-            )}
-          </TouchableOpacity>
-        </View>
-        {/* green step container */}
-        {/* <View style={profileStyles.greenStepContainer}>
-          <View style={profileStyles.headerSection}>
-            <Iconify
-              icon="majesticons:edit-pen-4"
-              style={profileStyles.icon}
-              size={CONST.responsiveHeight(26)}
-              color={CONST.NAVIGATION_ACTIVE_COLOR}
-            />
-            {isCurrentUser ? (
-              <Text style={profileStyles.greenStepTitleText}>
-                Your Green Steps
-              </Text>
-            ) : (
-              <Text style={profileStyles.greenStepTitleText}>
-                {firstName}'s Green Steps
-              </Text>
-            )}
-          </View>
-          <View style={profileStyles.calendarContainer}></View>
-        </View> */}
+
         {/* activity container */}
         <View style={profileStyles.greenStepContainer}>
-          <View style={profileStyles.headerSection}>
-            <Iconify
-              icon="fluent:earth-leaf-16-filled"
-              style={profileStyles.icon}
-              size={CONST.responsiveHeight(26)}
-              color={CONST.NAVIGATION_ACTIVE_COLOR}
-            />
-            <Text style={profileStyles.greenStepTitleText}>Activities</Text>
-          </View>
           {PostList.length >= 1 ? (
             <SafeAreaView style={profileStyles.postListContainer}>
               <FlatList
                 keyExtractor={(task, index) => index.toString()}
                 data={PostList}
                 renderItem={renderTaskItem}
+                ListHeaderComponent={
+                  <>
+                    <View style={profileStyles.inforContainer}>
+                      <View style={profileStyles.avatar}>
+                        <Image
+                          style={profileStyles.avatarPhoto}
+                          src={profileUserInfo?.avatar}
+                          width={20}
+                          height={20}
+                        />
+                      </View>
+                      <View style={profileStyles.mid}>
+                        <Text style={profileStyles.nameText}>
+                          {profileUserInfo?.fullname}
+                        </Text>
+                        <Text style={profileStyles.pointText}>
+                          Top {profileUserRank}
+                          <Text style={profileStyles.linePoint}> | </Text>
+                          <Text> {profileUserPoint} Points </Text>
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        style={profileStyles.right}
+                        onPress={() => handleSettingBtn()}
+                      >
+                        {/* solar/settings-outline/ */}
+                        {isCurrentUser ? (
+                          <View>
+                            <Iconify
+                              icon="solar:settings-outline"
+                              style={profileStyles.icon}
+                              size={CONST.responsiveHeight(30)}
+                              color={CONST.FEATURE_COLOR}
+                            />
+                          </View>
+                        ) : (
+                          <></>
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                    {/* green step container */}
+                    <View style={profileStyles.greenStepContainer}>
+                      <View style={profileStyles.headerSection}>
+                        <Iconify
+                          icon="majesticons:edit-pen-4"
+                          style={profileStyles.icon}
+                          size={CONST.responsiveHeight(26)}
+                          color={CONST.NAVIGATION_ACTIVE_COLOR}
+                        />
+                        {isCurrentUser ? (
+                          <Text style={profileStyles.greenStepTitleText}>
+                            Your Green Steps
+                          </Text>
+                        ) : (
+                          <Text style={profileStyles.greenStepTitleText}>
+                            {firstName}'s Green Steps
+                          </Text>
+                        )}
+                      </View>
+                      <View style={profileStyles.calendarContainer}></View>
+                      <View style={profileStyles.headerSection}>
+                        <Iconify
+                          icon="fluent:earth-leaf-16-filled"
+                          style={profileStyles.icon}
+                          size={CONST.responsiveHeight(26)}
+                          color={CONST.NAVIGATION_ACTIVE_COLOR}
+                        />
+                        <Text style={profileStyles.greenStepTitleText}>Activities</Text>
+                      </View>
+                    </View>
+                  </>
+                }
               />
             </SafeAreaView>
           ) : (
             <View style={{ alignItems: "center", justifyContent: 'center', marginTop: '20%' }}>
               <Text
                 style={{
-                 
+
                   fontSize: CONST.responsiveHeight(18),
                   color: CONST.FEATURE_TEXT_COLOR,
                   alignItems: "center",
@@ -280,7 +285,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
                 You haven't post any activity yet!
               </Text>
               <Image source={require('../assets/images/chuadangbai.gif')}
-              style={{width: CONST.responsiveWidth(100), height: CONST.responsiveHeight(120),marginTop: '10%'}}
+                style={{ width: CONST.responsiveWidth(100), height: CONST.responsiveHeight(120), marginTop: '10%' }}
               />
             </View>
           )}
