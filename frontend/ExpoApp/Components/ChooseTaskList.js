@@ -15,7 +15,6 @@ import {
 import * as CONST from "../Utils/constants";
 import { Iconify } from "react-native-iconify";
 import styles from "../Utils/styles";
-import { taskstyles } from "../Utils/taskStyles";
 import { getAvailableTaskList } from "../api/activity";
 
 class ChooseTaskList extends Component {
@@ -64,11 +63,12 @@ class ChooseTaskList extends Component {
           isContraint: task.isContraint,
           luckywheelID: task.luckywheelID
         }));
+       // console.log('updateTasklist', updateTaskList)
         const updateIsChoose = newTaskList.data.map((task) => false);
-        console.log("isChoosed array", this.state.isChoosed);
+      //  console.log("isChoosed array", this.state.isChoosed);
         // Update the state with the new task list
         this.setState({ tasks: updateTaskList, isChoosed: updateIsChoose });
-        console.log("isChoosed array", this.state.isChoosed);
+      //  console.log("isChoosed array", this.state.isChoosed);
       }
     );
   };
@@ -76,15 +76,19 @@ class ChooseTaskList extends Component {
     if (index === this.state.indexTicked) {
       return
     }
-    const updatedIsChoosed = this.state.isChoosed
-    if(this.state.indexTicked)
+    let updatedIsChoosed = this.state.isChoosed
+    if(this.state.indexTicked!==null)
       updatedIsChoosed[this.state.indexTicked] = false
     updatedIsChoosed[index] = true
-    const task = this.state.tasks
-    this.setState({isChoosed: updatedIsChoosed, alreadyTicked: true, indexTicked: index, taskChoosed: task[index]})
+    console.log('this.state.tasks', this.state.tasks)
+    const task = this.state.tasks[index]
+    console.log('task', task)
+    this.setState({isChoosed: updatedIsChoosed, alreadyTicked: true, indexTicked: index, taskChoosed: task})
   }
   handleBackBtn = () => {
-    if (this.setState.taskChoosed) {
+    console.log('taskchoosed',this.state.taskChoosed)
+    if (this.state.taskChoosed) {
+      console.log('press Back Btn')
       this.props.onCallBack(2)
       this.props.setTaskChoosed(this.state.taskChoosed)
     }
@@ -97,17 +101,18 @@ class ChooseTaskList extends Component {
         source={require("../assets/images/background.png")}
         style={styles.imageBackground}
       >
-        <View style={taskstyles.container}>
-          <TouchableOpacity onPress={() => this.handleBackBtn()}>
+        <View style={taskDetailstyles.outterContainer}>
+          <TouchableOpacity onPress={() => this.handleBackBtn()}
+           style={taskDetailstyles.backicon}>
             <Image
               source={require("../assets/images/Back.png")}
-              style={taskDetailstyles.backicon}
+             
             />
           </TouchableOpacity>
           <View style={taskDetailstyles.header}>
-            <Text style={taskDetailstyles.title}>Task details</Text>
+            <Text style={taskDetailstyles.title}>Choose a task</Text>
           </View>
-          <SafeAreaView style={taskstyles.list}>
+          <SafeAreaView style={taskDetailstyles.list}>
             <FlatList
               keyExtractor={(task, index) => index.toString()}
               data={this.state.tasks}
@@ -158,12 +163,15 @@ class ChooseTaskList extends Component {
 export default ChooseTaskList;
 
 const taskDetailstyles = StyleSheet.create({
+  outterContainer: {
+    flex: 1,
+  },
   container: {
     flexDirection: "row",
     backgroundColor: "white",
     justifyContent: "space-around",
     marginHorizontal: 18,
-    marginBottom: 12,
+    marginTop: 12,
     paddingVertical: 12,
     borderRadius: 16,
     //paddingHorizontal: 8,
@@ -175,6 +183,8 @@ const taskDetailstyles = StyleSheet.create({
     // flexDirection: "row",
     // justifyContent: "space-between",
     marginHorizontal: "8%",
+    flex: 0.1,
+    justifyContent: 'center',
    
   },
   title: {
@@ -188,8 +198,9 @@ const taskDetailstyles = StyleSheet.create({
   backicon: {
     //flex: 0.5,
     position: "absolute",
-    top: "12%",
+    top: "6%",
     left: "4%",
+  
   },
   left: {
     flex: 0.2,
@@ -209,6 +220,12 @@ const taskDetailstyles = StyleSheet.create({
   mid: {
     flex: 0.55,
     paddingRight: "4%",
+  },
+  list: {
+    flex: 1,
+    height: '100%'
+
+   
   },
   name: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,

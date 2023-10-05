@@ -31,7 +31,9 @@ import LoginProvider, { useLogin } from './Contexts/LoginProvider';
 import MapNotLoggedIn from './Screens/MapNotLoggedIn';
 import TaskNotLoggedIn from './Screens/TaskNotLoggedIn';
 import ProfileScreen from './Screens/Profile';
+import ProfileOtherScreen from './Screens/ProfileOther';
 import { ChooseTaskList } from './Components/ChooseTaskList';
+import TaskDetailsNotLoggedInScreen from './Screens/TaskDetailsNotLoggedIn';
 
 // Navigators
 const Tab = createBottomTabNavigator();
@@ -182,6 +184,8 @@ export default function App() {
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="Join" component={Join} />
         <Stack.Screen name="Post" component={Post} />
+        {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
+        <Stack.Screen name="ProfileOther" component={ProfileOtherScreen} />
       </Stack.Navigator>
     );
   };
@@ -196,7 +200,7 @@ export default function App() {
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
         <Stack.Screen name="TaskNotLoggedIn" component={TaskNotLoggedIn} />
-        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen name="TaskDetailsNotLoggedIn" component={TaskDetailsNotLoggedInScreen} />
         <Stack.Screen name="LogIn" component={LogIn} />
         {/* <Stack.Screen name="BottomTabs" component={BottomTabs} /> */}
       </Stack.Navigator>

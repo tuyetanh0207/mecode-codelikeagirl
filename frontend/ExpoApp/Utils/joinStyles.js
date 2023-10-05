@@ -80,6 +80,7 @@ export const joinstyles = StyleSheet.create({
     width: "100%",
     marginTop: "4%",
     textAlignVertical: "top",
+    marginBottom: '4%',
   },
   photos: {
     justifyContent: "space-between",
@@ -97,6 +98,13 @@ export const joinstyles = StyleSheet.create({
     zIndex: 100,
     right: 0,
     top: 0,
+    backgroundColor: CONST.NAVIGATION_ACTIVE_COLOR,
+    padding: '4%',
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: 'center',
+
+
   },
   addicon: {},
   addtext: {

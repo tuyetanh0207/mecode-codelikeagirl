@@ -87,6 +87,7 @@ export const SmallPostItem = ({
           </View>
 
           {addr ? (
+            
             <Text style={smallPoststyles.shortAddr} numberOfLines={2}>
               {shortAddr} - <Text style={smallPoststyles.addr}>{addr}</Text>
             </Text>
@@ -158,11 +159,13 @@ const smallPoststyles = StyleSheet.create({
     paddingVertical: "4%",
     borderRadius: 16,
     paddingHorizontal: "4%",
+
   
   },
   left: {
     flex: 8,
-  
+    justifyContent: 'center'
+   
  
   },
   header: {
@@ -171,6 +174,7 @@ const smallPoststyles = StyleSheet.create({
   },
   notAddrNameContainer: {
     flexDirection: "column",
+   
 
   },
   icon: {
@@ -188,16 +192,19 @@ const smallPoststyles = StyleSheet.create({
     fontSize: CONST.responsiveHeight(20),
     fontWeight: "400",
     marginLeft: "3%",
-  },
+    maxWidth: '85%',
+  } ,
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",
     fontSize: CONST.responsiveHeight(17),
   },
   right: {
-     //flex: 3,
+    flex: 2,
     //justifyContent: "center",
     overflow: "hidden",
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   addr: {
     color: CONST.FEATURE_TEXT_COLOR,

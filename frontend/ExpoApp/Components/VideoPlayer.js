@@ -2,10 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { Video } from 'expo-av';
 import * as CONST from '../Utils/constants';
-const VideoPlayer = ({ videoUri, width, height }) => {
+const VideoPlayer = ({ videoUri, width, height, borderRadius }) => {
     console.log('uri video trong videoPlayer component', videoUri)
+    const actualBorderRadius = borderRadius ? borderRadius : 15;
   return (
-    <View style ={ {borderRadius: 15, overflow: 'hidden', borderStyle: 'solid', borderColor: CONST.NAVIGATION_ACTIVE_COLOR, borderWidth: 1}}> 
+    <View style ={ {borderRadius: actualBorderRadius, overflow: 'hidden', borderStyle: 'solid', borderColor: CONST.NAVIGATION_ACTIVE_COLOR, borderWidth: 1}}> 
        <Video
         source={{ uri: videoUri, type: 'video/mp4'}} // Đặt URI của video ở đây (có thể là HTTP hoặc HTTPS)
         style={{ width: CONST.responsiveHeight(width), height: CONST.responsiveHeight(height)}} // Tùy chỉnh kích thước video

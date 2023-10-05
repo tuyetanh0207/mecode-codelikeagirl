@@ -11,17 +11,19 @@ export const taskDetailstyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: "4%",
+    justifyContent: 'center'
   },
   backicon: {
-    flex: 0.5,
+    position: 'absolute',
+    left: '4%',
+    top: '10%'
   },
   title: {
     fontSize: CONST.responsiveHeight(19),
     fontWeight: "500",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    flex: 10,
-    alignItems: "center",
-    marginLeft: "30%",
+
+  
   },
   content: {
     marginTop: "5%",

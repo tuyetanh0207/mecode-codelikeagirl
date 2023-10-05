@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FlatList,
   ImageBackground,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  TouchableWithoutFeedback,
 } from "react-native";
 import styles from "../Utils/styles";
 import { useNavigation } from "@react-navigation/native";
@@ -33,6 +34,7 @@ import {
   getUserInfo,
 } from "../api/user";
 import { profileStyles } from "../Utils/profileStyles";
+import VideoPlayer from "../Components/VideoPlayer";
 export default function ProfileScreen({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
   const [token, setToken] = useState("");
@@ -44,7 +46,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const [noti, setNoti] = useState("");
   const fetchPosts = async () => {
     const res1 = await GetPostToVote(userInfo.userId);
-    console.log("res11", res1.data);
+     console.log("res11", res1.data);
     setFirstList(res1.data);
     setIsVoted(false);
   };
@@ -55,7 +57,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     const str = await AsyncStorage.getItem("userInfo");
     //console.log('token', token)
     const userInfo_ = str ? JSON.parse(str) : {};
-    console.log(userInfo_);
+    //console.log(userInfo_);
     setUserInfo(userInfo_);
   };
   useEffect(() => {
@@ -82,47 +84,80 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       photos={item.photos}
     />
   );
-  const handleClick = (idx) => {
-    navigation.navigate("Post", {
-      shortAddr: firstList[idx].shortAddr,
-      addr: firstList[idx].address,
-      taskId: firstList[idx].taskId,
-      isJustPosted: false,
-      userId: firstList[idx].userId,
-      postId: firstList[idx]._id,
-      fullname: firstList[idx].fullname,
-      caption: firstList[idx].caption,
-      photos: firstList[idx].photos,
-      //fullname: firstList[idx].fullname,
-      //createdDate: firstList[idx].createdDate,
-      // avatar: firstList[idx].avatar
-      fullname: "",
-      createdDate: "",
-      avatar: "",
-      taskName: firstList[idx].taskName,
-    });
+  const [lastPress, setLastPress] = useState(0);
+  const [isDoubleClick, setIsDoubleClick] = useState(false);
+  const handleClick = async (idx) => {
+    const currentTime = new Date().getTime();
+    const delta = currentTime - lastPress;
+    setLastPress(currentTime);
+    if (delta < 600) {
+      // Double click detected
+
+      try {
+        setIsDoubleClick(true);
+        console.log("prepare vote", idx);
+        //if(!isVoted) {
+        const res = await VotePost(
+          userInfo.userId,
+          firstList[idx]._id,
+          firstList[idx].userId
+        );
+        console.log("res", res.data);
+        if (res.data.success === 1) {
+          // setIsVoted(true)
+          setNext(next - 1);
+          setIsVoted(true);
+          setNoti("You just voted for this post!");
+          setTimeout(() => {
+            setNoti("");
+          }, 2000);
+        }
+        return;
+        //  }
+      } catch (error) {
+        setNext(next - 1);
+        console.log("error in voting", error);
+      }
+      // lastPress = currentTime;
+    } else {
+      // Single click detected
+      setIsDoubleClick(false);
+
+      if (isDoubleClick) {
+        console.log("is not singl");
+        return;
+      }
+      console.log("navigation");
+      navigation.navigate("Post", {
+        shortAddr: firstList[idx].shortAddr,
+        addr: firstList[idx].address,
+        taskId: firstList[idx].taskId,
+        isJustPosted: false,
+        userId: firstList[idx].userId,
+        postId: firstList[idx]._id,
+        fullname: firstList[idx].fullname,
+        caption: firstList[idx].caption,
+        photos: firstList[idx].photos,
+        fullname: firstList[idx].userName,
+        createdDate: firstList[idx].createdDate,
+        avatar: firstList[idx].avatar,
+        // fullname: "",
+        // createdDate: "",
+        // avatar: "",
+        taskName: firstList[idx].taskName,
+      });
+    }
+
+    //lastPressRef.current = currentTime;
+  };
+  const handlePressOut = () => {
+    // Reset the flag when the touch is released
+    setIsDoubleClick(false);
   };
   const handleSwipeRight = async (idx) => {
     console.log("swipe right", idx);
-    try {
-      // if(!isVoted) {
-      //   const res = await VotePost(userInfo.userId,firstList[idx]._id,firstList[idx].userId)
-      //   console.log('res', res.data)
-      //   if (res.data.success ===1){
-      //    // setIsVoted(true)
-      //    setNext(next-1)
-      //    setIsVoted(true)
-      //     setNoti('You just voted for this post!')
-      //     setTimeout(() => {
-      //       setNoti('')
-      //     }, 2000);
-      //   }
-      //  }
-    } catch (error) {
-      setNext(next - 1);
-      console.log("error in voting", error);
-    }
   };
+  var mp4ReExpression = /\.mp4$/;
   return (
     <ImageBackground
       source={require("../assets/images/background.png")}
@@ -151,33 +186,29 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
         )}
         <View style={voteStyles.photos}>
           {firstList ? (
-            <GestureHandlerRootView>
-              <Swipeable
-                renderRightActions={(progress, dragX) => {
-                  // handleSwipeRight(0)
-                }}
+            <>
+              <TouchableWithoutFeedback
+                onPress={() => handleClick(0)}
+                // onPressOut={()=>handlePressOut}
+                // onLongPress={onSingleClick}
               >
-                <TouchableOpacity onPress={() => handleClick(0)}>
+                {mp4ReExpression.test(firstList[0]?.photos[0]) ? (
+                  <VideoPlayer source = {firstList[0]?.photos[0]} 
+                  width= {CONST.responsiveWidth(360)}
+                  height= {CONST.responsiveHeight(290)}
+                  />
+                ) : (
                   <Image
                     src={firstList[0]?.photos[0]}
-                    style={voteStyles.photo}F
-                  />
-                </TouchableOpacity>
-              </Swipeable>
-
-              <Swipeable
-                renderRightActions={(progress, dragX) => {
-                  // handleSwipeRight(1)
-                }}
-              >
-                <TouchableOpacity onPress={() => handleClick(1)}>
-                  <Image
-                    src={firstList[1]?.photos[0]}
                     style={voteStyles.photo}
                   />
-                </TouchableOpacity>
-              </Swipeable>
-            </GestureHandlerRootView>
+                )}
+              </TouchableWithoutFeedback>
+
+              <TouchableOpacity onPress={() => handleClick(1)}>
+                <Image src={firstList[1]?.photos[0]} style={voteStyles.photo} />
+              </TouchableOpacity>
+            </>
           ) : (
             <></>
           )}

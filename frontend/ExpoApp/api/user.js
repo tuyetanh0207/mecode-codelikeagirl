@@ -67,16 +67,21 @@ export const getAllPostOfUser = async (userId) => {
 
 export const getUserInfo = async (userId) => {
     try {
-        console.log("running login")
-        const getInfoRes = await client.post(`/user/${userId}/getinfo`, {
-            userId
+        console.log("running get User Info")
+        const token = await AsyncStorage.getItem('token')
+        const getInfoRes = await client.get(`/user/${userId}/getinfo`,{
+            headers: {
+                Authorization: `JWT ${token}`
+            }
         })
-        if(getInfoRes.data.success) {
-           const token = getInfoRes.data.token
-        }
+        console.log('getInfoRes', getInfoRes.data)
+        // if(getInfoRes.data.success) {
+        //   // const token = getInfoRes.data.token
+        // }
+        
         return getInfoRes
     } catch (error) {
-        console.log('error inside getUserInfo method')
+        console.log('error inside getUserInfo method', error)
         
     }
 }
@@ -103,7 +108,7 @@ export const GetPostToVote= async (userID) => {
             
         })
 
-        console.log('post list: ', res.data);
+      //  console.log('post list: ', res.data);
         return res;
 
     } catch (error) {
@@ -123,7 +128,7 @@ export const VotePost= async (userVoteID, postVotedID, userVotedID) => {
             
         )
 
-        console.log('post list: ', res.data);
+      //  console.log('post list: ', res.data);
         return res;
 
     } catch (error) {

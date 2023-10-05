@@ -172,7 +172,9 @@ exports.uploadProfile = async (req, res) => {
 exports.getUserInfo= async (req,res) => {
   console.log('running getUserInfo')
   const userId = req.params.id;
+  console.log('userId', userId)
   const { user } = req;
+ // console.log('user', user)
   if (!user._id) {
     return res
       .status(401)
@@ -180,18 +182,23 @@ exports.getUserInfo= async (req,res) => {
   }
   try {
    
-    let user
+    let userInfo
+    console.log('_id', userId)
     if (userId!==user._id) {
-       user = await User.find({ userId: userId }).select('userId email avatar greenStep campaignPoint').exec();
+       userInfo = await User.findOne({ _id: userId }).select('userId email fullname avatar greenStep campaignPoint').exec();
+       console.log('userInfo', userInfo)
     } else 
     {
-      user =await User.find({ userId: userId }).select('userId email avatar greenStep campaignPoint').exec();
+      userInfo =await User.findOne({ _id: userId }).select('userId email avatar fullname greenStep campaignPoint').exec();
    }
-   console.log('user',user)
-    res.status(201).json({success: true, message: 'Get user\'s info successfully!', userInfo: user})
+   console.log('user',userInfo)
+    res.status(201).json({success: true, message: 'Get user\'s info successfully!', userInfo})
 
   } catch (error) {
     console.log('error in getUserInfo function', error)
+    res
+      .status(500)
+      .json({ success: false, message: "server error, try after sometime" });
   }
 }
 

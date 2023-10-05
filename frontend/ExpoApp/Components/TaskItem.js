@@ -4,25 +4,46 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Iconify } from "react-native-iconify";
 import { AppButton } from "../Components/JoinBtn.js";
 import * as CONST from "../Utils/constants";
+import { useLogin } from "../Contexts/LoginProvider.js";
 
 export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId, idCampaign, nameCampaign, isContraint, luckywheelID, latitude, longitude }) => {
   const navigation = useNavigation();
+  const {isLoggedIn} = useLogin()
   const handlePressJoinBtn = () => {
-    navigation.navigate("TaskDetails", {
-      name: name,
-      icon: icon,
-      shortAddr: shortAddr,
-      addr: addr,
-      dist: dist,
-      hint: hint,
-      taskId: taskId,
-      idCampaign: idCampaign,
-      nameCampaign: nameCampaign,
-      isContraint: isContraint,
-      luckywheelID: luckywheelID,
-      latitude: latitude,
-      longitude: longitude,
-    });
+    if (isLoggedIn){
+      navigation.navigate("TaskDetails", {
+        name: name,
+        icon: icon,
+        shortAddr: shortAddr,
+        addr: addr,
+        dist: dist,
+        hint: hint,
+        taskId: taskId,
+        idCampaign: idCampaign,
+        nameCampaign: nameCampaign,
+        isContraint: isContraint,
+        luckywheelID: luckywheelID,
+        latitude: latitude,
+        longitude: longitude,
+      });
+    } else {
+      navigation.navigate("TaskDetailsNotLoggedIn", {
+        name: name,
+        icon: icon,
+        shortAddr: shortAddr,
+        addr: addr,
+        dist: dist,
+        hint: hint,
+        taskId: taskId,
+        idCampaign: idCampaign,
+        nameCampaign: nameCampaign,
+        isContraint: isContraint,
+        luckywheelID: luckywheelID,
+        latitude: latitude,
+        longitude: longitude,
+      });
+    }
+   
   };
 
   return (
@@ -70,7 +91,7 @@ const taskDetailstyles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   left: {
-    flex: 0.1,
+    flex: 0.2,
     alignItems: 'center'
   },
   icon: {

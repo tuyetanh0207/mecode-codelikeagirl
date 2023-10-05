@@ -15,40 +15,24 @@ import styles from "../Utils/styles";
 import { taskDetailstyles } from "../Utils/taskDetailsStyles";
 import MapComponent from '../Components/Map'
 import { getIconByTitle } from "../Utils/constants";
-export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
+export default function TaskDetailsNotLoggedInScreen({ navigation: { goBack }, route }) {
   const { name, shortAddr, addr, dist, icon, taskId, hint, idCampaign, nameCampaign, isContraint, luckywheelID, latitude, longitude } = route.params;
   const navigation = useNavigation();
   const handleJoinBtn = () => {
-    navigation.navigate("Join", {
-      name: name,
-      icon: icon,
-      shortAddr: shortAddr,
-      addr: addr,
-      dist: dist,
-      hint: hint,
-      idCampaign: idCampaign,
-      nameCampaign: nameCampaign,
-      isContraint: isContraint,
-      luckywheelID: luckywheelID,
-      taskId: taskId,
-      latitude: latitude,
-      longitude: longitude,
-    });
+    navigation.navigate("LogIn");
   };
   return (
     <ImageBackground
       source={require("../assets/images/background.png")}
       style={styles.imageBackground}
     >
-       <TouchableOpacity onPress={() => goBack()}
-         style={taskDetailstyles.backicon}>
+      <View style={taskDetailstyles.header}>
+        <TouchableOpacity onPress={() => goBack()}>
           <Image
             source={require("../assets/images/Back.png")}
-          
+            style={taskDetailstyles.backicon}
           />
         </TouchableOpacity>
-      <View style={taskDetailstyles.header}>
-       
 
         <Text style={taskDetailstyles.title}>Task details</Text>
       </View>

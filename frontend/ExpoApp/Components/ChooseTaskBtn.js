@@ -81,7 +81,7 @@ const chooseTaskBtnstyles = StyleSheet.create({
     color: CONST.FEATURE_TEXT_COLOR,
     fontSize: CONST.responsiveHeight(14),
     fontWeight: '300',
-    width: '80%',
+    width: '70%',
     marginLeft: '4%',
 
   },

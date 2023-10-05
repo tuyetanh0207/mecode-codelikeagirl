@@ -17,7 +17,9 @@ export default function Top3Component(props) {
                 <TouchableOpacity onPress={() => navigation.navigate('Profile', {
                     userId: data[1].userID,
                     fullname: data[1].nameUser,
-                    avatar: data[1].avatar
+                    avatar: data[1].avatar,
+                    point: data[1].score,
+                    rank:2
                 })}>
                     <ImageBackground source={top2}>
                         <Image
@@ -33,10 +35,12 @@ export default function Top3Component(props) {
             </View>
 
             <View style={LeaderBoardStyles.top1Container}>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile', {
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileOther', {
                     userId: data[0].userID,
                     fullname: data[0].nameUser,
-                    avatar: data[0].avatar
+                    avatar: data[0].avatar,
+                    point: data[0].score,
+                    rank:1
                 })}>
                     <ImageBackground source={top1}>
                         <Image
@@ -52,10 +56,12 @@ export default function Top3Component(props) {
             </View>
 
             <View style={LeaderBoardStyles.top2Container}>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile', {
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileOther', {
                     userId: data[2].userID,
                     fullname: data[2].nameUser,
-                    avatar: data[2].avatar
+                    avatar: data[2].avatar,
+                    point: data[2].score,
+                    rank:3
                 })}>
                     <ImageBackground source={top3}>
                         <Image

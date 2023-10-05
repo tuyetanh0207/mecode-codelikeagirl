@@ -21,9 +21,17 @@ import ImagePicker from "react-native-image-picker";
 import VideoPlayer from "../Components/VideoPlayer";
 import { ChooseTaskBtn } from "../Components/ChooseTaskBtn";
 import ChooseTaskList from "../Components/ChooseTaskList";
-
+import { CommonActions } from '@react-navigation/native';
 export default function Join({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
+  const resetToInitialScreen = CommonActions.reset({
+    index: 0,
+    routes: [{ name: 'Join' }], // Tên của màn hình bạn muốn reset về
+  });
+
+  const handleNavigate = () => {
+    navigation.dispatch(resetToInitialScreen);
+  };
   // let { name, shortAddr, addr, dist, icon, hint, taskId } ={}
   let name,
     shortAddr,
@@ -36,10 +44,10 @@ export default function Join({ navigation: { goBack }, route }) {
     nameCampaign,
     isContraint,
     luckywheelID;
-  let IsNeedChoosingTask=false
-  let isChoosed=false
+  let IsNeedChoosingTask = false;
+  let isChoosed = false;
   //console.log('rout', route.params)
- // const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
+  // const [IsNeedChoosingTask, setIsNeedChoosingTask] = useState(false)
   if (route.params) {
     ({
       name,
@@ -56,7 +64,7 @@ export default function Join({ navigation: { goBack }, route }) {
     } = route.params);
   } else {
     //setIsNeedChoosingTask(true)
-    IsNeedChoosingTask=true
+    IsNeedChoosingTask = true;
     name = "";
     shortAddr = "";
     addr = "";
@@ -95,7 +103,7 @@ export default function Join({ navigation: { goBack }, route }) {
   const [hasRecordedParent, setHasRecordedParent] = useState(false);
   const [currentVideoParent, setCurrentVideoParent] = useState(null);
   const [isChoosing, setIsChoosing] = useState(0);
-  const [taskChoosed, setTaskChoosed] = useState(null)
+  const [taskChoosed, setTaskChoosed] = useState(null);
 
   var mp4ReExpression = /\.mp4$/;
   const handleAddPhoto = () => {
@@ -105,28 +113,28 @@ export default function Join({ navigation: { goBack }, route }) {
   useEffect(() => {
     console.log("video uri: ", currentVideoParent);
   }, [currentVideoParent]);
-  const [noti, setNoti] = useState('')
+  const [noti, setNoti] = useState("");
   const handlePostBtn = async () => {
     formData = new FormData();
-    if(IsNeedChoosingTask && isChoosing!==2)
-    {
-      setNoti('Please choose the task you want to join to post!')
+    if (IsNeedChoosingTask && isChoosing !== 2) {
+      setNoti("Please choose the task you want to join to post!");
+      return;
     }
     //process string info
     //console.log("userId:", userInfo.userId);
     formData.append("userId", userInfo.userId);
     formData.append("caption", feeling);
-    if (IsNeedChoosingTask && isChoosing===2){
+    if (IsNeedChoosingTask && isChoosing === 2) {
       formData.append("taskName", taskChoosed.name);
       formData.append("taskId", taskChoosed.taskId);
-     //\\ formData.append("shortAddr", taskChoosed.shortAddr);
+      formData.append("shortAddr", taskChoosed.shortAddr);
       formData.append("address", taskChoosed.addr);
       formData.append("idCampaign", taskChoosed.idCampaign);
       formData.append("nameCampaign", taskChoosed.nameCampaign);
       formData.append("isContraint", taskChoosed.isContraint);
       formData.append("luckywheelID", taskChoosed.luckywheelID);
     }
-     if(IsNeedChoosingTask===false) {
+    if (IsNeedChoosingTask === false) {
       formData.append("taskName", name);
       formData.append("taskId", taskId);
       formData.append("shortAddr", shortAddr);
@@ -136,7 +144,6 @@ export default function Join({ navigation: { goBack }, route }) {
       formData.append("isContraint", isContraint);
       formData.append("luckywheelID", luckywheelID);
     }
-
 
     // process photos
     // if a video
@@ -171,7 +178,11 @@ export default function Join({ navigation: { goBack }, route }) {
       console.log("result posting: ", res.data);
       if (res.data.success === true) {
         const donePost = res.data.post;
-
+        setIsTakingPhoto(true)
+        setPhotos([])
+        setIsChoosing(0)
+        setFeeling('')
+       // navigation.dispatch(resetToInitialScreen);
         navigation.navigate("Post", {
           isJustPosted: true,
           userId: donePost.userId,
@@ -188,8 +199,12 @@ export default function Join({ navigation: { goBack }, route }) {
           avatar: donePost.avatar,
         });
       }
+      navigation.dispatch(resetToInitialScreen);
     } catch (error) {
       //console.log(error.message);
+      setIsTakingPhoto(true)
+        setPhotos([])
+        setFeeling('')
     }
   };
 
@@ -203,150 +218,133 @@ export default function Join({ navigation: { goBack }, route }) {
       style={styles.imageBackground}
     >
       {/* container */}
-      {isTakingPhoto ? 
-        (
-          <CameraComponent
-            setIsTakingPhoto={setIsTakingPhoto}
-            setPhotos={setPhotos}
-            photos={photos}
-            isRecordingParent={isRecordingParent}
-            setIsRecordingParent={setIsRecordingParent}
-            hasRecordedParent={hasRecordedParent}
-            setHasRecordedParent={setHasRecordedParent}
-            currentVideoParent={currentVideoParent}
-            setCurrentVideoParent={setCurrentVideoParent}
-          />
-        ) : ( isChoosing===0 || isChoosing===2?
-          <View style={joinstyles.container}>
-            {/* header */}
-            <View style={joinstyles.header}>
-              {/* backicon */}
-              <View style={joinstyles.left}>
-                {/* <TouchableOpacity onPress={() => goBack()}> */}
-                <TouchableOpacity onPress={() => setIsTakingPhoto(true)}>
-                  <Image
-                    source={require("../assets/images/Back.png")}
-                    style={joinstyles.backicon}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={joinstyles.mid}>
-                <Text style={joinstyles.headertext}>Create post</Text>
-              </View>
-              {/* post btn */}
-              <TouchableOpacity
-                style={joinstyles.right}
-                onPress={handlePostBtn}
-              >
-                <AppButton
-                  title="Post"
-                  color={CONST.FEATURE_TEXT_COLOR}
-                  backgroundColor={CONST.BACKGROUND_COLOR}
-                  size="sm"
-                ></AppButton>
+      {isTakingPhoto ? (
+        <CameraComponent
+          setIsTakingPhoto={setIsTakingPhoto}
+          setPhotos={setPhotos}
+          photos={photos}
+          isRecordingParent={isRecordingParent}
+          setIsRecordingParent={setIsRecordingParent}
+          hasRecordedParent={hasRecordedParent}
+          setHasRecordedParent={setHasRecordedParent}
+          currentVideoParent={currentVideoParent}
+          setCurrentVideoParent={setCurrentVideoParent}
+        />
+      ) : isChoosing === 0 || isChoosing === 2 ? (
+        <>
+        <View style={joinstyles.container}>
+          {/* header */}
+          <View style={joinstyles.header}>
+            {/* backicon */}
+            <View style={joinstyles.left}>
+              {/* <TouchableOpacity onPress={() => goBack()}> */}
+              <TouchableOpacity onPress={() => setIsTakingPhoto(true)}>
+                <Image
+                  source={require("../assets/images/Back.png")}
+                  style={joinstyles.backicon}
+                />
               </TouchableOpacity>
             </View>
-            {/* post */}
-            <View style={joinstyles.post}>
-              {/* profile */}
-              <View style={joinstyles.profile}>
-                <TouchableOpacity
-                  onPress={() => goBack()}
-                  style={joinstyles.profilePhoto}
-                >
-                  {userInfo.avatar ? (
-                    <Image
-                      src={userInfo.avatar}
-                      style={joinstyles.profileImage}
-                    />
-                  ) : (
-                    <Image
-                      source={require("../assets/images/samplephotopost.png")}
-                      style={joinstyles.profileImage}
-                    />
-                  )}
-                </TouchableOpacity>
-                <View style={joinstyles.name}>
-                  <Text style={joinstyles.nametext}>{userInfo.fullname}</Text>
-                  {IsNeedChoosingTask === true ? (
-                    <TouchableOpacity  onPress = {()=>{setIsChoosing(1); setNoti('')}}>
-                    <ChooseTaskBtn isChoosed={isChoosing} taskChoosed={taskChoosed} />
-                    </TouchableOpacity>
-                  ) : (
-                    <></>
-                  )}
-                </View>
-              </View>
-              {/* text input */}
-              <TextInput
-                style={joinstyles.feelinginput}
-                placeholder="How do you feel?"
-                placeholderTextColor="#868484"
-                multiline={true}
-                value={feeling}
-                onChangeText={(text) => setFeeling(text)}
-              />
-              {/* Photos */}
-              <View style={joinstyles.photos}>
-                {/* if there is no photo and no video to display */}
-                {photos.length === 0 && currentVideoParent == null ? (
+            <View style={joinstyles.mid}>
+              <Text style={joinstyles.headertext}>Create post</Text>
+            </View>
+            {/* post btn */}
+            <TouchableOpacity style={joinstyles.right} onPress={handlePostBtn}>
+              <AppButton
+                title="Post"
+                color={CONST.FEATURE_TEXT_COLOR}
+                backgroundColor={CONST.BACKGROUND_COLOR}
+                size="sm"
+              ></AppButton>
+            </TouchableOpacity>
+          </View>
+          {/* post */}
+          <View style={joinstyles.post}>
+            {/* profile */}
+            <View style={joinstyles.profile}>
+              <TouchableOpacity
+                onPress={() => goBack()}
+                style={joinstyles.profilePhoto}
+              >
+                {userInfo.avatar ? (
+                  <Image
+                    src={userInfo.avatar}
+                    style={joinstyles.profileImage}
+                  />
+                ) : (
+                  <Image
+                    source={require("../assets/images/samplephotopost.png")}
+                    style={joinstyles.profileImage}
+                  />
+                )}
+              </TouchableOpacity>
+              <View style={joinstyles.name}>
+                <Text style={joinstyles.nametext}>{userInfo.fullname}</Text>
+                {IsNeedChoosingTask === true ? (
                   <TouchableOpacity
-                    style={joinstyles.photo}
-                    onPress={handleAddPhoto}
+                    onPress={() => {
+                      setIsChoosing(1);
+                      setNoti("");
+                    }}
+                    //style={{width: CONST.responsiveWidth(300)}}
                   >
-                    <Image
-                      source={require("../assets/images/addPhoto.png")}
-                      style={joinstyles.addicon}
+                    <ChooseTaskBtn
+                      isChoosed={isChoosing}
+                      taskChoosed={taskChoosed}
                     />
-                    <Text style={joinstyles.addtext}>Add</Text>
                   </TouchableOpacity>
-                ) : photos.length >= 0 ? (
-                  // if there is a photo array to display
-                  <FlatList
-                    data={photos}
-                    numColumns={3}
-                    renderItem={({ item, index }) => {
-                      return index === photos.length - 1 ? (
-                        // add button
-                        <>
-                          <View style={joinstyles.photo}>
-                            <TouchableOpacity
-                              onPress={() => handleXicon(index)}
-                              style={joinstyles.xicon}
-                            >
-                              <Image
-                                source={require("../assets/images/x.png")}
-                              />
-                            </TouchableOpacity>
-
-                            <Image
-                              source={{ uri: item }}
-                              style={{
-                                width: CONST.responsiveHeight(100),
-                                height: CONST.responsiveHeight(100),
-                              }}
-                            />
-                          </View>
-                          <TouchableOpacity
-                            style={joinstyles.photo}
-                            onPress={handleAddPhoto}
-                          >
-                            <Image
-                              source={require("../assets/images/addPhoto.png")}
-                              style={joinstyles.addicon}
-                            />
-                            <Text style={joinstyles.addtext}>Add</Text>
-                          </TouchableOpacity>
-                        </>
-                      ) : (
-                        // photo element
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
+            {/* text input */}
+            <TextInput
+              style={joinstyles.feelinginput}
+              placeholder="How do you feel?"
+              placeholderTextColor="#868484"
+              multiline={true}
+              value={feeling}
+              onChangeText={(text) => setFeeling(text)}
+            />
+            {/* Photos */}
+            <View style={joinstyles.photos}>
+              {/* if there is no photo and no video to display */}
+              {photos.length === 0 && currentVideoParent == null ? (
+                <TouchableOpacity
+                  style={joinstyles.photo}
+                  onPress={handleAddPhoto}
+                >
+                  <Image
+                    source={require("../assets/images/addPhoto.png")}
+                    style={joinstyles.addicon}
+                  />
+                  <Text style={joinstyles.addtext}>Add</Text>
+                </TouchableOpacity>
+              ) : photos.length >= 0 ? (
+                // if there is a photo array to display
+                <FlatList
+                  data={photos}
+                  numColumns={3}
+                  renderItem={({ item, index }) => {
+                    return index === photos.length - 1 ? (
+                      // add button
+                      <>
                         <View style={joinstyles.photo}>
                           <TouchableOpacity
                             onPress={() => handleXicon(index)}
                             style={joinstyles.xicon}
                           >
-                            <Image source={require("../assets/images/x.png")} />
+                            <Image
+                              source={require("../assets/images/x.png")}
+                              style={{
+                                width: CONST.responsiveHeight(10),
+                                height: CONST.responsiveHeight(10),
+                                // color: CONST.BACKGROUND_COLOR,
+                              }}
+                            />
                           </TouchableOpacity>
+
                           <Image
                             source={{ uri: item }}
                             style={{
@@ -355,45 +353,92 @@ export default function Join({ navigation: { goBack }, route }) {
                             }}
                           />
                         </View>
-                      );
-                    }}
-                    keyExtractor={(item, index) => index}
-                  ></FlatList>
-                ) : (
-                  <></>
-                )}
-                {currentVideoParent &&
-                mp4ReExpression.test(currentVideoParent) ? (
-                  <VideoPlayer
-                    videoUri={currentVideoParent}
-                    width={340}
-                    height={300}
-                  />
-                ) : (
-                  <></>
-                )}
-              </View>
-              {/* Info */}
-              <View style={joinstyles.info}>
-                {route.params ? (
-                  <>
-                    <Text style={joinstyles.taskNametext}>{name}</Text>
-                    <Text style={joinstyles.taskShortAddrtext}>
-                      {shortAddr}
-                    </Text>
-                    <Text style={joinstyles.taskAddrtext}>{addr}</Text>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </View>
+                        <TouchableOpacity
+                          style={joinstyles.photo}
+                          onPress={handleAddPhoto}
+                        >
+                          <Image
+                            source={require("../assets/images/addPhoto.png")}
+                            style={joinstyles.addicon}
+                          />
+                          <Text style={joinstyles.addtext}>Add</Text>
+                        </TouchableOpacity>
+                      </>
+                    ) : (
+                      // photo element
+                      <View style={joinstyles.photo}>
+                        <TouchableOpacity
+                          onPress={() => handleXicon(index)}
+                          style={joinstyles.xicon}
+                        >
+                          <Image
+                            source={require("../assets/images/x.png")}
+                            style={{
+                              width: CONST.responsiveHeight(10),
+                              height: CONST.responsiveHeight(10),
+                              // color: CONST.BACKGROUND_COLOR,
+                            }}
+                          />
+                        </TouchableOpacity>
+                        <Image
+                          source={{ uri: item }}
+                          style={{
+                            width: CONST.responsiveHeight(100),
+                            height: CONST.responsiveHeight(100),
+                          }}
+                        />
+                      </View>
+                    );
+                  }}
+                  keyExtractor={(item, index) => index}
+                ></FlatList>
+              ) : (
+                <></>
+              )}
+              {currentVideoParent &&
+              mp4ReExpression.test(currentVideoParent) ? (
+                <VideoPlayer
+                  videoUri={currentVideoParent}
+                  width={CONST.responsiveWidth(340)}
+                  height={CONST.responsiveHeight(300)}
+                />
+              ) : (
+                <></>
+              )}
+            </View>
+            {/* Info */}
+            <View style={joinstyles.info}>
+              {route.params ? (
+                <>
+                  <Text style={joinstyles.taskNametext}>{name}</Text>
+                  <Text style={joinstyles.taskShortAddrtext}>{shortAddr}</Text>
+                  <Text style={joinstyles.taskAddrtext}>{addr}</Text>
+                </>
+              ) : (
+                <></>
+              )}
+              {taskChoosed && isChoosing ===2 ? (
+                <>
+                  <Text style={joinstyles.taskNametext}>{taskChoosed.name}</Text>
+                  <Text style={joinstyles.taskShortAddrtext}>{taskChoosed.shortAddr}</Text>
+                  <Text style={joinstyles.taskAddrtext}>{taskChoosed.addr}</Text>
+                </>
+              ) : (
+                <></>
+              )}
             </View>
           </View>
-          :
-          <ChooseTaskList onCallBack = {setIsChoosing} setTaskChoosed={setTaskChoosed}/>
-        )
-        }
-        <Text style={joinstyles.notiText}>{noti}</Text>
+        </View>
+         <Text style={joinstyles.notiText}>{noti}</Text> 
+         </>
+      ) : (
+        <ChooseTaskList
+          onCallBack={setIsChoosing}
+          setTaskChoosed={setTaskChoosed}
+        />
+      )}
+
+     
     </ImageBackground>
   );
 }

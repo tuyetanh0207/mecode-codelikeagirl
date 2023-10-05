@@ -92,10 +92,12 @@ export default function LeaderBoard({ navigation: { goBack }, route }) {
                                                 <Text style={LeaderBoardStyles.rank}>{index + 4}</Text>
                                             </ImageBackground>
 
-                                            <TouchableOpacity onPress={() => navigation.navigate('Profile', {
+                                            <TouchableOpacity onPress={() => navigation.navigate('ProfileOther', {
                                                 userId: item.userID,
                                                 fullname: item.nameUser,
-                                                avatar: item.avatar
+                                                avatar: item.avatar,
+                                                point: item.score,
+                                                rank: index + 3+ 1
                                             })}>
                                                 <Image
                                                     source={{ uri: item.avatar }}

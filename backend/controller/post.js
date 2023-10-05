@@ -196,8 +196,8 @@ exports.getAllPostOfUser = async (req, res) => {
     let posts;
     let str =
       "userId taskName taskId campaignId caption photos votedPoint createdDate";
-    console.log("user request", user._id);
-    console.log("user info", userId);
+    // console.log("user request", user._id);
+    // console.log("user info", userId);
     let fullname
     let avatar
     if (userId == user._id) {
@@ -211,7 +211,8 @@ exports.getAllPostOfUser = async (req, res) => {
         )
         .exec();
     } else {
-      const currentUser = await User.findOne(userId)
+      const currentUser = await User.findOne({_id:userId})
+      // console.log('currentUser', currentUser)
       fullname = currentUser.fullname
       avatar= currentUser.avatar
       posts = await Post.find({ userId: userId })
@@ -271,6 +272,7 @@ exports.votelist = async (req, res) => {
       
     }
     console.log("sending vote list post")
+    await Post.deleteMany({ photos: { $size: 0 } });
     res.json(voteList)
   } else {
     res.json(

@@ -34,7 +34,7 @@ export default function Post({navigation: {goBack}, route}) {
     const str = await AsyncStorage.getItem("userInfo");
     //console.log('token', token)
     const userInfo_ = str ? JSON.parse(str) : {};
-    console.log(userInfo_)
+    //console.log(userInfo_)
     setUserInfo(userInfo_)
 
   };

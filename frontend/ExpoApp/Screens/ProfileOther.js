@@ -29,7 +29,7 @@ import {
 } from "../api/user";
 import { useLogin } from "../Contexts/LoginProvider";
 
-export default function ProfileScreen({ navigation: { goBack }, route }) {
+export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
   let userId;
   //console.log('rout', route.params)
@@ -60,15 +60,18 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     
   };
   const getProfileUser = async () => {
-    console.log('user d', userId)
-    const user = await getUserInfo(userId);
-    //console.log('user profile', user.data)
-    setProfileUserInfo(user.data.userInfo);
-    setProfileUserPoint(
-      user.data.userInfo?.campaignPoint[0].postPoint +
-        user.data.userInfo?.campaignPoint[0].votingPoint +
-        user.data.userInfo?.campaignPoint[0].votedPoint
-    );
+    if (userId){
+      console.log('user d', userId)
+      const user = await getUserInfo(userId);
+      //console.log('user profile', user.data)
+      setProfileUserInfo(user.data.userInfo);
+      setProfileUserPoint(
+        user.data.userInfo?.campaignPoint[0].postPoint +
+          user.data.userInfo?.campaignPoint[0].votingPoint +
+          user.data.userInfo?.campaignPoint[0].votedPoint
+      );
+    }
+    
   };
   const [headerUser, setHeaderUser] = useState({ avatar: "", fullname: "" });
   const fetchPostList = async () => {
@@ -86,9 +89,12 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   };
   const fetchRankUser = async () => {
     try {
-      const res = await getUserRankLatestCampaign(userId);
-      setProfileUserRank(res.rank);
-      //  console.log('rank', res)
+      if(userId){
+        const res = await getUserRankLatestCampaign(userId);
+        setProfileUserRank(res.rank);
+        //  console.log('rank', res)
+      }
+    
     } catch (error) {
       console.log("error while get rank", error);
     }
@@ -101,8 +107,10 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   useEffect(() => {
     // if the screen is transfered from somewhere
     if (route.params) {
-      ({ fullname, userId, avatar } = route.params);
+      ({ fullname, userId, avatar, point, rank } = route.params);
       setProfileUserInfo({fullname, userId, avatar})
+      setProfileUserPoint(point)
+      setProfileUserRank(rank)
       // console.log('fullname, user id', fullname, userId)
       // if is current logged in is profile's user
       if (userId === userInfo.userId) {
