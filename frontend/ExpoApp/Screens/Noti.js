@@ -17,8 +17,8 @@ export default function Gift({ navigation: { goBack }, route }) {
                 <View style={NotiStyles.header}>
                     <Text style={NotiStyles.title}>Notifications</Text>
                 </View>
-                <View>
-                    <Image source={noti} />
+                <View style={NotiStyles.image}>
+                    <Image source={noti} style={{ resizeMode: 'contain', flex: 1}}  />
                 </View>
             </View>
         </ImageBackground >
@@ -44,8 +44,11 @@ export const NotiStyles = StyleSheet.create({
         // marginVertical: CONST.PRIMARY_VERTICAL_MARGIN,
     },
     image: {
-        width: "100%",
-        height: "auto",
+        width: "90%",
+        height: "88%",
+        resizeMode: 'contain',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     container: {
         justifyContent: 'center',

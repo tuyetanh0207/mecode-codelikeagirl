@@ -4,7 +4,7 @@ import * as CONST from '../Utils/constants';
 import { Iconify } from 'react-native-iconify';
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, StatusBar, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import gifts from '../assets/images/gifts.png';
+import gifts from '../assets/images/gift.png';
 
 export default function Gift({ navigation: { goBack }, route }) {
     const navigation = useNavigation();
@@ -20,8 +20,8 @@ export default function Gift({ navigation: { goBack }, route }) {
                     </TouchableOpacity>
                     <Text style={GiftStyles.title}>Lucky gifts</Text>
                 </View>
-                <View>
-                    <Image source={gifts} />
+                <View style={GiftStyles.image}>
+                    <Image source={gifts} style={{ resizeMode: 'contain', flex: 1}} />
                 </View>
             </View>
         </ImageBackground >
@@ -44,11 +44,14 @@ export const GiftStyles = StyleSheet.create({
         letterSpacing: -0.005,
         textAlign: 'center',
         flex: 1,
-        // marginVertical: CONST.PRIMARY_VERTICAL_MARGIN,
     },
     image: {
-        width: "100%",
-        height: "auto",
+        width: "90%",
+        height: "88%",
+        resizeMode: 'contain',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // flex: 1
     },
     container: {
         justifyContent: 'center',
