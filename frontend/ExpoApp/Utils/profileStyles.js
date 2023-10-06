@@ -37,11 +37,13 @@ export const profileStyles = StyleSheet.create({
         overflow: "hidden",
       //  borderRadius: 200,
       flex: 2,
+      marginRight: '4%',
     },
     avatarPhoto: {
         width: CONST.responsiveHeight(56),
         height: CONST.responsiveHeight(56),
         borderRadius: 30,
+        
     },
     mid: {
         flex: 9
@@ -72,21 +74,26 @@ export const profileStyles = StyleSheet.create({
         marginTop: '3%',
         width: '100%',
         height: CONST.responsiveHeight(280),
-        backgroundColor: CONST.BACKGROUND_COLOR,
+        // backgroundColor: CONST.BACKGROUND_COLOR,
         borderRadius: 14,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 0,
+        padding: '6%',
         overflow: 'hidden',
+        flex: 1,
 
 
+    },
+    calendarPhoto: {
+        flex: 1,
+        resizeMode: 'contain',
     },
     headerSection: {
         flexDirection: 'row',
         //marginTop: '4%'
         
     },
-    headerSection1: {
+    activityHeaderSection: {
         flexDirection: 'row',
         marginTop: '4%',
         marginBottom: '4%'
@@ -100,6 +107,7 @@ export const profileStyles = StyleSheet.create({
     },
     postListContainer: {
         marginTop: '3%',
+        marginBottom: '10%'
     },
     dateText: {
         fontSize: CONST.responsiveHeight(14),

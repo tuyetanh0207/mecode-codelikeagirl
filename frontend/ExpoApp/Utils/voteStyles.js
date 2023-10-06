@@ -12,16 +12,17 @@ export const voteStyles = StyleSheet.create({
         paddingTop: '4%',
     },
     header: {
-        flex: 1,
+       // flex: 1,
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 14,
-        flexDirection:'row'
+  
       },
+      
     backicon: {
         position: 'absolute',
-        left: '4%',
-        top: '6%'
+        left: CONST.responsiveWidth(14),
+        top: CONST.responsiveHeight(70),
     },
    
     intruct: {

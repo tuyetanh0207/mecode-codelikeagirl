@@ -171,7 +171,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       </TouchableOpacity>
       <View style={voteStyles.container}>
         <View style={profileStyles.header}>
-          <Text style={styles.heading2}>Vote</Text>
+          <Text style={styles.heading2NotMargin}>Vote</Text>
         </View>
         <Text style={voteStyles.intruct1Text}>
           You can get point by voting these!
@@ -194,7 +194,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
               >
                 {mp4ReExpression.test(firstList[0]?.photos[0]) ? (
                   <VideoPlayer source={firstList[0]?.photos[0]}
-                    width={CONST.responsiveWidth(360)}
+                    width={CONST.responsiveWidth(380)}
                     height={CONST.responsiveHeight(290)}
                   />
                 ) : (
@@ -206,7 +206,17 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
               </TouchableWithoutFeedback>
 
               <TouchableOpacity onPress={() => handleClick(1)}>
-                <Image src={firstList[1]?.photos[0]} style={voteStyles.photo} />
+              {mp4ReExpression.test(firstList[1]?.photos[0]) ? (
+                  <VideoPlayer source={firstList[1]?.photos[0]}
+                    width={CONST.responsiveWidth(380)}
+                    height={CONST.responsiveHeight(290)}
+                  />
+                ) : (
+                  <Image
+                    src={firstList[1]?.photos[0]}
+                    style={voteStyles.photo}
+                  />
+                )}
               </TouchableOpacity>
             </>
           ) : (

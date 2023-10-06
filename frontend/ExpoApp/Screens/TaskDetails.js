@@ -35,16 +35,21 @@ export default function TaskDetailsScreen({ navigation: { goBack }, route }) {
       longitude: longitude,
     });
   };
+  const handldeBackBtn = () =>{
+   console.log('back')
+   goBack()
+  }
   return (
     <ImageBackground
       source={require("../assets/images/background.png")}
       style={styles.imageBackground}
     >
-       <TouchableOpacity onPress={() => goBack()}
+      
+       <TouchableOpacity onPress={handldeBackBtn}
          style={taskDetailstyles.backicon}>
           <Image
             source={require("../assets/images/Back.png")}
-          
+         //   style= {{width:  CONST.responsiveHeight(16), height:  CONST.responsiveHeight(20)}}
           />
         </TouchableOpacity>
       <View style={taskDetailstyles.header}>

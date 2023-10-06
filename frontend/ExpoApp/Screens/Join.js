@@ -400,7 +400,7 @@ export default function Join({ navigation: { goBack }, route }) {
               mp4ReExpression.test(currentVideoParent) ? (
                 <VideoPlayer
                   videoUri={currentVideoParent}
-                  width={CONST.responsiveWidth(340)}
+                  width={CONST.responsiveWidth(380)}
                   height={CONST.responsiveHeight(300)}
                 />
               ) : (

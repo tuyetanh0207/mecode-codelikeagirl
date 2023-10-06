@@ -4,7 +4,7 @@ import { Video } from 'expo-av';
 import * as CONST from '../Utils/constants';
 const VideoPlayer = ({ videoUri, width, height, borderRadius }) => {
     console.log('uri video trong videoPlayer component', videoUri)
-    const actualBorderRadius = borderRadius ? borderRadius : 15;
+    const actualBorderRadius = borderRadius ? borderRadius : 16;
   return (
     <View style ={ {borderRadius: actualBorderRadius, overflow: 'hidden', borderStyle: 'solid', borderColor: CONST.NAVIGATION_ACTIVE_COLOR, borderWidth: 1}}> 
        <Video

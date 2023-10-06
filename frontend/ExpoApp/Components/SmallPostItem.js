@@ -25,10 +25,10 @@ export const SmallPostItem = ({
   var mp4ReExpression = /\.mp4$/; 
   const handlePressJoinBtn = () => {
     navigation.navigate("Post", {
-      icon: icon,
       shortAddr: shortAddr,
       addr: addr,
       taskId: taskId,
+      taskName: taskName,
       isJustPosted: false,
       userId: userId,
       postId: postId,
@@ -36,7 +36,9 @@ export const SmallPostItem = ({
       caption: caption,
       photos: photos,
       createdDate: createdDate,
-      avatar: avatar
+      avatar: avatar,
+      postId: postId, 
+
     });
   };
 
@@ -197,11 +199,10 @@ const smallPoststyles = StyleSheet.create({
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",
-    fontSize: CONST.responsiveHeight(16),
+    fontSize: CONST.responsiveHeight(15),
   },
   right: {
     flex: 2,
-    //justifyContent: "center",
     overflow: "hidden",
     alignItems: 'center',
     justifyContent: 'center',
@@ -210,7 +211,7 @@ const smallPoststyles = StyleSheet.create({
   addr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",
-    fontSize: CONST.responsiveHeight(16),
+    fontSize: CONST.responsiveHeight(15),
   },
   btn: {
     backgroundColor: CONST.LIGHT_PINK_COLOR,

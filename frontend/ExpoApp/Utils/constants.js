@@ -44,7 +44,7 @@ export const BOLD_HEADING2_COLOR_BOTTLE_ICON = <Iconify icon="solar:bottle-bold-
 export const BOLD_HEADING2_COLOR_BAG_ICON = <Iconify icon="solar:bag-4-bold" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_TREE_ICON = <Iconify icon="ri:seedling-fill" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_SUN_ICON = <Iconify icon="solar:sun-linear" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
-export const UNKNOWN_ICON = <Iconify icon="carbon:unknown" size={responsiveHeight(36)} color={HEADING2_COLOR} />;
+export const UNKNOWN_ICON = <Iconify icon="carbon:unknown" size={responsiveHeight(30)} color={HEADING2_COLOR} />;
 
 export const BOLD_HEADING2_COLOR_TRASH_ICON_44 = <Iconify icon="fluent:bin-recycle-24-filled" size={responsiveHeight(54)} color={HEADING2_COLOR} />;
 export const BOLD_HEADING2_COLOR_BOTTLE_ICON_44 = <Iconify icon="solar:bottle-bold-duotone" size={responsiveHeight(54)} color={HEADING2_COLOR} />;
@@ -57,7 +57,7 @@ export const FEATURE_TEXT_BOTTLE_ICON_60 = <Iconify icon="solar:bottle-linear" s
 export const FEATURE_TEXT_BAG_ICON_60 = <Iconify icon="solar:bag-4-linear" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_TREE_ICON_60 = <Iconify icon="ri:seedling-line" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
 export const FEATURE_TEXT_SUN_ICON_60 = <Iconify icon="solar:sun-linear" size={responsiveHeight(60)} color={HEADING2_COLOR} />;
-export const UNKNOWN_ICON_60 = <Iconify icon="carbon:unknown" size={responsiveHeight(60)} color={FEATURE_TEXT_COLOR} />;
+export const UNKNOWN_ICON_60 = <Iconify icon="carbon:unknown" size={responsiveHeight(50)} color={FEATURE_TEXT_COLOR} />;
 
 export const boldIconMapping = {
     'Collect trash': BOLD_TRASH_ICON,

@@ -15,11 +15,11 @@ export const taskDetailstyles = StyleSheet.create({
   },
   backicon: {
     position: 'absolute',
-    left: '4%',
-    top: '10%'
+    left: CONST.responsiveWidth(14),
+    top: CONST.responsiveHeight(70),
   },
   title: {
-    fontSize: CONST.responsiveHeight(19),
+    fontSize: CONST.responsiveHeight(22),
     fontWeight: "500",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
 

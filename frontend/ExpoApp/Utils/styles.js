@@ -21,6 +21,15 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         marginLeft: 0.05 * CONST.TRUTH_SCREEN[0],
     },
+    heading2NotMargin: {
+        marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
+        color: CONST.HEADING2_COLOR,
+        fontFamily: 'Inter-Bold',
+        fontSize: CONST.responsiveHeight(32),
+        lineHeight: CONST.responsiveHeight(39),
+        letterSpacing: -0.005,
+      
+    },
     suggestImage: {
         resizeMode: 'cover'
     },

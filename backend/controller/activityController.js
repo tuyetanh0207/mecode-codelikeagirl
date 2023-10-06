@@ -43,8 +43,8 @@ class ActivityController {
           const distance = geolib.getDistance(
             { latitude: userLatitude, longitude: userLongitude },
             { latitude: task.latitude, longitude: task.longitude });
-            console.log(userLatitude);
-            console.log('dis', distance)
+            // console.log(userLatitude);
+            // console.log('dis', distance)
             if(distance < 20000000) {
           // if(distance < 50000) {
             
