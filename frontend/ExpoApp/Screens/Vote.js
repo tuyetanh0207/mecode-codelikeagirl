@@ -46,7 +46,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const [noti, setNoti] = useState("");
   const fetchPosts = async () => {
     const res1 = await GetPostToVote(userInfo.userId);
-     console.log("res11", res1.data);
+    console.log("res11", res1.data);
     setFirstList(res1.data);
     setIsVoted(false);
   };
@@ -166,7 +166,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
       <TouchableOpacity onPress={() => goBack()} style={voteStyles.backicon}>
         <Image
           source={require("../assets/images/Back.png")}
-          // style={profileStyles.backicon}
+        // style={profileStyles.backicon}
         />
       </TouchableOpacity>
       <View style={voteStyles.container}>
@@ -189,13 +189,13 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
             <>
               <TouchableWithoutFeedback
                 onPress={() => handleClick(0)}
-                // onPressOut={()=>handlePressOut}
-                // onLongPress={onSingleClick}
+              // onPressOut={()=>handlePressOut}
+              // onLongPress={onSingleClick}
               >
                 {mp4ReExpression.test(firstList[0]?.photos[0]) ? (
-                  <VideoPlayer source = {firstList[0]?.photos[0]} 
-                  width= {CONST.responsiveWidth(360)}
-                  height= {CONST.responsiveHeight(290)}
+                  <VideoPlayer source={firstList[0]?.photos[0]}
+                    width={CONST.responsiveWidth(360)}
+                    height={CONST.responsiveHeight(290)}
                   />
                 ) : (
                   <Image
