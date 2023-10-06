@@ -57,10 +57,6 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
         userInfo_?.campaignPoint.votedPoint
       );
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> fce2d476bda0120d40725f6694f7d8bfc8070245
   };
   const getProfileUser = async () => {
     console.log("user d", userId);
@@ -99,20 +95,12 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   useEffect(() => {
     getLocalUser();
   }, [userInfo]);
-<<<<<<< HEAD
-=======
-
->>>>>>> fce2d476bda0120d40725f6694f7d8bfc8070245
 
   useEffect(() => {
     // if the screen is transfered from somewhere
     if (route.params) {
       ({ fullname, userId, avatar } = route.params);
-<<<<<<< HEAD
       setProfileUserInfo({ fullname, userId, avatar });
-=======
-      setProfileUserInfo({ fullname, userId, avatar })
->>>>>>> fce2d476bda0120d40725f6694f7d8bfc8070245
       // console.log('fullname, user id', fullname, userId)
       // if is current logged in is profile's user
       if (userId === userInfo.userId) {
@@ -304,10 +292,6 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
             >
               <Text
                 style={{
-<<<<<<< HEAD
-=======
-
->>>>>>> fce2d476bda0120d40725f6694f7d8bfc8070245
                   fontSize: CONST.responsiveHeight(18),
                   color: CONST.FEATURE_TEXT_COLOR,
                   alignItems: "center",
@@ -315,7 +299,6 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
               >
                 You haven't post any activity yet!
               </Text>
-<<<<<<< HEAD
               <Image
                 source={require("../assets/images/chuadangbai.gif")}
                 style={{
@@ -323,10 +306,6 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
                   height: CONST.responsiveHeight(120),
                   marginTop: "10%",
                 }}
-=======
-              <Image source={require('../assets/images/chuadangbai.gif')}
-                style={{ width: CONST.responsiveWidth(100), height: CONST.responsiveHeight(120), marginTop: '10%' }}
->>>>>>> fce2d476bda0120d40725f6694f7d8bfc8070245
               />
             </View>
           )}
