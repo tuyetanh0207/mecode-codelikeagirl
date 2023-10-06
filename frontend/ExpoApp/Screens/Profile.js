@@ -80,7 +80,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     try {
       if (userId && !fetchedPost) {
         const res = await getAllPostOfUser(userId);
-        // console.log("res", res);
+         console.log("res", res);
         setPostList(res.posts.reverse());
         setIsFetchPost(true);
         setHeaderUser({ avatar: res.avatar, fullname: res.fullname });
@@ -91,9 +91,12 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   };
   const fetchRankUser = async () => {
     try {
-      const res = await getUserRankLatestCampaign(userId);
-      setProfileUserRank(res.rank);
-      //  console.log('rank', res)
+      if (userId){
+        const res = await getUserRankLatestCampaign(userId);
+        setProfileUserRank(res.rank);
+        //  console.log('rank', res)
+      }
+    
     } catch (error) {
       console.log("error while get rank", error);
     }
@@ -312,7 +315,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
               style={{
                 width: CONST.responsiveWidth(100),
                 height: CONST.responsiveHeight(120),
-                marginTop: "10%",
+                marginTop: "6%",
               }}
             />
           </View>

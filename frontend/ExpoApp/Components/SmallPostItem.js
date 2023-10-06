@@ -116,7 +116,7 @@ export const SmallPostItem = ({
       <View style={smallPoststyles.right}>
         {photos.length >= 0 ? addr ? (
           mp4ReExpression.test(photos[0]) ?
-            <VideoPlayer videoUri={photos[0]} width={100} height={100}/>
+            <VideoPlayer videoUri={photos[0]} width={100} height={100} isStopped={2}/>
           :
           <Image
             src={photos[0]}
@@ -132,7 +132,7 @@ export const SmallPostItem = ({
          
         ) : (
           mp4ReExpression.test(photos[0]) ?
-          <VideoPlayer videoUri={photos[0]} width={80} height={80}/>
+          <VideoPlayer videoUri={photos[0]} width={80} height={80} isStopped={2}/>
           :
           <Image
           src={photos[0]}

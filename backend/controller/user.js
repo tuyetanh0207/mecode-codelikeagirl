@@ -186,12 +186,12 @@ exports.getUserInfo= async (req,res) => {
     console.log('_id', userId)
     if (userId!==user._id) {
        userInfo = await User.findOne({ _id: userId }).select('userId email fullname avatar greenStep campaignPoint').exec();
-       console.log('userInfo', userInfo)
+       //console.log('userInfo', userInfo)
     } else 
     {
       userInfo =await User.findOne({ _id: userId }).select('userId email avatar fullname greenStep campaignPoint').exec();
    }
-   console.log('user',userInfo)
+   //console.log('user',userInfo)
     res.status(201).json({success: true, message: 'Get user\'s info successfully!', userInfo})
 
   } catch (error) {
