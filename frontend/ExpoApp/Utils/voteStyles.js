@@ -30,6 +30,10 @@ export const voteStyles = StyleSheet.create({
     intruct2Text: {
         color: CONST.NAVIGATION_ACTIVE_COLOR
     },
+    intruct3Text: {
+        color: CONST.DARK_PINK_COLOR,
+        fontSize: CONST.responsiveHeight(20),
+    },
     photos: {
        marginTop: '8%',
     },

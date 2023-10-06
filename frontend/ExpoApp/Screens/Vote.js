@@ -110,7 +110,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
           setNoti("You just voted for this post!");
           setTimeout(() => {
             setNoti("");
-          }, 2000);
+          }, 5000);
         }
         return;
         //  }
@@ -128,24 +128,24 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
         return;
       }
       console.log("navigation");
-      navigation.navigate("Post", {
-        shortAddr: firstList[idx].shortAddr,
-        addr: firstList[idx].address,
-        taskId: firstList[idx].taskId,
-        isJustPosted: false,
-        userId: firstList[idx].userId,
-        postId: firstList[idx]._id,
-        fullname: firstList[idx].fullname,
-        caption: firstList[idx].caption,
-        photos: firstList[idx].photos,
-        fullname: firstList[idx].userName,
-        createdDate: firstList[idx].createdDate,
-        avatar: firstList[idx].avatar,
-        // fullname: "",
-        // createdDate: "",
-        // avatar: "",
-        taskName: firstList[idx].taskName,
-      });
+      // navigation.navigate("Post", {
+      //   shortAddr: firstList[idx].shortAddr,
+      //   addr: firstList[idx].address,
+      //   taskId: firstList[idx].taskId,
+      //   isJustPosted: false,
+      //   userId: firstList[idx].userId,
+      //   postId: firstList[idx]._id,
+      //   fullname: firstList[idx].fullname,
+      //   caption: firstList[idx].caption,
+      //   photos: firstList[idx].photos,
+      //   fullname: firstList[idx].userName,
+      //   createdDate: firstList[idx].createdDate,
+      //   avatar: firstList[idx].avatar,
+      //   // fullname: "",
+      //   // createdDate: "",
+      //   // avatar: "",
+      //   taskName: firstList[idx].taskName,
+      // });
     }
 
     //lastPressRef.current = currentTime;
@@ -177,12 +177,12 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
           You can get point by voting these!
         </Text>
         <Text style={voteStyles.intruct2Text}>
-          Click to view detail, swipe right to vote!
+          Double tap to vote!
         </Text>
         {noti ? (
-          <Text style={voteStyles.intruct2Text}>{noti}</Text>
+          <Text style={voteStyles.intruct3Text}>{noti}</Text>
         ) : (
-          <Text style={voteStyles.intruct2Text}></Text>
+          <Text style={voteStyles.intruct3Text}></Text>
         )}
         <View style={voteStyles.photos}>
           {firstList ? (

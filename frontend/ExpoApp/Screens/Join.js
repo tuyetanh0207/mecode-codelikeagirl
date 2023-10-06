@@ -199,7 +199,8 @@ export default function Join({ navigation: { goBack }, route }) {
           avatar: donePost.avatar,
         });
       }
-      navigation.dispatch(resetToInitialScreen);
+      if(!route.params)
+         navigation.dispatch(resetToInitialScreen);
     } catch (error) {
       //console.log(error.message);
       setIsTakingPhoto(true)

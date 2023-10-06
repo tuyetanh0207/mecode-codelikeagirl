@@ -41,7 +41,7 @@ export default function MapNotLoggedIn() {
                         <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }} >
                     
                             <Text  numberOfLines={1} style={[styles.heading4, { marginLeft: CONST.responsiveHeight(10) }, notLoggedInStyles.signIntext]}>
-                                Sign in with Google
+                                Sign in
                             </Text>
                         </View>
                     </View>

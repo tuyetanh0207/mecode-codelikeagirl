@@ -184,7 +184,7 @@ exports.createPost = async (req, res) => {
 };
 
 exports.getAllPostOfUser = async (req, res) => {
-  console.log("running getAllpostOfUser");
+  // console.log("running getAllpostOfUser");
   const userId = req.params.id;
   const { user } = req;
   if (!user._id) {

@@ -87,7 +87,7 @@ exports.createUser = async (req, res) => {
       postPoint: 0,
     }]
   });
-  await User.deleteMany({ $or : [{avatar: ''}, {avatar: {$exists:false}}]});
+  
   await user.save();
 
   user = await User.findOne({email: email})

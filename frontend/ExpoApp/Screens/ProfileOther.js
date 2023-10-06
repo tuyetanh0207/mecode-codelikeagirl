@@ -29,7 +29,7 @@ import {
 } from "../api/user";
 import { useLogin } from "../Contexts/LoginProvider";
 
-export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
+export default function ProfileScreen({ navigation: { goBack }, route }) {
   const navigation = useNavigation();
   let userId;
   //console.log('rout', route.params)
@@ -50,35 +50,31 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
     const userInfo_ = str ? JSON.parse(str) : {};
     //console.log('in local ',userInfo_)
     setUserInfo(userInfo_);
-    if(isCurrentUser){
+    if (isCurrentUser) {
       setProfileUserPoint(
         userInfo_?.campaignPoint.postPoint +
           userInfo_?.campaignPoint.votingPoint +
           userInfo_?.campaignPoint.votedPoint
       );
     }
-    
   };
   const getProfileUser = async () => {
-    if (userId){
-      console.log('user d', userId)
-      const user = await getUserInfo(userId);
-      //console.log('user profile', user.data)
-      setProfileUserInfo(user.data.userInfo);
-      setProfileUserPoint(
-        user.data.userInfo?.campaignPoint[0].postPoint +
-          user.data.userInfo?.campaignPoint[0].votingPoint +
-          user.data.userInfo?.campaignPoint[0].votedPoint
-      );
-    }
-    
+    console.log("user d", userId);
+    const user = await getUserInfo(userId);
+    console.log('user profile', user.data)
+    setProfileUserInfo(user.data.userInfo);
+    setProfileUserPoint(
+      user.data.userInfo?.campaignPoint[0].postPoint +
+        user.data.userInfo?.campaignPoint[0].votingPoint +
+        user.data.userInfo?.campaignPoint[0].votedPoint
+    );
   };
   const [headerUser, setHeaderUser] = useState({ avatar: "", fullname: "" });
   const fetchPostList = async () => {
     try {
       if (userId && !fetchedPost) {
         const res = await getAllPostOfUser(userId);
-       // console.log("res", res);
+        // console.log("res", res);
         setPostList(res.posts.reverse());
         setIsFetchPost(true);
         setHeaderUser({ avatar: res.avatar, fullname: res.fullname });
@@ -89,12 +85,9 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
   };
   const fetchRankUser = async () => {
     try {
-      if(userId){
-        const res = await getUserRankLatestCampaign(userId);
-        setProfileUserRank(res.rank);
-        //  console.log('rank', res)
-      }
-    
+      const res = await getUserRankLatestCampaign(userId);
+      setProfileUserRank(res.rank);
+      //  console.log('rank', res)
     } catch (error) {
       console.log("error while get rank", error);
     }
@@ -102,15 +95,12 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
   useEffect(() => {
     getLocalUser();
   }, [userInfo]);
- 
 
   useEffect(() => {
     // if the screen is transfered from somewhere
     if (route.params) {
-      ({ fullname, userId, avatar, point, rank } = route.params);
-      setProfileUserInfo({fullname, userId, avatar})
-      setProfileUserPoint(point)
-      setProfileUserRank(rank)
+      ({ fullname, userId, avatar } = route.params);
+      setProfileUserInfo({ fullname, userId, avatar });
       // console.log('fullname, user id', fullname, userId)
       // if is current logged in is profile's user
       if (userId === userInfo.userId) {
@@ -119,8 +109,8 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
       }
       // if is current logged in isn't profile's user
       else {
-       // console.log('userId', userId)
-       // getProfileUser(userId);
+        // console.log('userId', userId)
+        // getProfileUser(userId);
         setIsCurrentUser(false);
       }
     }
@@ -142,16 +132,16 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
       // const parts = profileUserInfo.fullname.split(" ");
       // firstName = parts[parts.length - 1];
     }
-  }, [userInfo ]);
+  }, [userInfo]);
   useEffect(() => {
     fetchPostList();
     fetchRankUser();
   }, [isCurrentUser, userInfo]);
-  useEffect(()=>{
-    if (!isCurrentUser){
+  useEffect(() => {
+    if (!isCurrentUser) {
       getProfileUser();
     }
-  }, [isCurrentUser])
+  }, [isCurrentUser]);
   // console.log('user info after getting in useEffect toekn', token)
   const { setIsLoggedIn } = useLogin();
   const handleSettingBtn = async () => {
@@ -197,89 +187,110 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
         <View style={profileStyles.header}>
           <Text style={styles.heading2}>Profile</Text>
         </View>
-        <View style={profileStyles.inforContainer}>
-          <View style={profileStyles.avatar}>
-            <Image
-              style={profileStyles.avatarPhoto}
-              src={profileUserInfo?.avatar}
-              width={20}
-              height={20}
-            />
-          </View>
-          <View style={profileStyles.mid}>
-            <Text style={profileStyles.nameText}>
-              {profileUserInfo?.fullname}
-            </Text>
-            <Text style={profileStyles.pointText}>
-              Top {profileUserRank}
-              <Text style={profileStyles.linePoint}> | </Text>
-              <Text> {profileUserPoint} Points </Text>
-            </Text>
-          </View>
-          <TouchableOpacity
-            style={profileStyles.right}
-            onPress={() => handleSettingBtn()}
-          >
-            {/* solar/settings-outline/ */}
-            {isCurrentUser ? (
-              <View>
-                <Iconify
-                  icon="solar:settings-outline"
-                  style={profileStyles.icon}
-                  size={CONST.responsiveHeight(30)}
-                  color={CONST.FEATURE_COLOR}
-                />
-              </View>
-            ) : (
-              <></>
-            )}
-          </TouchableOpacity>
-        </View>
-        {/* green step container */}
-        {/* <View style={profileStyles.greenStepContainer}>
-          <View style={profileStyles.headerSection}>
-            <Iconify
-              icon="majesticons:edit-pen-4"
-              style={profileStyles.icon}
-              size={CONST.responsiveHeight(26)}
-              color={CONST.NAVIGATION_ACTIVE_COLOR}
-            />
-            {isCurrentUser ? (
-              <Text style={profileStyles.greenStepTitleText}>
-                Your Green Steps
-              </Text>
-            ) : (
-              <Text style={profileStyles.greenStepTitleText}>
-                {firstName}'s Green Steps
-              </Text>
-            )}
-          </View>
-          <View style={profileStyles.calendarContainer}></View>
-        </View> */}
+
         {/* activity container */}
         <View style={profileStyles.greenStepContainer}>
-          <View style={profileStyles.headerSection}>
-            <Iconify
-              icon="fluent:earth-leaf-16-filled"
-              style={profileStyles.icon}
-              size={CONST.responsiveHeight(26)}
-              color={CONST.NAVIGATION_ACTIVE_COLOR}
-            />
-            <Text style={profileStyles.greenStepTitleText}>Activities</Text>
-          </View>
           {PostList.length >= 1 ? (
             <SafeAreaView style={profileStyles.postListContainer}>
               <FlatList
                 keyExtractor={(task, index) => index.toString()}
                 data={PostList}
                 renderItem={renderTaskItem}
+                ListHeaderComponent={
+                  <>
+                    <View style={profileStyles.inforContainer}>
+                      <View style={profileStyles.avatar}>
+                        <Image
+                          style={profileStyles.avatarPhoto}
+                          src={profileUserInfo?.avatar}
+                          width={20}
+                          height={20}
+                        />
+                      </View>
+                      <View style={profileStyles.mid}>
+                        <Text style={profileStyles.nameText}>
+                          {profileUserInfo?.fullname}
+                        </Text>
+                        <Text style={profileStyles.pointText}>
+                          Top {profileUserRank}
+                          <Text style={profileStyles.linePoint}> | </Text>
+                          <Text> {profileUserPoint} Points </Text>
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        style={profileStyles.right}
+                        onPress={() => handleSettingBtn()}
+                      >
+                        {/* solar/settings-outline/ */}
+                        {isCurrentUser ? (
+                          <View>
+                            <Iconify
+                              icon="ic:round-logout"
+                              style={profileStyles.icon}
+                              size={CONST.responsiveHeight(30)}
+                              color={CONST.FEATURE_COLOR}
+                            />
+                          </View>
+                        ) : (
+                          <></>
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                    {/* green step container */}
+                    <View style={profileStyles.greenStepContainer}>
+                      <View style={profileStyles.headerSection}>
+                        <Iconify
+                          icon="majesticons:edit-pen-4"
+                          style={profileStyles.icon}
+                          size={CONST.responsiveHeight(26)}
+                          color={CONST.NAVIGATION_ACTIVE_COLOR}
+                        />
+                        {isCurrentUser ? (
+                          <Text style={profileStyles.greenStepTitleText}>
+                            Your Green Steps
+                          </Text>
+                        ) : (
+                          <Text style={profileStyles.greenStepTitleText}>
+                            {firstName}'s Green Steps
+                          </Text>
+                        )}
+                      </View>
+                      <View style={profileStyles.calendarContainer}>
+                        <Image
+                          source={require("../assets/images/calendar.png")}
+                          style={{
+                            width: CONST.responsiveWidth(340),
+                            height: CONST.responsiveHeight(260),
+                          }}
+                          // style= {{flex: 0.1}}
+                        />
+                      </View>
+                      <View style={profileStyles.headerSection1}>
+                        <Iconify
+                          icon="fluent:earth-leaf-16-filled"
+                          style={profileStyles.icon}
+                          size={CONST.responsiveHeight(26)}
+                          color={CONST.NAVIGATION_ACTIVE_COLOR}
+                        />
+                        <Text style={profileStyles.greenStepTitleText}>
+                          Activities
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                }
               />
             </SafeAreaView>
           ) : (
-            <View style={{ alignItems: "center", justifyContent: 'center', marginTop: '20%' }}>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "20%",
+              }}
+            >
               <Text
                 style={{
-                 
                   fontSize: CONST.responsiveHeight(18),
                   color: CONST.FEATURE_TEXT_COLOR,
                   alignItems: "center",
@@ -287,8 +298,13 @@ export default function ProfileOtherScreen({ navigation: { goBack }, route }) {
               >
                 You haven't post any activity yet!
               </Text>
-              <Image source={require('../assets/images/chuadangbai.gif')}
-              style={{width: CONST.responsiveWidth(100), height: CONST.responsiveHeight(120),marginTop: '10%'}}
+              <Image
+                source={require("../assets/images/chuadangbai.gif")}
+                style={{
+                  width: CONST.responsiveWidth(100),
+                  height: CONST.responsiveHeight(120),
+                  marginTop: "10%",
+                }}
               />
             </View>
           )}

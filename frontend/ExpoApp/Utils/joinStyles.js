@@ -133,9 +133,10 @@ export const joinstyles = StyleSheet.create({
     marginTop: '10%',
 
     alignItems: "center",
-
-    fontSize: CONST.responsiveHeight(14),
-    marginLeft: '18%'
+    color: CONST.DARK_PINK_COLOR,
+    fontSize: CONST.responsiveHeight(16),
+    marginLeft: '18%',
+    // fontSize: CONST.responsiveHeight(16),
 
   }
 });

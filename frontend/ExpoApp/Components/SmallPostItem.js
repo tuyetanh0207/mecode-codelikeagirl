@@ -197,19 +197,20 @@ const smallPoststyles = StyleSheet.create({
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",
-    fontSize: CONST.responsiveHeight(17),
+    fontSize: CONST.responsiveHeight(16),
   },
   right: {
     flex: 2,
     //justifyContent: "center",
     overflow: "hidden",
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 8,
   },
   addr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",
-    fontSize: CONST.responsiveHeight(17),
+    fontSize: CONST.responsiveHeight(16),
   },
   btn: {
     backgroundColor: CONST.LIGHT_PINK_COLOR,

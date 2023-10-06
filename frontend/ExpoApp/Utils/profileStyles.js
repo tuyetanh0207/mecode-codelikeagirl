@@ -12,7 +12,7 @@ export const profileStyles = StyleSheet.create({
         //flex: 0.2,
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 14,
+        marginBottom:CONST.responsiveHeight(0),
         flexDirection:'row'
       },
     backicon: {
@@ -71,13 +71,25 @@ export const profileStyles = StyleSheet.create({
     calendarContainer: {
         marginTop: '3%',
         width: '100%',
-        height: CONST.responsiveHeight(160),
+        height: CONST.responsiveHeight(280),
         backgroundColor: CONST.BACKGROUND_COLOR,
         borderRadius: 14,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 0,
+        overflow: 'hidden',
+
 
     },
     headerSection: {
         flexDirection: 'row',
+        //marginTop: '4%'
+        
+    },
+    headerSection1: {
+        flexDirection: 'row',
+        marginTop: '4%',
+        marginBottom: '4%'
         
     },
     greenStepTitleText: {
