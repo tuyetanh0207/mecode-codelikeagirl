@@ -2,7 +2,7 @@ const Activity = require('../models/activity');
 const User = require('../models/user')
 const geolib = require('geolib');
 
-var idCampaign = "650b15ee597b737b1434c74f";
+var idCampaign = "65115ac21f1dc1a4a78665db";
 
 
 function compare(a, b){
