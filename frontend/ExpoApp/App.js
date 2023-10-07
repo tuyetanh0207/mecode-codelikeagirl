@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
+import { LogBox } from 'react-native';
 import { Text, View, ImageBackground, Alert, BackHandler } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -34,6 +35,7 @@ import ProfileScreen from './Screens/Profile';
 import ProfileOtherScreen from './Screens/ProfileOther';
 import { ChooseTaskList } from './Components/ChooseTaskList';
 import TaskDetailsNotLoggedInScreen from './Screens/TaskDetailsNotLoggedIn';
+import MapComponent from './Components/Map';
 
 // Navigators
 const Tab = createBottomTabNavigator();
@@ -41,8 +43,12 @@ const Stack = createNativeStackNavigator();
 const screenOpts = {
   headerShown: false,
   tabBarActiveTintColor: CONST.NAVIGATION_ACTIVE_COLOR,
-  tabBarStyle: { height: CONST.responsiveHeight(60) }
+  tabBarStyle: { height: CONST.BOTTOM_BAR_HEIGHT }
 }
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -181,6 +187,7 @@ export default function App() {
         <Stack.Screen name="Gift" component={Gift} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Vote" component={Vote} />
+        <Stack.Screen name="MapComponent" component={MapComponent} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="Join" component={Join} />
         <Stack.Screen name="Post" component={Post} />
@@ -200,6 +207,8 @@ export default function App() {
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
         <Stack.Screen name="TaskNotLoggedIn" component={TaskNotLoggedIn} />
+        <Stack.Screen name="MapComponent" component={MapComponent} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="TaskDetailsNotLoggedIn" component={TaskDetailsNotLoggedInScreen} />
         <Stack.Screen name="LogIn" component={LogIn} />
         {/* <Stack.Screen name="BottomTabs" component={BottomTabs} /> */}

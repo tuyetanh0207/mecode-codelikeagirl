@@ -22,7 +22,7 @@ export const SmallPostItem = ({
   avatar
 }) => {
   const navigation = useNavigation();
-  var mp4ReExpression = /\.mp4$/; 
+  var mp4ReExpression = /\.mp4$/;
   const handlePressJoinBtn = () => {
     navigation.navigate("Post", {
       shortAddr: shortAddr,
@@ -72,7 +72,7 @@ export const SmallPostItem = ({
           <View style={smallPoststyles.header}>
             {CONST.getIconByTitle(
               taskName,
-              (mappingType = CONST.boldHeading2TextColorIconMapping_44)
+              (mappingType = CONST.boldHeading2TextColorIconMapping_54)
             )}
             <View style={smallPoststyles.notAddrNameContainer}>
               <Text style={smallPoststyles.name} numberOfLines={1}>
@@ -89,7 +89,7 @@ export const SmallPostItem = ({
           </View>
 
           {addr ? (
-            
+
             <Text style={smallPoststyles.shortAddr} numberOfLines={2}>
               {shortAddr} - <Text style={smallPoststyles.addr}>{addr}</Text>
             </Text>
@@ -162,13 +162,13 @@ const smallPoststyles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: "4%",
 
-  
+
   },
   left: {
     flex: 8,
     justifyContent: 'center'
-   
- 
+
+
   },
   header: {
     flexDirection: "row",
@@ -176,7 +176,7 @@ const smallPoststyles = StyleSheet.create({
   },
   notAddrNameContainer: {
     flexDirection: "column",
-   
+
 
   },
   icon: {
@@ -195,7 +195,7 @@ const smallPoststyles = StyleSheet.create({
     fontWeight: "400",
     marginLeft: "3%",
     maxWidth: '85%',
-  } ,
+  },
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",

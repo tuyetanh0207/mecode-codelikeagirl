@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import styles from '../Utils/styles';
@@ -6,136 +6,64 @@ import { UserLocationContext } from '../Contexts/UserLocation';
 import * as CONST from '../Utils/constants';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { activity } from '../api/activity';
+import { useNavigation } from '@react-navigation/native';
 
-class MapComponent extends Component {
-    static contextType = UserLocationContext;
+const MapComponent = ({ currentTask }) => {
+    const { location, setLocation } = useContext(UserLocationContext);
+    const [mapRegion, setMapRegion] = useState(null);
+    const [markerCoords, setMarkerCoords] = useState([]);
+    const [showTitle, setShowTitle] = useState(true);
+    const [showIcon, setShowIcon] = useState(true);
+    const [currentMarkerCoord, setCurrentMarkerCoord] = useState(null);
+    const navigation = useNavigation();
 
-    constructor(props) {
-        super(props);
-
-        // state of map component
-        this.state = {
-            mapRegion: null,
-            markerCoords: [],
-            showTitle: true,
-            showIcon: true,
-            currentTask: props.currentTask,
-        };
-    }
-
-    componentDidMount() {
-        // This function will be automatically called at the first render
-        // Set user location for map
-        const { location, setLocation } = this.context;
-        if (location) {
-            this.setState({
-                mapRegion: {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    latitudeDelta: 0.0111,
-                    longitudeDelta: 0.0222,
-                },
-            });
-        }
-
-        // render icon from its title
-        this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
-            markerCoord.icon = CONST.getIconByTitle(markerCoord.title, CONST.boldIconMapping)
-        ))
-
-        // render task container size
-        this.state.markerCoords && this.state.markerCoords.map(markerCoord => (
-            markerCoord.container_style = CONST.getTaskContainerSizeByTitle(markerCoord.title)
-        ))
-        this.startLocationTracking();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        // This function will be automatically called every time updated the probs
-        const prevLocation = prevProps.context ? prevProps.context.location : null;
-        const currentLocation = this.context ? this.context.location : null;
-
-        if (prevLocation && currentLocation && prevLocation !== currentLocation) {
-            this.setState({
-                mapRegion: {
-                    latitude: currentLocation.coords.latitude,
-                    longitude: currentLocation.coords.longitude,
-                    latitudeDelta: 0.0444,
-                    longitudeDelta: 0.0444,
-                },
-            });
-        }
-    }
-
-    startLocationTracking = async () => {
+    const startLocationTracking = async () => {
         await Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.Balanced,
                 distanceInterval: CONST.THRESOLD_LOCATION_DISTANCE,
             },
-            async newLocation => {
-                this.updateMapRegion(newLocation.coords);
-                console.log('New location:', newLocation.coords);
-
-                // Fetch new task list
+            async (newLocation) => {
                 const newLatitude = newLocation.coords.latitude;
                 const newLongitude = newLocation.coords.longitude;
-                console.log('New latitude: ', newLatitude);
-                console.log('New longitude: ', newLongitude);
-                const newTaskList = await activity(newLatitude, newLongitude);
 
-                // Update markerCoords with the newTaskList data
-                const updatedMarkerCoords = newTaskList.data.map(task => ({
+                // Logic to update map region and fetch new task list
+                const newMapRegion = {
+                    latitude: newLatitude,
+                    longitude: newLongitude,
+                    latitudeDelta: 0.003,
+                    longitudeDelta: 0.003,
+                };
+
+                const newTaskList = await activity(newLatitude, newLongitude);
+                const contraintTaskList = newTaskList.data.filter(task => task.isContraint);
+
+                const updatedMarkerCoords = contraintTaskList.map(task => ({
                     id: task._id,
                     location: {
                         latitude: task.latitude,
                         longitude: task.longitude,
                     },
-                    // distance: task.distance,
                     icon: CONST.getIconByTitle(task.nameTask, CONST.boldIconMapping),
                     title: task.nameTask,
-                    container_style: CONST.getTaskContainerSizeByTitle(task.nameTask),
+                    taskDetailIcon: CONST.getIconByTitle(task.nameTask, CONST.normalIconMapping_60),
+                    shortAddr: task.shortAddr,
+                    addr: task.address,
+                    dist: task.distance,
+                    hint: task.hint,
+                    idCampaign: task.idCampaign,
+                    nameCampaign: task.nameCampaign,
+                    isContraint: task.isContraint,
+                    luckywheelID: task.luckywheelID,
                 }));
 
-                this.setState({ markerCoords: updatedMarkerCoords });
+                setMapRegion(newMapRegion);
+                setMarkerCoords(updatedMarkerCoords);
             }
         );
-    }
-
-
-    updateMapRegion = newCoords => {
-        // Change map view when the user move
-        this.setState(prevState => ({
-            mapRegion: {
-                ...prevState.mapRegion,
-                latitude: newCoords.latitude,
-                longitude: newCoords.longitude,
-            },
-        }));
-    }
-
-    moveToCurrentTaskRegion = (currentTask) => {
-        newMapRegion = {
-            ...this.state.mapRegion,
-            latitude: currentTask.latitude,
-            longitude: currentTask.longitude,
-        };
-        console.log('NEW MAP REGION: ', newMapRegion);
-        return newMapRegion;
-    }
-
-    // Hide the marker when zoom out
-    onRegionChangeComplete = (newRegion) => {
-        const { latitudeDelta, longitudeDelta } = newRegion;
-        const shouldShowTitles = latitudeDelta < CONST.THRESHOLD_SHOW_TASK_TITLES && longitudeDelta < CONST.THRESHOLD_SHOW_TASK_TITLES;
-        this.setState({ showTitle: shouldShowTitles });
-
-        const shouldShowIcons = latitudeDelta < CONST.THRESHOLD_SHOW_TASK_ICONS && longitudeDelta < CONST.THRESHOLD_SHOW_TASK_ICONS;
-        this.setState({ showIcon: shouldShowIcons });
     };
-
     // current joinning task
-    getCurrentMarkerCoords = currentTask => ({
+    const getCurrentMarkerCoord = currentTask => ({
         // id: currentTask._id,
         location: {
             latitude: currentTask.latitude,
@@ -143,70 +71,113 @@ class MapComponent extends Component {
         },
         icon: CONST.getIconByTitle(currentTask.nameTask, CONST.boldIconMapping),
         nameTask: currentTask.nameTask,
-        container_style: CONST.getTaskContainerSizeByTitle(currentTask.nameTask),
+        // container_style: CONST.getTaskContainerSizeByTitle(currentTask.nameTask),
     });
 
-    render() {
-        const { mapRegion, markerCoords, showTitle, showIcon, currentTask } = this.state;
-        if (currentTask) {
-            currentMarkerCoords = this.getCurrentMarkerCoords(currentTask);
-            // this.updateMapRegion(currentTask.latitude, currentTask.longitude);
-            console.log('CURRENT TASK: ', currentTask);
-            console.log('CURRENT MARKER: ', currentMarkerCoords);
-        }
-        return (
-            <MapView
-                style={[styles.map, { position: 'absolute', zIndex: 0 }]}
-                provider={PROVIDER_GOOGLE}
-                showsUserLocation={true}
-                region={!currentTask ? mapRegion : this.moveToCurrentTaskRegion(currentTask)}
-                scrollEnabled={true}
-                onRegionChangeComplete={this.onRegionChangeComplete}
-            // onPress={() => navigate}
-            >
-                {
-                    // show title + icon at nearly location, else hide icon or hide all when zoom out further
-                    markerCoords && markerCoords.map(markerCoord => (
-                        <Marker key={markerCoord.id} coordinate={markerCoord.location}>
-                            {showIcon && (
-                                <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                                    {markerCoord.icon}
-                                    {showTitle && (
-                                        <View style={[styles.task_label_container, { ...markerCoord.container_style }]}>
-                                            <Text style={styles.task_label}>
-                                                {markerCoord.title}
-                                            </Text>
-                                        </View>
-                                    )}
-                                </TouchableOpacity>
-                            )}
-                        </Marker>
-                    ))
-                }
-                {
-                    currentTask && currentMarkerCoords ? (
-                        <Marker key={currentMarkerCoords.id} coordinate={currentMarkerCoords.location}>
-                            <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    {/* {currentMarkerCoords.icon} */}
-                                    <View style={{ marginLeft: 100 }}>
-                                        {CONST.PIN_ICON}
-                                    </View>
-                                </View>
+    useEffect(() => {
+        const fetchData = async () => {
+            // Set user location for map
+            if (location) {
+                setMapRegion({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.003,
+                    longitudeDelta: 0.003,
+                });
+            }
 
-                                <View style={styles.task_label_container}>
-                                    <Text style={styles.task_label}>
-                                        {currentMarkerCoords.nameTask}
+            // Call startLocationTracking function
+            startLocationTracking();
+        };
+
+        fetchData();
+        if (currentTask)
+            setCurrentMarkerCoord(getCurrentMarkerCoord(currentTask));
+    }, [currentTask]);
+
+    const viewTaskDetails = (markerCoord) => {
+        navigation.navigate("TaskDetails", {
+            name: markerCoord.title,
+            icon: markerCoord.taskDetailIcon,
+            shortAddr: markerCoord.shortAddr,
+            addr: markerCoord.addr,
+            dist: markerCoord.dist,
+            hint: markerCoord.hint,
+            taskId: markerCoord.id,
+            idCampaign: markerCoord.idCampaign,
+            nameCampaign: markerCoord.nameCampaign,
+            isContraint: markerCoord.isContraint,
+            luckywheelID: markerCoord.luckywheelID,
+            latitude: markerCoord.location.latitude,
+            longitude: markerCoord.location.longitude,
+        });
+    };
+
+    const onRegionChangeComplete = (newRegion) => {
+        const { latitudeDelta, longitudeDelta } = newRegion;
+        const shouldShowTitles = latitudeDelta < CONST.THRESHOLD_SHOW_TASK_TITLES && longitudeDelta < CONST.THRESHOLD_SHOW_TASK_TITLES;
+        setShowTitle(shouldShowTitles);
+
+        const shouldShowIcons = latitudeDelta < CONST.THRESHOLD_SHOW_TASK_ICONS && longitudeDelta < CONST.THRESHOLD_SHOW_TASK_ICONS;
+        setShowIcon(shouldShowIcons);
+    };
+
+    return (
+        <MapView
+            style={[styles.map, { position: 'absolute', zIndex: 0 }]}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            region={!currentTask ? mapRegion : {
+                ...mapRegion,
+                latitude: currentTask.latitude,
+                longitude: currentTask.longitude,
+                latitudeDelta: 0.001,
+                longitudeDelta: 0.001,
+            }}
+            scrollEnabled={true}
+            onRegionChangeComplete={onRegionChangeComplete}
+        >
+            {markerCoords && markerCoords.map(markerCoord => (
+                <Marker
+                    key={markerCoord.id}
+                    coordinate={markerCoord.location}
+                    onPress={() => viewTaskDetails(markerCoord)}
+                >
+                    {showIcon && (
+                        <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                            {markerCoord.icon}
+                            {showTitle && (
+                                <View style={styles.task_label_container} pointerEvents="none">
+                                    <Text style={styles.task_label} numberOfLines={1} ellipsizeMode="tail">
+                                        {markerCoord.title}
                                     </Text>
                                 </View>
-                            </TouchableOpacity>
-                        </Marker>
-                    ) : null
-                }
-
-            </MapView>
-        );
-    }
+                            )}
+                        </TouchableOpacity>
+                    )}
+                </Marker>
+            ))}
+            {
+                currentTask && currentMarkerCoord ? (
+                    <Marker key={currentMarkerCoord.id} coordinate={currentMarkerCoord.location}>
+                        <TouchableOpacity style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                            {CONST.PIN_CURRENT_ICON}
+                            {currentMarkerCoord.icon}
+                            <View style={styles.task_label_container}>
+                                <Text
+                                    style={styles.task_label}
+                                    numberOfLines={1}
+                                    ellipsizeMode="tail"
+                                >
+                                    {currentMarkerCoord.nameTask}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Marker>
+                ) : null
+            }
+        </MapView>
+    );
 }
 
 export default MapComponent;
