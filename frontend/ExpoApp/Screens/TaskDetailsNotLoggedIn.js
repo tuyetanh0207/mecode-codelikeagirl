@@ -13,10 +13,27 @@ import { AppButton } from "../Components/JoinBtn";
 import * as CONST from "../Utils/constants";
 import styles from "../Utils/styles";
 import { taskDetailstyles } from "../Utils/taskDetailsStyles";
-import MapComponent from '../Components/Map'
+import MapComponent from "../Components/Map";
 import { getIconByTitle } from "../Utils/constants";
-export default function TaskDetailsNotLoggedInScreen({ navigation: { goBack }, route }) {
-  const { name, shortAddr, addr, dist, icon, taskId, hint, idCampaign, nameCampaign, isContraint, luckywheelID, latitude, longitude } = route.params;
+export default function TaskDetailsNotLoggedInScreen({
+  navigation: { goBack },
+  route,
+}) {
+  const {
+    name,
+    shortAddr,
+    addr,
+    dist,
+    icon,
+    taskId,
+    hint,
+    idCampaign,
+    nameCampaign,
+    isContraint,
+    luckywheelID,
+    latitude,
+    longitude,
+  } = route.params;
   const navigation = useNavigation();
   const handleJoinBtn = () => {
     navigation.navigate("LogIn");
@@ -26,14 +43,16 @@ export default function TaskDetailsNotLoggedInScreen({ navigation: { goBack }, r
       source={require("../assets/images/background.png")}
       style={styles.imageBackground}
     >
+      <TouchableOpacity
+        onPress={() => goBack()}
+        style={taskDetailstyles.backicon}
+      >
+        <Image
+          source={require("../assets/images/Back.png")}
+        
+        />
+      </TouchableOpacity>
       <View style={taskDetailstyles.header}>
-        <TouchableOpacity onPress={() => goBack()}>
-          <Image
-            source={require("../assets/images/Back.png")}
-            style={taskDetailstyles.backicon}
-          />
-        </TouchableOpacity>
-
         <Text style={taskDetailstyles.title}>Task details</Text>
       </View>
       {/* content + map*/}
@@ -44,9 +63,7 @@ export default function TaskDetailsNotLoggedInScreen({ navigation: { goBack }, r
 
           <View style={taskDetailstyles.name}>
             {/* icon */}
-            <View style={taskDetailstyles.left}>
-              {icon}
-            </View>
+            <View style={taskDetailstyles.left}>{icon}</View>
             {/* name */}
             <View style={taskDetailstyles.right}>
               <Text style={taskDetailstyles.nametext}>{name}</Text>
@@ -67,13 +84,13 @@ export default function TaskDetailsNotLoggedInScreen({ navigation: { goBack }, r
         {/* map */}
         <View style={taskDetailstyles.map}>
           <View style={taskDetailstyles.mapContainer}>
-            <MapComponent currentTask={{
-              nameTask: name,
-              latitude: latitude,
-              longitude: longitude
-            }} />
-
-
+            <MapComponent
+              currentTask={{
+                nameTask: name,
+                latitude: latitude,
+                longitude: longitude,
+              }}
+            />
           </View>
         </View>
       </ScrollView>

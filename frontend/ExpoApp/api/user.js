@@ -74,7 +74,7 @@ export const getUserInfo = async (userId) => {
                 Authorization: `JWT ${token}`
             }
         })
-        console.log('getInfoRes', getInfoRes.data)
+        //console.log('getInfoRes', getInfoRes.data)
         // if(getInfoRes.data.success) {
         //   // const token = getInfoRes.data.token
         // }

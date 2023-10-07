@@ -19,6 +19,11 @@ export const taskstyles = StyleSheet.create({
     // justifyContent: "center",
     // marginBottom: 14,
   },
+  backicon: {
+    position: 'absolute',
+    left: CONST.responsiveWidth(12),
+    top: CONST.responsiveHeight(50),
+  },
   list: {
     flex: 1,
     // flexGrow: 1,

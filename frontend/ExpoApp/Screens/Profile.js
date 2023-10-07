@@ -41,6 +41,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   const [profileUserRank, setProfileUserRank] = useState(null);
   const [fetchedPost, setIsFetchPost] = useState(false);
   const [PostList, setPostList] = useState([]);
+  const [firstName, setFirstName] = useState('')
   const getLocalUser = async () => {
     const tk = await AsyncStorage.getItem("token");
     //console.log('token get',token)
@@ -59,22 +60,27 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     }
   };
   const getProfileUser = async () => {
-    console.log("user d", userId);
-    const user = await getUserInfo(userId);
-    //console.log('user profile', user.data)
-    setProfileUserInfo(user.data.userInfo);
-    setProfileUserPoint(
-      user.data.userInfo?.campaignPoint[0].postPoint +
-      user.data.userInfo?.campaignPoint[0].votingPoint +
-      user.data.userInfo?.campaignPoint[0].votedPoint
-    );
+    if (userId){
+      console.log("user d", userId);
+      const user = await getUserInfo(userId);
+      //console.log('user profile', user.data)
+      setProfileUserInfo(user.data.userInfo);
+      setProfileUserPoint(
+        user.data.userInfo?.campaignPoint[0].postPoint +
+        user.data.userInfo?.campaignPoint[0].votingPoint +
+        user.data.userInfo?.campaignPoint[0].votedPoint
+      );
+    } else {
+
+    }
+  
   };
   const [headerUser, setHeaderUser] = useState({ avatar: "", fullname: "" });
   const fetchPostList = async () => {
     try {
       if (userId && !fetchedPost) {
         const res = await getAllPostOfUser(userId);
-        // console.log("res", res);
+         console.log("res", res);
         setPostList(res.posts.reverse());
         setIsFetchPost(true);
         setHeaderUser({ avatar: res.avatar, fullname: res.fullname });
@@ -85,9 +91,12 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
   };
   const fetchRankUser = async () => {
     try {
-      const res = await getUserRankLatestCampaign(userId);
-      setProfileUserRank(res.rank);
-      //  console.log('rank', res)
+      if (userId){
+        const res = await getUserRankLatestCampaign(userId);
+        setProfileUserRank(res.rank);
+        //  console.log('rank', res)
+      }
+    
     } catch (error) {
       console.log("error while get rank", error);
     }
@@ -100,6 +109,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     // if the screen is transfered from somewhere
     if (route.params) {
       ({ fullname, userId, avatar } = route.params);
+      console.log('userId', userId)
       setProfileUserInfo({ fullname, userId, avatar });
       // console.log('fullname, user id', fullname, userId)
       // if is current logged in is profile's user
@@ -128,9 +138,9 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     }
 
     // console.log("");
-    if (isCurrentUser) {
-      // const parts = profileUserInfo.fullname.split(" ");
-      // firstName = parts[parts.length - 1];
+    if (!isCurrentUser) {
+       const parts = profileUserInfo.fullname.split(" ");
+     setFirstName(parts[parts.length - 1]);
     }
   }, [userInfo]);
   useEffect(() => {
@@ -141,7 +151,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
     if (!isCurrentUser) {
       getProfileUser();
     }
-  }, [isCurrentUser]);
+  }, [isCurrentUser, userInfo]);
   // console.log('user info after getting in useEffect toekn', token)
   const { setIsLoggedIn } = useLogin();
   const handleSettingBtn = async () => {
@@ -190,7 +200,7 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
 
         {/* activity container */}
         <View style={profileStyles.greenStepContainer}>
-          {PostList.length >= 1 ? (
+          
             <SafeAreaView style={profileStyles.postListContainer}>
               <FlatList
                 keyExtractor={(task, index) => index.toString()}
@@ -259,14 +269,13 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
                       <View style={profileStyles.calendarContainer}>
                         <Image
                           source={require("../assets/images/calendar.png")}
-                          style={{
-                            width: CONST.responsiveWidth(340),
-                            height: CONST.responsiveHeight(280),
-                          }}
-                          // style= {{flex: 0.1}}
+                          style={profileStyles.calendarPhoto}
+                          resizeMode='contain'
+                  
                         />
                       </View>
-                      <View style={profileStyles.headerSection}>
+                      </View>
+                      <View style={profileStyles.activityHeaderSection}>
                         <Iconify
                           icon="fluent:earth-leaf-16-filled"
                           style={profileStyles.icon}
@@ -277,38 +286,40 @@ export default function ProfileScreen({ navigation: { goBack }, route }) {
                           Activities
                         </Text>
                       </View>
-                    </View>
+                    
                   </>
                 }
               />
             </SafeAreaView>
-          ) : (
+          
+          {
+            PostList.length >= 1 ?<></>:
             <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "8%",
+            }}
+          >
+            <Text
               style={{
+                fontSize: CONST.responsiveHeight(18),
+                color: CONST.FEATURE_TEXT_COLOR,
                 alignItems: "center",
-                justifyContent: "center",
-                marginTop: "20%",
               }}
             >
-              <Text
-                style={{
-                  fontSize: CONST.responsiveHeight(18),
-                  color: CONST.FEATURE_TEXT_COLOR,
-                  alignItems: "center",
-                }}
-              >
-                You haven't post any activity yet!
-              </Text>
-              <Image
-                source={require("../assets/images/chuadangbai.gif")}
-                style={{
-                  width: CONST.responsiveWidth(100),
-                  height: CONST.responsiveHeight(120),
-                  marginTop: "10%",
-                }}
-              />
-            </View>
-          )}
+             {firstName!==''? firstName: 'You'} {firstName!==''? 'hasn\'t': 'haven\'t'} posted any activity yet!
+            </Text>
+            <Image
+              source={require("../assets/images/chuadangbai.gif")}
+              style={{
+                width: CONST.responsiveWidth(100),
+                height: CONST.responsiveHeight(120),
+                marginTop: "6%",
+              }}
+            />
+          </View>
+          }
         </View>
       </View>
     </ImageBackground>

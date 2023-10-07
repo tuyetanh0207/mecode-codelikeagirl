@@ -192,7 +192,7 @@ export default function App() {
         <Stack.Screen name="Join" component={Join} />
         <Stack.Screen name="Post" component={Post} />
         {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
-        <Stack.Screen name="ProfileOther" component={ProfileOtherScreen} />
+        <Stack.Screen name="ProfileOther" component={ProfileScreen} />
       </Stack.Navigator>
     );
   };
