@@ -22,7 +22,7 @@ export const SmallPostItem = ({
   avatar
 }) => {
   const navigation = useNavigation();
-  var mp4ReExpression = /\.mp4$/; 
+  var mp4ReExpression = /\.mp4$/;
   const handlePressJoinBtn = () => {
     navigation.navigate("Post", {
       icon: icon,
@@ -70,7 +70,7 @@ export const SmallPostItem = ({
           <View style={smallPoststyles.header}>
             {CONST.getIconByTitle(
               taskName,
-              (mappingType = CONST.boldHeading2TextColorIconMapping_44)
+              (mappingType = CONST.boldHeading2TextColorIconMapping_54)
             )}
             <View style={smallPoststyles.notAddrNameContainer}>
               <Text style={smallPoststyles.name} numberOfLines={1}>
@@ -87,7 +87,7 @@ export const SmallPostItem = ({
           </View>
 
           {addr ? (
-            
+
             <Text style={smallPoststyles.shortAddr} numberOfLines={2}>
               {shortAddr} - <Text style={smallPoststyles.addr}>{addr}</Text>
             </Text>
@@ -114,36 +114,36 @@ export const SmallPostItem = ({
       <View style={smallPoststyles.right}>
         {photos.length >= 0 ? addr ? (
           mp4ReExpression.test(photos[0]) ?
-            <VideoPlayer videoUri={photos[0]} width={100} height={100}/>
-          :
-          <Image
-            src={photos[0]}
-            style={[
-              {
-                width: CONST.responsiveHeight(100),
-                height: CONST.responsiveHeight(100),
-              },
-              smallPoststyles.photo,
-            ]}
-          />
-        
-         
+            <VideoPlayer videoUri={photos[0]} width={100} height={100} />
+            :
+            <Image
+              src={photos[0]}
+              style={[
+                {
+                  width: CONST.responsiveHeight(100),
+                  height: CONST.responsiveHeight(100),
+                },
+                smallPoststyles.photo,
+              ]}
+            />
+
+
         ) : (
           mp4ReExpression.test(photos[0]) ?
-          <VideoPlayer videoUri={photos[0]} width={80} height={80}/>
-          :
-          <Image
-          src={photos[0]}
-          style={[
-            {
-              width: CONST.responsiveHeight(80),
-              height: CONST.responsiveHeight(80),
-            },
-            smallPoststyles.photo,
-          ]}
-        />
-        ):
-        (<></>)}
+            <VideoPlayer videoUri={photos[0]} width={80} height={80} />
+            :
+            <Image
+              src={photos[0]}
+              style={[
+                {
+                  width: CONST.responsiveHeight(80),
+                  height: CONST.responsiveHeight(80),
+                },
+                smallPoststyles.photo,
+              ]}
+            />
+        ) :
+          (<></>)}
       </View>
     </TouchableOpacity>
   );
@@ -160,13 +160,13 @@ const smallPoststyles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: "4%",
 
-  
+
   },
   left: {
     flex: 8,
     justifyContent: 'center'
-   
- 
+
+
   },
   header: {
     flexDirection: "row",
@@ -174,7 +174,7 @@ const smallPoststyles = StyleSheet.create({
   },
   notAddrNameContainer: {
     flexDirection: "column",
-   
+
 
   },
   icon: {
@@ -193,7 +193,7 @@ const smallPoststyles = StyleSheet.create({
     fontWeight: "400",
     marginLeft: "3%",
     maxWidth: '85%',
-  } ,
+  },
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     //fontWeight: "bold",

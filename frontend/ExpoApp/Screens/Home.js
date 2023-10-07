@@ -56,7 +56,7 @@ export default function Home() {
         };
 
         return (
-            <View style={{ marginTop: CONST.PRIMARY_VERTICAL_MARGIN }}>
+            <View>
                 <Text style={styles.heading2}>Features</Text>
                 <View style={styles.featureRow}>
 
@@ -71,7 +71,6 @@ export default function Home() {
                         <View style={styles.feature}>
                             <Iconify icon="teenyicons:gift-outline" size={CONST.responsiveHeight(36)} color="black" />
                         </View>
-                        {/* <Text style={styles.featureText}>Lucky Gifts</Text> */}
                         {ResponsiveWords('Lucky Gifts')}
                     </TouchableOpacity>
 
