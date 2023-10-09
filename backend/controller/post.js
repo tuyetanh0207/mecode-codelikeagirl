@@ -245,29 +245,29 @@ exports.votelist = async (req, res) => {
   var post1, post2 = {};
   var found = 0;
 
-  // if (postList.length > 1) {
-  //   for (let i = 0;i<postList.length-1;i++) {
-  //     post1 = postList[i];
+  if (postList.length > 1) {
+    for (let i = 0;i<postList.length-1;i++) {
+      post1 = postList[i];
       
-  //     for (let j = i + 1;j<postList.length;j++) {
-  //       if(post1.taskId == postList[j].taskId ) {
-  //         post2 = postList[j];
-  //         found = 1;
-  //         break;
-  //       }
-  //     }
-  //     if(found == 1) {
-  //       break;
-  //     }
+      for (let j = i + 1;j<postList.length;j++) {
+        if(post1.taskId == postList[j].taskId ) {
+          post2 = postList[j];
+          found = 1;
+          break;
+        }
+      }
+      if(found == 1) {
+        break;
+      }
   
-  //   }
+    }
 
-  // }
+  }
 
-  post1 = await Post.findById("652264952c39bba388656c4d");
-  post2 = await Post.findById("652264ae2c39bba388656c52");
+  // post1 = await Post.findById("652264952c39bba388656c4d");
+  // post2 = await Post.findById("652264ae2c39bba388656c52");
   
-  found = 1;
+  // found = 1;
   if (found == 1) {
     var voteList = [post1, post2]
     for (let i = 0;i<voteList.length;i++) {
