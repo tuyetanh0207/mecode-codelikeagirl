@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to GreenStep App 👋</h1>
 > GreenStep, a mobile application that goes on the way with user, step by step to build and maintain their green lifestyle.
 
-### ✨ [Demo](https://drive.google.com/drive/folders/13TjdGfGp9PpWgJGt1fuHPa6ak1t55MfL?usp=sharing)
+### ✨ [Demo](http://bit.ly/Demo_GreenStep)
 
 ## Backend usage
 1. Install Backend dependencies:
