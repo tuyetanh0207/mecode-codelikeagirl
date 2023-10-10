@@ -37,7 +37,7 @@ export const SmallPostItem = ({
       photos: photos,
       createdDate: createdDate,
       avatar: avatar,
-      postId: postId, 
+      postId: postId,
 
     });
   };
@@ -116,36 +116,36 @@ export const SmallPostItem = ({
       <View style={smallPoststyles.right}>
         {photos.length >= 0 ? addr ? (
           mp4ReExpression.test(photos[0]) ?
-            <VideoPlayer videoUri={photos[0]} width={100} height={100} isStopped={2}/>
-          :
-          <Image
-            src={photos[0]}
-            style={[
-              {
-                width: CONST.responsiveHeight(100),
-                height: CONST.responsiveHeight(100),
-              },
-              smallPoststyles.photo,
-            ]}
-          />
-        
-         
+            <VideoPlayer videoUri={photos[0]} width={100} height={100} isStopped={2} />
+            :
+            <Image
+              src={photos[0]}
+              style={[
+                {
+                  width: CONST.responsiveHeight(100),
+                  height: CONST.responsiveHeight(100),
+                },
+                smallPoststyles.photo,
+              ]}
+            />
+
+
         ) : (
           mp4ReExpression.test(photos[0]) ?
-          <VideoPlayer videoUri={photos[0]} width={80} height={80} isStopped={2}/>
-          :
-          <Image
-          src={photos[0]}
-          style={[
-            {
-              width: CONST.responsiveHeight(80),
-              height: CONST.responsiveHeight(80),
-            },
-            smallPoststyles.photo,
-          ]}
-        />
-        ):
-        (<></>)}
+            <VideoPlayer videoUri={photos[0]} width={80} height={80} isStopped={2} />
+            :
+            <Image
+              src={photos[0]}
+              style={[
+                {
+                  width: CONST.responsiveHeight(80),
+                  height: CONST.responsiveHeight(80),
+                },
+                smallPoststyles.photo,
+              ]}
+            />
+        ) :
+          (<></>)}
       </View>
     </TouchableOpacity>
   );
@@ -198,7 +198,6 @@ const smallPoststyles = StyleSheet.create({
   },
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
-    //fontWeight: "bold",
     fontSize: CONST.responsiveHeight(15),
   },
   right: {
@@ -210,7 +209,6 @@ const smallPoststyles = StyleSheet.create({
   },
   addr: {
     color: CONST.FEATURE_TEXT_COLOR,
-    //fontWeight: "bold",
     fontSize: CONST.responsiveHeight(15),
   },
   btn: {

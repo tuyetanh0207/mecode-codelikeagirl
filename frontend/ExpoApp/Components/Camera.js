@@ -9,7 +9,7 @@ import { AppButton } from './JoinBtn';
 import { useNavigation } from '@react-navigation/native';
 export default function CameraComponent(props) {
     const { setIsTakingPhoto, setPhotos, photos, isRecordingParent, setIsRecordingParent,
-    hasRecordedParent, setHasRecordedParent, currentVideoParent, setCurrentVideoParent } = props
+        hasRecordedParent, setHasRecordedParent, currentVideoParent, setCurrentVideoParent } = props
     const [capturedImages, setCapturedImages] = useState(photos);
     const [type, setType] = useState(CameraType.back);
     const cameraRef = useRef(null);
@@ -34,12 +34,10 @@ export default function CameraComponent(props) {
     const takePhoto = async () => {
         if (cameraRef) {
             try {
-                // console.log('start take pic');
                 setIsLoading(true);
                 const photo = await cameraRef.current.takePictureAsync({
                     base64: true,
                 });
-                // console.log('end take pic');
                 setCapturedImages([...capturedImages, photo.uri]);
                 // MediaLibrary.createAssetAsync(photo.uri);
                 setOnViewLibrary(true);
@@ -171,7 +169,7 @@ export default function CameraComponent(props) {
                             useNativeControls
                             resizeMode='contain'
                             isLooping
-                            shouldPlay={true}
+                        // shouldPlay={true}
                         />
             }
 

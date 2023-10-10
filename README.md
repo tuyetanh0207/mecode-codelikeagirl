@@ -25,7 +25,7 @@
 
 2. Copy the IPv4 address showing on the backend running terminal
 
-3. Open `frontend/ExpoApp/api/client.js` and replace the IPv4 at <u>line 3</u> to your copied IPv4 address.
+3. Open `frontend/ExpoApp/api/client.js` and replace the IPv4 address at <u>line 3</u> to your copied IPv4 address.
 
 4. Start frontend application:
     ```sh
