@@ -4,29 +4,56 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Iconify } from "react-native-iconify";
 import { AppButton } from "../Components/JoinBtn.js";
 import * as CONST from "../Utils/constants";
+import { useLogin } from "../Contexts/LoginProvider.js";
 
-export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId }) => {
+export const Item = ({ name, icon, shortAddr, addr, dist, hint, taskId, idCampaign, nameCampaign, isContraint, luckywheelID, latitude, longitude }) => {
   const navigation = useNavigation();
+  const {isLoggedIn} = useLogin()
   const handlePressJoinBtn = () => {
-    navigation.navigate("TaskDetails", {
-      name: name,
-      icon: icon,
-      shortAddr: shortAddr,
-      addr: addr,
-      dist: dist,
-      hint: hint,
-      taskId: taskId
-    });
+    if (isLoggedIn){
+      navigation.navigate("TaskDetails", {
+        name: name,
+        icon: icon,
+        shortAddr: shortAddr,
+        addr: addr,
+        dist: dist,
+        hint: hint,
+        taskId: taskId,
+        idCampaign: idCampaign,
+        nameCampaign: nameCampaign,
+        isContraint: isContraint,
+        luckywheelID: luckywheelID,
+        latitude: latitude,
+        longitude: longitude,
+      });
+    } else {
+      navigation.navigate("TaskDetailsNotLoggedIn", {
+        name: name,
+        icon: icon,
+        shortAddr: shortAddr,
+        addr: addr,
+        dist: dist,
+        hint: hint,
+        taskId: taskId,
+        idCampaign: idCampaign,
+        nameCampaign: nameCampaign,
+        isContraint: isContraint,
+        luckywheelID: luckywheelID,
+        latitude: latitude,
+        longitude: longitude,
+      });
+    }
+   
   };
 
   return (
     <TouchableOpacity style={taskDetailstyles.container}>
       <View style={taskDetailstyles.left}>
         <View style={taskDetailstyles.icon}>
-          {CONST.getIconByTitle(name,mappingType = CONST.normalIconMapping_60)}
+          {icon}
         </View>
         <View style={taskDetailstyles.dis}>
-          <Text style={taskDetailstyles.disText}>{dist}m</Text>
+          <Text style={taskDetailstyles.disText} numberOfLines={1}>{dist}m</Text>
         </View>
       </View>
       <View style={taskDetailstyles.mid}>
@@ -64,7 +91,7 @@ const taskDetailstyles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   left: {
-    flex: 0.1,
+    flex: 0.2,
     alignItems: 'center'
   },
   icon: {
@@ -73,29 +100,29 @@ const taskDetailstyles = StyleSheet.create({
   disText: {
     flex: 0,
     color: CONST.FEATURE_TEXT_COLOR,
-    fontSize: 16,
+    fontSize: CONST.responsiveHeight(16),
     justifyContent: "flex-end",
   },
   mid: {
     flex: 0.55,
-    paddingRight: 14,
+    paddingRight: '4%',
   },
   name: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    fontSize: 20,
+    fontSize: CONST.responsiveHeight(20),
     fontWeight: "bold",
   },
   shortAddr: {
     color: CONST.FEATURE_TEXT_COLOR,
     fontWeight: "bold",
-    fontSize: 13,
+    fontSize: CONST.responsiveHeight(13),
   },
   right: {
     flex: 0.2,
     justifyContent: "center",
   },
   addr: {
-    fontSize: 13,
+    fontSize: CONST.responsiveHeight(13),
     fontWeight: "400",
   },
   btn: {

@@ -7,21 +7,23 @@ export const taskDetailstyles = StyleSheet.create({
   header: {
     alignItems: "center",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    marginTop: "8%",
+    marginTop: "16%",
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: "4%",
+    justifyContent: 'center'
   },
   backicon: {
-    flex: 0.5,
+    position: 'absolute',
+    left: CONST.responsiveWidth(14),
+    top: CONST.responsiveHeight(70),
   },
   title: {
-    fontSize: 19,
+    fontSize: CONST.responsiveHeight(22),
     fontWeight: "500",
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    flex: 10,
-    alignItems: "center",
-    marginLeft: "30%",
+
+  
   },
   content: {
     marginTop: "5%",
@@ -45,33 +47,33 @@ export const taskDetailstyles = StyleSheet.create({
   },
   nametext: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    fontSize: 20,
+    fontSize: CONST.responsiveHeight(20),
     fontWeight: "bold",
   },
   distext: {
     color: CONST.FEATURE_TEXT_COLOR,
-    fontSize: 15,
+    fontSize: CONST.responsiveHeight(15),
     fontWeight: "500",
   },
   addrtext: {
-    fontSize: 15,
+    fontSize: CONST.responsiveHeight(15),
     fontWeight: "300",
   },
   shortAddrtext: {
     color: CONST.FEATURE_TEXT_COLOR,
     fontWeight: "500",
-    fontSize: 16,
+    fontSize: CONST.responsiveHeight(16),
   },
   hint: {
     marginTop: "3%",
   },
   hinttext: {
     color: CONST.NAVIGATION_ACTIVE_COLOR,
-    fontSize: 15,
+    fontSize: CONST.responsiveHeight(15),
     fontWeight: "500",
   },
   hintContenttext: {
-    fontSize: 16,
+    fontSize: CONST.responsiveHeight(16),
     fontWeight: "300",
   },
   map: {

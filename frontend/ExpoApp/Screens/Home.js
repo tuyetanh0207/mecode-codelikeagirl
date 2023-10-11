@@ -1,31 +1,31 @@
 import { React, useContext, useState, useEffect } from 'react';
-import { View, Text, Button, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import styles from '../Utils/styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Iconify } from 'react-native-iconify';
-import { TouchableOpacity, Image, Dimensions, PixelRatio } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import * as CONST from '../Utils/constants';
 import Swiper from 'react-native-swiper';
 import MapComponent from '../Components/Map';
 
-export default function Home({ location }) {
+export default function Home() {
     const navigation = useNavigation();
 
     const Suggestions = () => {
         // now, temporarily using static image, must change to dynamic information later !!!
         const images = [
             require('../assets/images/sample_suggestions/task.png'),
-            require('../assets/images/sample_suggestions/gifts.jpg'),
-            require('../assets/images/sample_suggestions/leaderboard.jpg'),
-            require('../assets/images/sample_suggestions/vote.jpg')
+            require('../assets/images/sample_suggestions/gift.png'),
+            require('../assets/images/sample_suggestions/vote.png'),
+            require('../assets/images/sample_suggestions/leaderboard.png'),
         ];
-        const destinations = ['Task', 'Gift', 'LeaderBoard', 'Vote'];
+        const destinations = ['Task', 'Gift', 'Vote', 'LeaderBoard'];
 
         return (
             <View style={{ marginTop: CONST.TRUTH_SCREEN[1] * 0.03 }}>
                 <Text style={styles.heading2}>Suggestions</Text>
                 <View style={styles.suggestSwiper}>
-                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={1.5}>
+                    <Swiper loop={true} showsPagination={true} autoplay={true} autoplayTimeout={3}>
                         {images.map((image, index, destination) => (
                             <TouchableOpacity key={index} style={styles.suggestImageContainer} onPress={() => navigation.navigate(destinations[index])}>
                                 <Image source={image} style={styles.suggestImage} resizeMode="cover" />
@@ -56,7 +56,7 @@ export default function Home({ location }) {
         };
 
         return (
-            <View style={{ marginTop: CONST.PRIMARY_VERTICAL_MARGIN }}>
+            <View>
                 <Text style={styles.heading2}>Features</Text>
                 <View style={styles.featureRow}>
 
@@ -71,7 +71,6 @@ export default function Home({ location }) {
                         <View style={styles.feature}>
                             <Iconify icon="teenyicons:gift-outline" size={CONST.responsiveHeight(36)} color="black" />
                         </View>
-                        {/* <Text style={styles.featureText}>Lucky Gifts</Text> */}
                         {ResponsiveWords('Lucky Gifts')}
                     </TouchableOpacity>
 

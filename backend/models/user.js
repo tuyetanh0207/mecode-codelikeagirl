@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bcrypt = require ('bcrypt')
 
 const userSchema = new mongoose.Schema({
+    //_id: { type: String },
     fullname: {
         type: String,
         required: true
@@ -17,7 +18,40 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     avatar: String,
+    noti:
+    [
+        {
+            notiDate: Date,
+            activityID: String,
+            content: String,
+            distance: Number
+        }
+    ],
+    greenStep: 
+    [
+        {
+            year: Number,
+            greenPoint:
+            [
+                [Number],
+            ],
+        }
+    ],
+    campaignPoint:
+    [
+        {
+            campaignID: String,
+            joinedCities: [String], //save luckywheelID
+            votingPoint: Number,
+            votedPoint: Number,
+            postPoint: Number
+
+
+        }
+    ]
+
 })
+
 
 userSchema.pre('save', function(next){
     if(this.isModified('password')){

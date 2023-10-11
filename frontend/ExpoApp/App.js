@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
+import { LogBox } from 'react-native';
 import { Text, View, ImageBackground, Alert, BackHandler } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -23,25 +24,18 @@ import { Iconify } from 'react-native-iconify';
 import * as Location from 'expo-location';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TaskDetailsScreen from './Screens/TaskDetails';
-import { UserLocationContext } from './Contexts/user_location';
+import { UserLocationContext } from './Contexts/UserLocation';
 import LogInScreen from './Screens/LogIn';
-// import MapComponent from './Components/Map';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 import LoginProvider, { useLogin } from './Contexts/LoginProvider';
 import MapNotLoggedIn from './Screens/MapNotLoggedIn';
 import TaskNotLoggedIn from './Screens/TaskNotLoggedIn';
-// const { MongoClient } = require('mongodb');
-
-// Connect to Mongo DB host
-// const uri = CONST.MONGO_DB_HOST;
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// client.connect().then(() => {
-//   console.log('Connected to MongoDB');
-// }).catch(err => {
-//   console.error('Error connecting to MongoDB', err);
-// });
+import ProfileScreen from './Screens/Profile';
+import ProfileOtherScreen from './Screens/ProfileOther';
+import { ChooseTaskList } from './Components/ChooseTaskList';
+import TaskDetailsNotLoggedInScreen from './Screens/TaskDetailsNotLoggedIn';
+import MapComponent from './Components/Map';
 
 // Navigators
 const Tab = createBottomTabNavigator();
@@ -49,8 +43,12 @@ const Stack = createNativeStackNavigator();
 const screenOpts = {
   headerShown: false,
   tabBarActiveTintColor: CONST.NAVIGATION_ACTIVE_COLOR,
-  tabBarStyle: { height: CONST.responsiveHeight(60) }
+  tabBarStyle: { height: CONST.BOTTOM_BAR_HEIGHT }
 }
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -90,6 +88,14 @@ export default function App() {
       }
     };
 
+    const getMicrophonePermission = async () => {
+      const cameraStatus = await Camera.requestMicrophonePermissionsAsync();
+      if (cameraStatus !== 'granted') {
+        console.log('Permission to access microphone was denied');
+        return;
+      }
+    };
+
     const getLibraryPermission = async () => {
       const libraryStatus = await MediaLibrary.requestPermissionsAsync();
       console.log(libraryStatus);
@@ -102,6 +108,7 @@ export default function App() {
     const checkPermissions = async () => {
       await getLocationPermission();
       await getCameraPermission();
+      await getMicrophonePermission();
       await getLibraryPermission();
     };
 
@@ -180,9 +187,12 @@ export default function App() {
         <Stack.Screen name="Gift" component={Gift} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Vote" component={Vote} />
+        <Stack.Screen name="MapComponent" component={MapComponent} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="Join" component={Join} />
         <Stack.Screen name="Post" component={Post} />
+        {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
+        <Stack.Screen name="ProfileOther" component={ProfileOtherScreen} />
       </Stack.Navigator>
     );
   };
@@ -193,26 +203,30 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
+        {/* <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} /> */}
+        <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="MapNotLoggedIn" component={MapNotLoggedIn} />
-        <Stack.Screen name="Task" component={TaskNotLoggedIn} />
+        <Stack.Screen name="TaskNotLoggedIn" component={TaskNotLoggedIn} />
+        <Stack.Screen name="MapComponent" component={MapComponent} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen name="TaskDetailsNotLoggedIn" component={TaskDetailsNotLoggedInScreen} />
         <Stack.Screen name="LogIn" component={LogIn} />
-        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="BottomTabs" component={BottomTabs} /> */}
       </Stack.Navigator>
     );
   }
-  const MainNavigator = () =>{
-    const {isLoggedIn} = useLogin();
-    return isLoggedIn ? <RootStack/>:<NotLoggedInRootStack/>
+  const MainNavigator = () => {
+    const { isLoggedIn } = useLogin();
+    return isLoggedIn ? <RootStack /> : <NotLoggedInRootStack />
   }
   return (
-     <LoginProvider>
+    <LoginProvider>
       <UserLocationContext.Provider
         value={{ location, setLocation }}>
         <NavigationContainer>
-          <MainNavigator/>
+          <MainNavigator />
         </NavigationContainer>
       </UserLocationContext.Provider>
-     </LoginProvider>
+    </LoginProvider>
   );
 }

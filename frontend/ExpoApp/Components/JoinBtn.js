@@ -26,14 +26,16 @@ export const AppButton = ({ onPress, title, backgroundColor, size, color }) => {
           shadowRadius: 50,
 
           elevation: 5,
+          alignItems: 'center',
+          justifyContent: 'center',
         },
       ]}
     >
       <Text
         style={[
           color && { color },
-          size === "sm" && { fontSize: 20, fontWeight: "500" },
-          size === "m" && { fontSize: 22, fontWeight: "400" },
+          size === "sm" && { fontSize: CONST.responsiveHeight(20), fontWeight: "500" },
+          size === "m" && { fontSize: CONST.responsiveHeight(22), fontWeight: "400"},
         ]}
       >
         {title}
