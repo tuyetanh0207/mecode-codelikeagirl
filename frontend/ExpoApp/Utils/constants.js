@@ -1,6 +1,3 @@
-// MongoDB localhost
-export const MONGO_DB_HOST = 'mongodb://localhost:27017';
-
 // Color
 export const HEADING2_COLOR = "#0A7674";
 export const NAVIGATION_ACTIVE_COLOR = "#28A2B2";
@@ -233,8 +230,6 @@ export const VIDEO_RECORD_BUTTON = require('../assets/images/record.png');
 
 // Get the suitable task icon corresponding to its title
 export const getIconByTitle = (title = 'Collect trash', mappingType = boldIconMapping) => {
-    // console.log(title, ': title');
-    // console.log(mappingType[title], ': mapping type');
     return mappingType[title] || (mappingType === boldIconMapping ? UNKNOWN_ICON : UNKNOWN_ICON_60);
 }
 

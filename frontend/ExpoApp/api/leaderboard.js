@@ -15,13 +15,13 @@ export const getLeaderboard = async () => {
 export const getUserRank = async (id) => {
     try {
         console.log("get user rank of id: ", id);
-        const path = `/campaign/leaderboard/user/${id}/rank`; // Sử dụng dấu backtick
+        const path = `/campaign/leaderboard/user/${id}/rank`;
         const res = await client.get(path);
         console.log('RANK: ', res.data.rank);
         return res.data.rank;
 
     } catch (error) {
         console.log(error);
-        throw error; // Throwing error để báo lỗi và dừng luồng thực thi
+        throw error;
     }
 }

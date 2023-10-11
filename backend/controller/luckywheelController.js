@@ -30,9 +30,9 @@ class luckywheelController {
       const userJoinedCities = campaignUser.joinedCities;
 
 
-      // isOpen = 0 -> user khong tham gia
-      // isOpen = 1 -> user co tham gia va du participant
-      // isOpen = 2 -> user co tham gia nma chua du participant
+      // isOpen = 0 -> user have not joined
+      // isOpen = 1 -> user have joined and reach enough number 
+      // isOpen = 2 -> user have joined but still not reach enough number
 
       for (let i = 0; i<luckywheelList.length;i++) {
         luckywheelList[i]['isOpen'] = 0;
@@ -76,7 +76,7 @@ class luckywheelController {
           userId: userID,
           quantity: quantity,
           date: Date.now(),
-          status: "dang chuan bi hang"
+          status: "Preparing"
       };
 
       var luckywheel = await Luckywheel.findOne({_id: luckyWheelID});
@@ -93,7 +93,7 @@ class luckywheelController {
         if (quantity > luckywheel.giftList[index].restQuantity) {
           res.json({
             status: "failed",
-            message: "so luong qua tang khong du"
+            message: "Not enought gifts"
           })
         }
         else {
@@ -113,7 +113,7 @@ class luckywheelController {
       else {
         res.json({
           status: "failed",
-          message: "khong tim thay nameGift"
+          message: "Cannot find gift's name"
 
         })
       } 

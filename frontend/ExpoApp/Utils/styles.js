@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     suggestSwiper: {
         width: CONST.TRUTH_SCREEN[0] * 0.9,
         height: CONST.TRUTH_SCREEN[1] * 0.25,
-        // marginTop: CONST.PRIMARY_VERTICAL_MARGIN,
         borderRadius: CONST.responsiveHeight(30),
         overflow: 'hidden',
         marginLeft: 'auto',

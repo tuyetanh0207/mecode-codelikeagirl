@@ -1,4 +1,3 @@
-// import AsyncStorage from "@react-native-async-storage/async-storage"
 import client from "./client"
 
 export const activity = async (userLatitude, userLongitude) => {
